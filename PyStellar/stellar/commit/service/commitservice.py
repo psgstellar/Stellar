@@ -1,6 +1,6 @@
 import requests
 
-token = 'xoxb-992233197952-1249394514658-PuRhTF4L2cNevShVqIMlnEw6'
+token = 'xoxb-992233197952-1249394514658-FBiWQecqbunwQPFJZ8uZS80B'
 channel = 'CUW4CLH4Z'
 url = 'https://slack.com/api/conversations.history'
 
@@ -14,7 +14,7 @@ class commithistory:
     def historyrequest(self):
         latest = self.latest
         oldest = self.oldest
-
+        print('------time-----', latest)
         commitmessage = {}
         attachments = []
         commit = {}
@@ -25,7 +25,8 @@ class commithistory:
         if data['ok']:
             messagedata = data['messages']
             for i in messagedata:
-                attachments.append(i['attachments'])
+                if "attachments" in i:
+                    attachments.append(i['attachments'])
         else:
             print('request 실패')
             result_json = {'result': 'False'}

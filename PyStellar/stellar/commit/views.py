@@ -39,7 +39,7 @@ class commitMessage(RetrieveAPIView):
         tags=['Slack Commit', ],
         responses={ "200": 'success' },
         operation_summary = "Slack에서 Message History를 받아온다.",
-        #produces='application/json',
+        produces='application/json',
         operation_description=
         """
         CommitList
@@ -56,7 +56,6 @@ class commitMessage(RetrieveAPIView):
 
     )
     # def get(self, request):
-
     def get(self, request, *args, **kwargs):
 
         print('------request----------', request.GET)
