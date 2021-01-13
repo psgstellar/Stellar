@@ -64,20 +64,22 @@
         var MbrInput = {
     			duplicateChkFn : function() {
     				var loginId = $('#username').val();
-    				var token = $("input[name='_csrf']").val();
+    				var loginId_j = {"loginId" : loginId}
+    				var data = JSON.stringify(loginId_j)
+    				
+    				var token=$("input[name='_csrf']").val();
     				var header = "X-CSRF-TOKEN";
-    				
-    				
+    				    				
     				if(!this.idValidChkFn(loginId))
     					return false;
     				
-    				
     				$.ajax({
-    					type : "POST",
     					url : "<c:url value='/DupIdChk.do'/>",
+    					method : "get",
     					data : {"loginId" : loginId},
     					async : false,
-    					beforeSend:function(xhr) {
+    					
+    					beforeSend : function(xhr) {
     						xhr.setRequestHeader(header, token);
     					},
     					
@@ -90,7 +92,6 @@
     							alert(loginId + "은/는 사용가능 합니다.");
     						    		
     					},
-    					
     					error : function(request, status, error) {
     						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     					}

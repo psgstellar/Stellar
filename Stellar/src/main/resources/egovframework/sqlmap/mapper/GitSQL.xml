@@ -3,7 +3,7 @@
 <mapper namespace="com.psg.mapper.MemberMapper">
 
 
-
+<!-- 
  <select id="gitnamelist" resultType="com.psg.vo.GitVO">
 	select 
 			 id,
@@ -11,7 +11,7 @@
 			 git_name
     from git_name
     where id = #{id}
-</select> 
+</select>  -->
 
 
 </mapper>
