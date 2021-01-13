@@ -59,11 +59,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberMapper.gitnamelist(gvo);
 	}
-	
-//	@Override
-//	public MemberVO idCheck(String userId) throws Exception {
-//		return dao
-//	}
 
 
 

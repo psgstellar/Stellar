@@ -13,5 +13,4 @@ public interface MemberService {
 	void membermodify(MemberVO vo) throws Exception;
 	void memberdelete(MemberVO vo) throws Exception;
 	List<GitVO> gitnamelist(GitVO gvo) throws Exception;
-	MemberVO idCheck(String userId) throws Exception;
 }

@@ -52,6 +52,8 @@
             animation: hidePreloader .5s linear .5s forwards;
         }
     </style>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>    
+    
     <script>
         window.addEventListener("load", function() {
             setTimeout(function() {
@@ -62,17 +64,27 @@
         var MbrInput = {
     			duplicateChkFn : function() {
     				var loginId = $('#username').val();
-    				
+    				var csrfParameter = $('meta[name="_csrf_parameter"]').attr('content')
+    				var csrfHeader = $('meta[name="_csrf_header"]').attr('content')
+    				var csrfToken = $('meta[name="_csrf"]').attr('content')
+    				var loginId_j = {"loginId" : loginId}
+    				var data = JSON.stringify(loginId_j)
+    				    				
     				if(!this.idValidChkFn(loginId))
     					return false;
     				
+    				$.ajaxSetup({
+    					beforeSend: function(xhr) {
+    						xhr.setRequestHeader(csrfHeader, csrfToken);
+    					}
+    				})
+    				
     				
     				$.ajax({
-    					type : "get",
-    					url : "<c:url value='/DupIdChk.do' />",
-    					data : {"loginId" : loginId},
-    					async : false,
-    					
+    					type : "post",
+    					url : "<c:url value='/DupIdChk.do'/>",
+    					data : data,
+    					async : false,    					
     					success : function(data) {
     						var dupCnt = parseInt(data);
     						
@@ -81,13 +93,16 @@
     						else
     							alert(loginId + "은/는 사용가능 합니다.");
     						    		
+    					},
+    					error : function(request, status, error) {
+    						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     					}
     					
     				})
     			},
     			
     			idValidChkFn : function(loginId) {
-    				var reg = /^(?=.*[a-zA-Z](?=.*[0-9]).{8,12}$/;
+    				var reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/;
     				
     				if(!reg.test(loginId)) {
     					alert("아이디가 유효하지 않습니다");
@@ -96,7 +111,7 @@
     				}
     				
     				return true;
-    			}
+    			} 
     			
     			
     	}
@@ -148,14 +163,9 @@
                             </div>
                             <span class="clearfix"></span>
                             
-                            <form name="f" action="<c:url value='/Login.do'/>" method="POST">
+                            <%-- <form name="f" action="<c:url value='/Login.do'/>" method="POST"> --%>
                                 <div class="form-group">
-                                	<c:if test="${param.error != null}">
-                                		<p>아이디와 비밀번호가 잘못되었습니다.</p>
-                                	</c:if>
-                                	<c:if test="${param.logout != null}">
-                             			<p>로그아웃 하였습니다.</p>
-                                	</c:if>
+                                	
                                 
                                     <label class="form-control-label">ID</label>
                                     <div class="input-group">
@@ -226,8 +236,10 @@
                                
                                 <div class="mt-4">
                                     <button type="submit" class="btn btn-block btn-primary">Sign up</button></div>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            </form>
+                                
+                                <input type="hidden" class="form-control" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                        
+                            <%-- </form> --%>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +40,9 @@ public class MainController {
 	@Resource(name="MemberService")
 	private MemberService memberService;
 	
+	@Resource(name="RegisterService")
+	private RegisterService registerService;
+	
 	
 	@RequestMapping(value="/Main.do", method=RequestMethod.GET)
 	public String Main() throws Exception{
@@ -59,7 +63,7 @@ public class MainController {
 		return "psg/login";
 	}
 	
-	@RequestMapping(value="/Register.do")
+	@RequestMapping(value="/Register.do", method=RequestMethod.GET)
 	public String Register() {
 		log.info("register");
 		return "psg/register";
@@ -101,7 +105,13 @@ public class MainController {
 		return "psg/error";
 	}
 	
-
+	@RequestMapping(value="/DupIdChk.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public String DupIdChk(@RequestParam(required=true) String loginId) throws Exception {
+		int dupIdCnt = registerService.DupIdChk(loginId);
+		
+		return String.valueOf(dupIdCnt);
+	}
 	
 	
 	@GetMapping("/UserList.do")
@@ -138,13 +148,13 @@ public class MainController {
 		return "member/modifyMember";
 	}
 	
-	@GetMapping("/deleteMember.do")
-	public String DeleteMember(Model mode, MemberVO vo) throws Exception{
-		
-		memberService.memberdelete(vo);
-		log.info(vo.getReal_name()+"삭제완료");
-		return "redirect:/UserList.do";
-	}
+//	@GetMapping("/deleteMember.do")
+//	public String DeleteMember(Model mode, MemberVO vo) throws Exception{
+//		
+//		memberService.memberdelete(vo);
+//		log.info(vo.getReal_name()+"삭제완료");
+//		return "redirect:/UserList.do";
+//	}
 	
 	
 	private String getPrincipal() {

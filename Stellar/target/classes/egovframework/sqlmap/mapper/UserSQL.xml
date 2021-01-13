@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.psg.mapper.UserMapper">
 
-
+<!-- 
 
 
 <insert id="commitinsert">
@@ -10,7 +10,7 @@
 					(slack_username, date, text)
 					values(#{author_name}, now(), #{text})
 </insert>
-
+ -->
 
 <!-- 	<select id="selectSampleList" parameterType="searchVO" resultType="egovMap">
 
