@@ -15,13 +15,20 @@ class commithistory:
         latest = self.latest
         oldest = self.oldest
         print('------time-----', latest)
+
+        r = requests.get(f"{url}?token={token}&channel={channel}&latest={latest}&oldest={oldest}&pretty=1")
+
+        data = r.json()
+        return data
+
+    def commitlist(self):
         commitmessage = {}
         attachments = []
         commit = {}
         commi = []
-        r = requests.get(f"{url}?token={token}&channel={channel}&latest={latest}&oldest={oldest}&pretty=1")
 
-        data = r.json()
+        data = self.historyrequest()
+
         if data['ok']:
             messagedata = data['messages']
             for i in messagedata:

@@ -66,4 +66,4 @@ class commitMessage(RetrieveAPIView):
         print('----response-----', response)
         result = {'result': response}
         print('----result-----', result)
-        return Response(result)
+        return Response(response)
