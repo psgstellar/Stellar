@@ -15,9 +15,39 @@
 </select> --> 
 
 
-<select id="memberlist" resultType="com.psg.vo.MemberVO">
-	select id,slack_name, git_name from psg_user
+<insert id="register">
+	insert into psg_info(username, password, email, date) value(#{username}, #{password}, #{email}, now())
+</insert>
+
+<select id="DupIdChk" parameterType="String" resultType="int">
+	select count(*) from psg_info where username = #{_parameter}
 </select>
+
+<select id="selectUserInfoOne" parameterType="String" resultType="com.psg.vo.MemberVO">
+	select username, password, email, auth from psg_info where username = #{_parameter}
+</select>
+
+<select id="selectUserAuthOne" parameterType="String" resultType="String">
+	select auth from psg_info where username = #{_parameter}
+</select>
+
+<!-- <select id="getUserById" parameterType="String" resultType="com.psg.security.CustomUserDetails">
+	select * from psg_info where username = #{username}
+</select> -->
+
+<!-- <select id="getUserById" resultMap="userModel" parameterType="String">
+	select username, password, role from psg_info join 'roles' using(username) where username = #{username} 
+</select>
+
+<resultMap type="com.psg.vo.MemberVO" id="userModel">
+	<id property="username" column="username" javaType="String" />
+	<result property="password" column="password" javaType="String" />
+	<collection property="roles" column="role" javaType="List" ofType="String">
+		<result column="role" />
+	</collection>
+</resultMap> -->
+
+
 
 <!-- <update id="membermodify" parameterType="com.psg.vo.MemberVO">
 

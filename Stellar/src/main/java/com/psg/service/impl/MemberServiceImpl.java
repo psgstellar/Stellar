@@ -1,14 +1,23 @@
 package com.psg.service.impl;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.psg.mapper.MemberMapper;
+//import com.psg.security.CustomUserDetails;
 import com.psg.service.MemberService;
-import com.psg.vo.GitVO;
+import com.psg.vo.MemberDetailsVO;
 import com.psg.vo.MemberVO;
 
 import lombok.extern.log4j.Log4j2;
@@ -16,50 +25,85 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service("MemberService")
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService, UserDetailsService{
+	// , UserDetailsService
+	
+	
+//	private String username;
+//	private String password;
+//	private String auth;
+//	private int enabled;
 
 	@Resource(name="MemberMapper")
 	private MemberMapper memberMapper;
+
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	
 	@Override
-	public void memberinsert(MemberVO mvo) throws Exception {
-		log.info("MemberService");
-		memberMapper.memberinsert(mvo);
+	public void register(MemberVO vo) throws Exception {
 		
+		String encodedPassword = bcryptPasswordEncoder.encode(vo.getPassword()); 
+		
+		vo.setPassword(encodedPassword);
+		
+		memberMapper.register(vo);
 	}
-
+	
 	@Override
-	public List<MemberVO> memberlist() throws Exception {
-		
-		return memberMapper.memberlist();
+	public int DupIdChk(String loginId) throws Exception {
+		return memberMapper.DupIdChk(loginId);
 	}
-
+	
 	@Override
-	public MemberVO memberinfo(MemberVO vo) throws Exception {
-		log.info("서비스단 조회 전"+vo.getId());
+	public UserDetails loadUserByUsername(String username) {
+		MemberDetailsVO memberDetails = new MemberDetailsVO();
 		
-		return memberMapper.memberinfo(vo);
+		MemberVO memberInfo=null;
+		try {
+			memberInfo = memberMapper.selectUserInfoOne(username);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(memberInfo == null) {
+			return null;
+		}else {
+			memberDetails.setUsername(memberInfo.getUsername());
+			memberDetails.setPassword(memberInfo.getPassword());
+			memberDetails.setEmail(memberInfo.getEmail());
+			
+			try {
+				memberDetails.setAuthorities(memberMapper.selectUserAuthOne(username));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return memberDetails;
 		
 	}
+	
+//	@Override
+//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//		MemberVO users = null;
+//		try {
+//			users = memberMapper.getUserById(username);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		if(users == null) {
+//			throw new UsernameNotFoundException("username" + username + " not found.");
+//		}
+//		
+//		return users;
+//	}
 
-	@Override
-	public void membermodify(MemberVO vo) throws Exception {
-		memberMapper.membermodify(vo);
-	}
-
-	@Override
-	public void memberdelete(MemberVO vo) throws Exception {
-		memberMapper.memberdelete(vo);
-		
-	}
-
-	@Override
-	public List<GitVO> gitnamelist(GitVO gvo)
-	throws Exception {
-		
-		return memberMapper.gitnamelist(gvo);
-	}
-
-
-
+	
+	
 }
