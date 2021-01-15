@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from psguser.psgSerializer import psgserializer
+from psguser.service.psguser_service import PsgUserListService
 
 
 class userList(ListAPIView):
@@ -60,7 +61,14 @@ class userList(ListAPIView):
 
     )
     def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+
+        return self.list(self, request, *args, **kwargs)
+
+    def list(self, request, *args, **kwargs):
+        psg_user_json = PsgUserListService()
+        return_json = psg_user_json.psguserlistservice()
+        result = {'content': return_json}
+        return Response(result)
 
     # def list(self, request, *args, **kwargs):
     #     return Response()

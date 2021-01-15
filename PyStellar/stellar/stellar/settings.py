@@ -77,10 +77,20 @@ WSGI_APPLICATION = 'stellar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+MYSQLNAME = 'psg'
+MYSQLUSER = 'stellar'
+MYSQLPASSWORD = 'psg@10026'
+MYSQLHOST = '221.159.102.58'
+MYSQLPORT = '3306'
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': MYSQLNAME,
+        'USER': MYSQLUSER,
+        'PASSWORD': MYSQLPASSWORD,
+        'HOST': MYSQLHOST,
+        'PORT': MYSQLPORT,
     }
 }
 
