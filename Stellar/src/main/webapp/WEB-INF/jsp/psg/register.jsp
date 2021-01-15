@@ -62,35 +62,51 @@
         });
  
         var MbrInput = {
+        		
+        		joinSubmitFn : function() {
+        			
+        			if(!this.pwdChkFn())
+        				return false;
+        			if(!this.emailChkFn())
+        				return false;
+        			 
+        			
+        			alert("유효함.");
+        			
+        			$("form").submit();
+        		},
+        		
     			duplicateChkFn : function() {
     				var loginId = $('#username').val();
-    				var token = $("input[name='_csrf']").val();
+    				
+    				var token=$("input[name='_csrf']").val();
     				var header = "X-CSRF-TOKEN";
-    				
-    				
+    				    				
     				if(!this.idValidChkFn(loginId))
     					return false;
     				
-    				
     				$.ajax({
-    					type : "POST",
-    					url : "<c:url value='/DupIdChk.do'/>",
+    					url : "./DupIdChk.do",
+    					method : "get",
     					data : {"loginId" : loginId},
     					async : false,
-    					beforeSend:function(xhr) {
+    					
+    					beforeSend : function(xhr) {
     						xhr.setRequestHeader(header, token);
     					},
     					
     					success : function(data) {
-    						var dupCnt = parseInt(data);
+    						var dupCnt = data;
     						
-    						if(dupCnt > 0)
+    						if(dupCnt > 0) {
     							alert(loginId + "은/는 사용하실 수 없습니다.");
-    						else
+    						}
+    						else {
     							alert(loginId + "은/는 사용가능 합니다.");
+    							$("#username").attr("readonly",true);
+    						}
     						    		
     					},
-    					
     					error : function(request, status, error) {
     						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     					}
@@ -108,8 +124,47 @@
     				}
     				
     				return true;
-    			} 
+    			}, 
     			
+    			    			
+    			// 비밀번호 유효성 체크
+            	pwdChkFn : function() {
+            		var reg 	  		= /^(?=.*[a-zA-Z])(?=.*[!@#$^*+=-])(?=.*[0-9]).{8,15}$/;
+            		var password 		= $("#password").val();
+            		var passwordCheck 	= $("#passwordCheck").val();
+            		
+            		
+            		if (!reg.test(password)) {       			        			
+            			alert("비밀번호는 영문/숫자/특수문자 포함 8~15 자리 입력해 주세요.");
+            			
+            			return false;
+            		}
+    				
+            		// 비밀번호 확인
+            		if (password !== passwordCheck) {					
+    					alert("비밀번호가 일치하지 않습니다. 일치하게 입력해 주세요.");
+            			
+            			return false;
+            		}
+            		
+            		return true;
+            	},
+            	
+    			// 이메일 유효성 체크
+            	emailChkFn	: function() {
+            		var reg    = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            		var email = $("#email").val();
+    				
+            		if (!reg.test(email)) {				
+    					alert("이메일 형식에 맞게 입력해 주세요.");
+            			
+            			return false;
+            		}
+            		
+            		return true;
+            	}
+
+    			    			
     			
     	}
     
@@ -160,7 +215,7 @@
                             </div>
                             <span class="clearfix"></span>
                             
-                            <%-- <form name="f" action="<c:url value='/Login.do'/>" method="POST"> --%>
+                            <form name="f" action="./Register.do" method="POST">
                                 <div class="form-group">
                                 	
                                 
@@ -212,7 +267,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i data-feather="key"></i></span>
                                         </div>
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호 확인">
+                                        <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인">
                                     </div>
                                 </div>
                                 
@@ -232,11 +287,12 @@
                                 </div>
                                
                                 <div class="mt-4">
-                                    <button type="submit" class="btn btn-block btn-primary">Sign up</button></div>
+                                    <button type="button" class="btn btn-block btn-primary" onclick="MbrInput.joinSubmitFn()">Sign up</button>
+                                </div>
                                 
                                 <input type="hidden" class="form-control" name="${_csrf.parameterName}" value="${_csrf.token}">
                                         
-                            <%-- </form> --%>
+                            </form>
                         </div>
                     </div>
                 </div>

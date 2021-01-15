@@ -4,7 +4,7 @@
 
 
 
- <select id="memberlist" resultType="com.psg.vo.MemberVO">
+<!--  <select id="memberlist" resultType="com.psg.vo.MemberVO">
 	select real_name,
 			 id,
 			 slack_name,
@@ -12,21 +12,18 @@
 			 team_id,
 			 git_name
     from user_info
-</select> 
+</select> --> 
 
 
-<select id="memberinfo" parameterType="string" resultType="com.psg.vo.MemberVO">
-	select real_name,
-			 id,
-			 slack_name,
-			 comment,
-			 team_id,
-			 git_name
-    from user_info
-    	where  id = #{id}
+<select id="member_insert" resultType="com.psg.vo.MemberVO">
+	insert into psg_info(id, password, user_name, email, date) values(#{userId}, #{userPass}, #{userName}, #{regDate})
 </select>
 
-<update id="membermodify" parameterType="com.psg.vo.MemberVO">
+<select id="DupIdChk" parameterType="String" resultType="int">
+	select count(*) from test where id = #{_parameter}
+</select>
+
+<!-- <update id="membermodify" parameterType="com.psg.vo.MemberVO">
 
 update user_info
 set real_name = #{real_name},
@@ -34,10 +31,10 @@ set real_name = #{real_name},
 	 git_name = #{git_name},
 	 comment = #{comment}
 where id = #{id}
-</update>
+</update> -->
 
 
-<insert id="memberinsert">
+<!-- <insert id="memberinsert">
 	insert into user_info
 					(real_name,
 					id,
@@ -51,7 +48,7 @@ where id = #{id}
 <delete id="memberdelete" parameterType="com.psg.vo.MemberVO">
 	delete from user_info
 	where id=#{id}
-</delete>
+</delete> -->
 
 <!-- 	<select id="selectSampleList" parameterType="searchVO" resultType="egovMap">
 

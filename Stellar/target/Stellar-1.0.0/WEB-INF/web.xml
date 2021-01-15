@@ -63,6 +63,11 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.ajax</url-pattern>
+	</servlet-mapping>
     
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

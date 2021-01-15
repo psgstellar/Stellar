@@ -6,6 +6,10 @@
                                  http://www.springframework.org/schema/beans/spring-beans.xsd
                                  http://www.springframework.org/schema/security
                                  http://www.springframework.org/schema/security/spring-security.xsd">
+                                 
+  <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+  <!-- <beans:bean id="customUserService" class="com.psg.service.impl.MemberServiceImpl" /> -->
+
      
         <http use-expressions="true">
         
@@ -19,7 +23,6 @@
         				login-page="/Login.do"
         				default-target-url="/Main.do" 
         				username-parameter="username"
-            			password-parameter="password"
             			authentication-failure-url="/Login.do?error"
             			login-processing-url="/Login.do"
             			
@@ -29,9 +32,15 @@
             <logout 
             			logout-url="/Logout.do" 
             			invalidate-session="true"
-            			logout-success-url="/Login.do"/>
+            			delete-cookies="true"
+            			logout-success-url="/"/>
+            			
+          <!--   			
+            <session-management invalid-session-url="./Login.do">
+            	<concurrency-control max-sessions="1" expired-url="./Login.do" error-if-maximum-exceeded="true" />
+            </session-management>
             	
-            	
+            	 -->
             
             
         
@@ -41,14 +50,20 @@
             
         </http>
         
-        <authentication-manager>
-            <authentication-provider>
-                <user-service>
+       <authentication-manager>
+            <authentication-provider user-service-ref="MemberService">
+            
+             <!-- user-service-ref="customUserService" -->
+           
+                <!-- <user-service>
                     <user name="admin" password="psg@100026" authorities="ROLE_ADMIN"/>
                     <user name="guest" password="guest" authorities="ROLE_GUEST"/>
-                </user-service>
+                </user-service> -->
+                
+                <password-encoder ref="bcryptPasswordEncoder" />
+      
             </authentication-provider>
-        </authentication-manager>
+        </authentication-manager> 
         
        
     

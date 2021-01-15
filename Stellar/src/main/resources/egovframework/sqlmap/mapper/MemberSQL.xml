@@ -4,7 +4,7 @@
 
 
 
- <select id="memberlist" resultType="com.psg.vo.MemberVO">
+<!--  <select id="memberlist" resultType="com.psg.vo.MemberVO">
 	select real_name,
 			 id,
 			 slack_name,
@@ -12,26 +12,44 @@
 			 team_id,
 			 git_name
     from user_info
-</select> 
+</select> --> 
 
-<select id="idCheck" resultType="com.psg.vo.MemberVO">
-	select * from test where id = #{userId}
-	
+
+<insert id="register">
+	insert into psg_info(username, password, email, date) value(#{username}, #{password}, #{email}, now())
+</insert>
+
+<select id="DupIdChk" parameterType="String" resultType="int">
+	select count(*) from psg_info where username = #{_parameter}
 </select>
 
-
-<select id="memberinfo" parameterType="string" resultType="com.psg.vo.MemberVO">
-	select real_name,
-			 id,
-			 slack_name,
-			 comment,
-			 team_id,
-			 git_name
-    from user_info
-    	where  id = #{id}
+<select id="selectUserInfoOne" parameterType="String" resultType="com.psg.vo.MemberVO">
+	select username, password, email, auth from psg_info where username = #{_parameter}
 </select>
 
-<update id="membermodify" parameterType="com.psg.vo.MemberVO">
+<select id="selectUserAuthOne" parameterType="String" resultType="String">
+	select auth from psg_info where username = #{_parameter}
+</select>
+
+<!-- <select id="getUserById" parameterType="String" resultType="com.psg.security.CustomUserDetails">
+	select * from psg_info where username = #{username}
+</select> -->
+
+<!-- <select id="getUserById" resultMap="userModel" parameterType="String">
+	select username, password, role from psg_info join 'roles' using(username) where username = #{username} 
+</select>
+
+<resultMap type="com.psg.vo.MemberVO" id="userModel">
+	<id property="username" column="username" javaType="String" />
+	<result property="password" column="password" javaType="String" />
+	<collection property="roles" column="role" javaType="List" ofType="String">
+		<result column="role" />
+	</collection>
+</resultMap> -->
+
+
+
+<!-- <update id="membermodify" parameterType="com.psg.vo.MemberVO">
 
 update user_info
 set real_name = #{real_name},
@@ -39,10 +57,10 @@ set real_name = #{real_name},
 	 git_name = #{git_name},
 	 comment = #{comment}
 where id = #{id}
-</update>
+</update> -->
 
 
-<insert id="memberinsert">
+<!-- <insert id="memberinsert">
 	insert into user_info
 					(real_name,
 					id,
@@ -56,7 +74,7 @@ where id = #{id}
 <delete id="memberdelete" parameterType="com.psg.vo.MemberVO">
 	delete from user_info
 	where id=#{id}
-</delete>
+</delete> -->
 
 <!-- 	<select id="selectSampleList" parameterType="searchVO" resultType="egovMap">
 

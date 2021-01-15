@@ -24,9 +24,9 @@
 		<tbody>
 			<c:forEach var="mvo" items="${mvo}">
 				<tr>
-					<td>${mvo.real_name}</td>
+					<td>${mvo.id}</td>
 					<td>${mvo.slack_name}</td>
-					<td>${mvo.comment}</td>
+					<td>${mvo.git_name}</td>
 					<td><button class="btn btn-primary" type="button"
 						onclick="location.href='./infoMember.do?id=${mvo.id}'">수정</button></td>
 						<td><button class="btn btn-secondary" type="button"

@@ -6,8 +6,8 @@ import lombok.ToString;
 
 @Getter@Setter@ToString
 public class UserVO {
-	//commit_info 테이블 삽입용
-	String author_name;
-	String text;
-	String time;
+	// 로그인 및 회원가입
+	String id;
+	String pwd;
+	String email;
 }
