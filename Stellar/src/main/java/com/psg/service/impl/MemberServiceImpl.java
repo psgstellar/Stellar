@@ -1,17 +1,30 @@
 package com.psg.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Service;
 
 import com.psg.mapper.MemberMapper;
@@ -25,7 +38,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service("MemberService")
-public class MemberServiceImpl implements MemberService, UserDetailsService{
+public class MemberServiceImpl implements MemberService, UserDetailsService {
 	// , UserDetailsService
 	
 	
@@ -42,13 +55,19 @@ public class MemberServiceImpl implements MemberService, UserDetailsService{
 	
 	
 	@Override
-	public void register(MemberVO vo) throws Exception {
+	public boolean register(MemberVO vo) throws Exception {
 		
-		String encodedPassword = bcryptPasswordEncoder.encode(vo.getPassword()); 
+		Integer memberCount = memberMapper.DupIdChk(vo.getUsername());
 		
-		vo.setPassword(encodedPassword);
-		
-		memberMapper.register(vo);
+		if(memberCount > 0) {
+			return false;
+		}else {
+			vo.setPassword(bcryptPasswordEncoder.encode(vo.getPassword()));
+			
+			memberMapper.register(vo);
+			
+			return true;
+		}
 	}
 	
 	@Override
@@ -87,23 +106,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService{
 		
 	}
 	
-//	@Override
-//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		MemberVO users = null;
-//		try {
-//			users = memberMapper.getUserById(username);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		if(users == null) {
-//			throw new UsernameNotFoundException("username" + username + " not found.");
-//		}
-//		
-//		return users;
-//	}
-
 	
 	
 }
