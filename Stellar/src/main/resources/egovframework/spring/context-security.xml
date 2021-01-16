@@ -8,8 +8,8 @@
                                  http://www.springframework.org/schema/security/spring-security.xsd">
                                  
   <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-  <!-- <beans:bean id="customUserService" class="com.psg.service.impl.MemberServiceImpl" /> -->
-
+  <beans:bean id="memberLoginFailHandler" class="com.psg.service.impl.MemberLoginFailHandler" />
+  <beans:bean id="memberLoginSuccessHandler" class="com.psg.service.impl.MemberLoginSuccessHandler" />
      
         <http use-expressions="true">
         
@@ -20,14 +20,13 @@
         	
         
         	<form-login 
-        				login-page="/Login.do"
-        				default-target-url="/Main.do" 
+        				login-page="/Login.do" 
         				username-parameter="username"
-            			authentication-failure-url="/Login.do?error"
+        				password-parameter="password"
             			login-processing-url="/Login.do"
             			
-            			
-            			 />
+            			authentication-success-handler-ref="memberLoginSuccessHandler"
+            			authentication-failure-handler-ref="memberLoginFailHandler" />
             			 
             <logout 
             			logout-url="/Logout.do" 

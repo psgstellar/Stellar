@@ -6,7 +6,7 @@ import com.psg.vo.MemberVO;
 
 public interface MemberService {
 
-	public void register(MemberVO vo) throws Exception;
+	public boolean register(MemberVO vo) throws Exception;
 	
 	
 //	List<MemberVO> memberlist() throws Exception;

@@ -107,12 +107,6 @@
                             
                             <form name="f" action="<c:url value='/Login.do'/>" method="POST">
                                 <div class="form-group">
-                                	<c:if test="${param.error != null}">
-                                		<p>아이디와 비밀번호가 잘못되었습니다.</p>
-                                	</c:if>
-                                	<c:if test="${param.logout != null}">
-                             			<p>로그아웃 하였습니다.</p>
-                                	</c:if>
                                 
                                     <label class="form-control-label">ID</label>
                                     <div class="input-group">
@@ -139,7 +133,13 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <button type="submit" class="btn btn-block btn-primary">Sign in</button></div>
+                                    <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+                                </div>
+                                
+                              	<div class="mt-4">
+                              		<p>${requestScope.loginFailMsg}</p>
+                              	</div>
+                                
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
