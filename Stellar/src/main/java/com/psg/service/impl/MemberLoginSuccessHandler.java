@@ -34,15 +34,19 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler{
 		if(prevPage != null)
 			request.getSession().removeAttribute("prevPage");
 		
-		if(savedRequest != null)
+		if(savedRequest != null) {
 			uri = savedRequest.getRedirectUrl();
-		else if(prevPage != null && !prevPage.equals(""))
+		}
+		else if(prevPage != null && !prevPage.equals("")) {
 			uri = prevPage;
+			
+			if(prevPage.contains("/Register.do"))
+				uri = "./Main.do";
+				
+		}
 		
-		if(prevPage.contains("/Register.do"))
-			response.sendRedirect("./Main.do");
-		else
-			response.sendRedirect(uri);
+		response.sendRedirect(uri);
+		
 	}
 
 }

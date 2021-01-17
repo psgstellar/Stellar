@@ -14,14 +14,14 @@
     <!-- Preloader -->
     
     <!-- Favicon -->
-    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="icon" href="<c:url value='/images/favicon.png'/>" type="image/png">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="<c:url value='/css/all.css'/>">
     <!-- StyleSheet -->
-    <link rel="stylesheet" href="css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css'/>" id="stylesheet">
     
     
-    <script defer src="js/all.js"></script>
+    <script defer src="<c:url value='/js/all.js' />"> </script>
 </head>
 
 <body>
@@ -29,8 +29,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand" href="./Main.do">
-            <img alt="Image placeholder" src="images/logo.png" id="navbar-logo">
+        <a class="navbar-brand" href="<c:url value='/Main.do' /> ">
+            <img alt="Image placeholder" src="<c:url value='/images/logo.png' />" id="navbar-logo">
         </a>
         <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,14 +40,14 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mt-4 mt-lg-0 ml-auto">
                 <li class="nav-item ">
-                    <a class="nav-link" href="./Main.do">Home</a>
+                    <a class="nav-link" href="<c:url value='/Main.do'/> ">Home</a>
                 </li>
                 <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                     <div class="dropdown-menu dropdown-menu-single">
-                        <a href="./Intro.do" class="dropdown-item">Intro</a>
-                        <a href="./About.do" class="dropdown-item">About us</a>
-                        <a href="./Contact.do" class="dropdown-item">Contact</a>
+                        <a href="<c:url value='/Intro.do' />" class="dropdown-item">Intro</a>
+                        <a href="<c:url value='/About.do' />" class="dropdown-item">About us</a>
+                        <a href="<c:url value='/Contact.do' />" class="dropdown-item">Contact</a>
                         <sec:authorize access="isAnonymous()">
                         	<div class="dropdown-divider"></div>
                        	 	<a href="<c:url value='/UserList.do' />" class="dropdown-item">UserList</a>
@@ -64,8 +64,25 @@
 	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
 	                    <div class="dropdown-menu dropdown-menu-single">
 	                        <div class="dropdown-item">${user.username}</div>
-	                        <a href="<c:url value='/Logout.do'/>" class="navbar-btn btn btn-sm btn-primary">
+	                        <a href="<c:url value='/Logout.do'/> " class="navbar-btn btn btn-sm btn-primary">
                					Logout
+            				</a>
+	                        
+	                    </div>
+	
+	               		</li>
+		              
+                
+                </sec:authorize>     
+                
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+            		<sec:authentication property="principal" var="user" />
+	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Management</a>
+	                    <div class="dropdown-menu dropdown-menu-single">
+	                        <div class="dropdown-item">운영진 ${user.username}</div>
+	                        <a href="<c:url value='/Admin/Management.do'/>" class="navbar-btn btn btn-sm btn-primary">
+               					Management Page
             				</a>
 	                        
 	                    </div>

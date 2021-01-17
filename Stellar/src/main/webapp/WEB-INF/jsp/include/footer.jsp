@@ -12,14 +12,14 @@
     <title>PSG</title>
     
     <!-- Favicon -->
-    <link rel="icon" href="./images/favicon.png" type="image/png">
+    <link rel="icon" href="<c:url value='/images/favicon.png' />" type="image/png">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="<c:url value='/css/all.css' />">
     <!-- StyleSheet -->
-    <link rel="stylesheet" href="./css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css' />" id="stylesheet">
     
     
-    <script defer src="js/all.js"></script>
+    <script defer src="<c:url value='js/all.js'/> "></script>
     
 </head>
 
@@ -32,8 +32,8 @@
                 <div class="row">
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <!-- Theme's logo -->
-                        <a href="./Main.do">
-                            <img alt="Image placeholder" width="auto" height="64px" src="images/logo.png" id="footer-logo">
+                        <a href="<c:url value='/Main.do' />">
+                            <img alt="Image placeholder" width="auto" height="64px" src="<c:url value='/images/logo.png' />" id="footer-logo">
                         </a>
                         <!-- Webpixels' mission -->
                         <p class="mt-4 text-sm opacity-8 pr-lg-4">We Are PSG</p>
