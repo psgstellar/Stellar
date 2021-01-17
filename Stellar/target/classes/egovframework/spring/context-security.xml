@@ -13,10 +13,13 @@
      
         <http use-expressions="true">
         
+        	<access-denied-handler error-page="/AccessDenied.do" />
+        
         	<intercept-url pattern="/" access="permitAll" />
         	<intercept-url pattern="/Main.do" access="permitAll" />
-        	<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
         	<intercept-url pattern="/Login.do" access="permitAll" />
+        	<intercept-url pattern="/Admin/**" access="hasRole('ROLE_ADMIN')" />
+        	
         	
         
         	<form-login 
@@ -33,32 +36,16 @@
             			invalidate-session="true"
             			delete-cookies="true"
             			logout-success-url="/"/>
-            			
-          <!--   			
-            <session-management invalid-session-url="./Login.do">
-            	<concurrency-control max-sessions="1" expired-url="./Login.do" error-if-maximum-exceeded="true" />
-            </session-management>
-            	
-            	 -->
-            
-            
         
            
             
-             <csrf disabled="true" />
+            <!--  <csrf disabled="true" /> -->
             
         </http>
         
        <authentication-manager>
             <authentication-provider user-service-ref="MemberService">
             
-             <!-- user-service-ref="customUserService" -->
-           
-                <!-- <user-service>
-                    <user name="admin" password="psg@100026" authorities="ROLE_ADMIN"/>
-                    <user name="guest" password="guest" authorities="ROLE_GUEST"/>
-                </user-service> -->
-                
                 <password-encoder ref="bcryptPasswordEncoder" />
       
             </authentication-provider>

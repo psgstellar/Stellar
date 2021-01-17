@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -65,13 +67,29 @@ public class MainController {
 		return "psg/about";
 	}
 	
+	@RequestMapping(value="/Login.do")
+	public String Login(HttpServletRequest request) {
+		String uri = request.getHeader("Referer");
+		
+		log.info("Hello Param");
+		
+		if(uri != null) {
+			if(!uri.contains("/Login.do")) {
+				request.getSession().setAttribute("prevPage", request.getHeader("Referer"));
+			}
+		}
+		
+		return "psg/login";
+	}
+	
 //	@GetMapping(value="/Login.do")
 //	public String Login() {
 //		
+//		log.info("Hello Login.do");
 //		
 //		return "psg/login";
 //	}
-//	
+////	
 //	@PostMapping(value="/Login.do")
 //	public String postLogin() {
 //		
@@ -79,17 +97,17 @@ public class MainController {
 //	}
 //	
 	
-	@RequestMapping(value="/Login.do")
-	public String Login(HttpServletRequest request) {
-		String uri = request.getHeader("Referer");
-		if (!uri.contains("/loginView")) {
-			request.getSession().setAttribute("prevPage",
-					request.getHeader("Referer"));
-		}
-		
-		return "psg/login";
-	}
-	
+//	@RequestMapping(value="/Login.do")
+//	public String Login(HttpServletRequest request) {
+//		String uri = request.getHeader("Referer");
+//		if (!uri.contains("/Login.do")) {
+//			request.getSession().setAttribute("prevPage",
+//					request.getHeader("Referer"));
+//		}
+//		
+//		return "psg/login";
+//	}
+//	
 	@GetMapping(value="/Register.do")
 	public String getRegister() {
 		log.info("register");
@@ -133,10 +151,26 @@ public class MainController {
 		return "psg/commit";
 	}
 	
-	@GetMapping(value="/accessDenied.do")
-	public String Denied() {
-		log.info("Denied");
-		return "psg/error";
+	@GetMapping(value="/Admin/Management.do")
+	public String Management() {
+		log.info("Hello World");
+		return "psg/management";
+	}
+	
+	@GetMapping(value="/Admin/Rest.do")
+	public String Rest() {
+		log.info("Rest");
+		return "psg/rest";
+	}
+	
+	@RequestMapping(value="/AccessDenied.do")
+	public String Denied(Model model, Authentication auth, HttpServletRequest req) {
+		AccessDeniedException ade = (AccessDeniedException) req.getAttribute(WebAttributes.ACCESS_DENIED_403);
+		
+		log.info("ex : {}", ade);
+		model.addAttribute("auth", auth);
+		model.addAttribute("errMsg", ade);
+		return "psg/accessdenied";
 	}
 	
 	@GetMapping(value="/DupIdChk.do", produces="application/json; charset=utf8")

@@ -60,10 +60,10 @@
         });
     </script>
     <!-- Favicon -->
-    <link rel="icon" href="images/favicon.png" type="image/png"><!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="icon" href="<c:url value='/images/favicon.png' />" type="image/png"><!-- Font Awesome -->
+    <link rel="stylesheet" href="<c:url value='/css/all.css' /> ">
     <!-- Quick CSS -->
-    <link rel="stylesheet" href="css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css' /> " id="stylesheet">
 </head>
 
 <body>
@@ -151,12 +151,12 @@
         </div>
     </section>
     <!-- Core JS  -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/svg-injector.min.js"></script>
-    <script src="js/feather.min.js"></script>
+    <script src="<c:url value='/js/jquery.min.js'/>"></script>
+    <script src="<c:url value='/js/bootstrap.bundle.min.js'/>"></script>
+    <script src="<c:url value='/js/svg-injector.min.js'/>"></script>
+    <script src="<c:url value='/js/feather.min.js' />"></script>
     <!-- JS -->
-    <script src="js/main.js"></script>
+    <script src="<c:url value='js/main.js' />" ></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({
