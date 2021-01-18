@@ -76,6 +76,16 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 	}
 	
 	@Override
+	public void updateRole(String username, String auth) throws Exception {
+		memberMapper.updateRole(username, auth);
+	}
+	
+	@Override
+	public ArrayList<MemberVO> memberList() throws Exception {
+		return memberMapper.memberList();
+	}
+	
+	@Override
 	public UserDetails loadUserByUsername(String username) {
 		MemberDetailsVO memberDetails = new MemberDetailsVO();
 		

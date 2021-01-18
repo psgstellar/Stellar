@@ -40,9 +40,15 @@
             </a>
 					</li>
 					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<c:url value='/Admin/Role.do' /> ">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Role</span>
+            </a>
+					</li>
+					
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="<c:url value='/Admin/Rest.do' /> ">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Settings</span>
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Rest</span>
             </a>
 					</li>
 

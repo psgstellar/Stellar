@@ -1,5 +1,7 @@
 package com.psg.service;
 
+import java.util.ArrayList;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.psg.vo.MemberVO;
@@ -18,6 +20,9 @@ public interface MemberService {
 	
 	public UserDetails loadUserByUsername(String inputUserId) throws Exception;
 	
+	public ArrayList<MemberVO> memberList() throws Exception;
+	
+	public void updateRole(String username, String auth) throws Exception;
 	
 	
 	

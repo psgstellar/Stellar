@@ -58,14 +58,14 @@
 
                 </li>
                 
-            	<sec:authorize access="isAuthenticated()">
+                <sec:authorize access="hasRole('ROLE_MEMBER')">
             		<sec:authentication property="principal" var="user" />
 	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Management</a>
 	                    <div class="dropdown-menu dropdown-menu-single">
-	                        <div class="dropdown-item">${user.username}</div>
-	                        <a href="<c:url value='/Logout.do'/> " class="navbar-btn btn btn-sm btn-primary">
-               					Logout
+	                        <div class="dropdown-item">PSG 멤버 ${user.username}</div>
+	                        <a href="<c:url value='/Member/Management.do'/>" class="navbar-btn btn btn-sm btn-primary">
+               					Management Page
             				</a>
 	                        
 	                    </div>
@@ -73,7 +73,8 @@
 	               		</li>
 		              
                 
-                </sec:authorize>     
+                </sec:authorize>  
+                  
                 
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
             		<sec:authentication property="principal" var="user" />
@@ -90,7 +91,26 @@
 	               		</li>
 		              
                 
-                </sec:authorize>               
+                </sec:authorize>   
+                
+            	<sec:authorize access="isAuthenticated()">
+            		<sec:authentication property="principal" var="user" />
+	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+	                    <div class="dropdown-menu dropdown-menu-single">
+	                        <div class="dropdown-item">${user.username}</div>
+	                        <a href="<c:url value='/Logout.do'/> " class="navbar-btn btn btn-sm btn-primary">
+               					Logout
+            				</a>
+	                        
+	                    </div>
+	
+	               		</li>
+		              
+                
+                </sec:authorize>   
+                
+                            
             </ul>
             <!-- Button -->
             
