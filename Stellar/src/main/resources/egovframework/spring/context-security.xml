@@ -19,6 +19,7 @@
         	<intercept-url pattern="/Main.do" access="permitAll" />
         	<intercept-url pattern="/Login.do" access="permitAll" />
         	<intercept-url pattern="/Admin/**" access="hasRole('ROLE_ADMIN')" />
+        	<intercept-url pattern="/Member/**" access="hasRole('ROLE_MEMBER')" />
         	
         	
         

@@ -31,6 +31,14 @@
 	select auth from psg_info where username = #{_parameter}
 </select>
 
+<select id="memberList" resultType="com.psg.vo.MemberVO">
+	select username, email, auth, date from psg_info order by username desc;
+</select>
+
+<update id="updateRole" parameterType="String">
+	update psg_info set auth = #{auth} where username = #{username}
+</update>
+
 <!-- <select id="getUserById" parameterType="String" resultType="com.psg.security.CustomUserDetails">
 	select * from psg_info where username = #{username}
 </select> -->

@@ -152,16 +152,49 @@ public class MainController {
 	}
 	
 	@GetMapping(value="/Admin/Management.do")
-	public String Management() {
-		log.info("Hello World");
-		return "psg/management";
+	public String AdminManagement() {
+		return "admin/management";
+	}
+	
+	@GetMapping(value="/Admin/Role.do")
+	public String MemberInfo(Model model) {
+		ArrayList<MemberVO> memberList=null;
+		try {
+			memberList = memberService.memberList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("memberList", memberList);
+		
+		return "admin/role";
+	}
+	
+	@GetMapping(value="/Member/Management.do")
+	public String MemberManagement() {
+		return "member/management";
+	}
+	
+	@GetMapping(value="/Member/Rest.do")
+	public String MemberRest() {
+		return "member/rest";
+	}
+	
+	@GetMapping(value="/Admin/getRole.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public void MemberRole(String username, String auth) throws Exception {
+		log.info(username);
+		log.info(auth);
+		
+		memberService.updateRole(username, auth);
 	}
 	
 	@GetMapping(value="/Admin/Rest.do")
-	public String Rest() {
-		log.info("Rest");
-		return "psg/rest";
+	public String AdminRest() {
+		return "admin/rest";
 	}
+	
+	
 	
 	@RequestMapping(value="/AccessDenied.do")
 	public String Denied(Model model, Authentication auth, HttpServletRequest req) {

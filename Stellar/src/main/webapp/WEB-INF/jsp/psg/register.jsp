@@ -86,7 +86,7 @@
     					return false;
     				
     				$.ajax({
-    					url : "./DupIdChk.do",
+    					url : "<c:url value='/DupIdChk.do'/>",
     					method : "get",
     					data : {"loginId" : loginId},
     					async : false,
