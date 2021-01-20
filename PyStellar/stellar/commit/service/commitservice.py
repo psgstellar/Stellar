@@ -1,6 +1,9 @@
 import requests
 
-token = 'xoxb-992233197952-1249394514658-FBiWQecqbunwQPFJZ8uZS80B'
+from commit.dao.commit_dao import CommitDao
+from commit.resources.commit_sql import insert_commit
+
+token = 'xoxb-992233197952-1249394514658-6FUEuQr2P86cQifKVWqS0BUf'
 channel = 'CUW4CLH4Z'
 url = 'https://slack.com/api/conversations.history'
 
@@ -21,29 +24,36 @@ class commithistory:
         data = r.json()
         return data
 
-    def commitlist(self):
-        commitmessage = {}
+    def messagelist(self, data):
         attachments = []
-        commit = {}
-        commi = []
-
-        data = self.historyrequest()
 
         if data['ok']:
-            messagedata = data['messages']
-            for i in messagedata:
+            message = data['messages']
+            for i in message:
                 if "attachments" in i:
                     attachments.append(i['attachments'])
         else:
             print('request 실패')
             result_json = {'result': 'False'}
             return result_json
+        return attachments
+
+    def commituserlist(self, attachments):
+        commitlist = []
         for i in attachments:
             for j in i:
                 if 'author_name' in j:
                     # print('------author_name------', j['author_name'])
-                    commi.append(j['author_name'])
-                    commitList = set(commi)
+                    commitlist.append(j['author_name'])
+                    commitList = set(commitlist)
         print('------commitList------', commitList)
         print('---------len------', len(attachments))
         return commitList
+
+    def insertcommit(self, attachments):
+
+        insert_commit_json = CommitDao()
+        return_json = insert_commit_json.insertcommit( attachments)
+
+        return return_json
+
