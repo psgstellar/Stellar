@@ -5,5 +5,6 @@ app_name = 'commit'
 
 urlpatterns = [
 
-    path('history/', views.commitMessage.as_view(), name='commitList')
+    path('history/', views.commitMessageHistory.as_view(), name='commitList'),
+    path('commitmessage', views.CommitMessage.as_view(), name='commitMessage'),
 ]

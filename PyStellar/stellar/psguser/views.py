@@ -23,7 +23,7 @@ class userList(ListAPIView):
         "200": openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            "PsgUserList": openapi.Schema(
+            "PsgUser": openapi.Schema(
                 type=openapi.TYPE_OBJECT,
                 properties={
                     "id": openapi.Schema(type=openapi.TYPE_STRING,
@@ -65,6 +65,8 @@ class userList(ListAPIView):
         return self.list(self, request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
+        #return_json = []
+
         psg_user_json = PsgUserListService()
         return_json = psg_user_json.psguserlistservice()
         result = {'content': return_json}

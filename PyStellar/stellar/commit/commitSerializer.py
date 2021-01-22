@@ -6,4 +6,3 @@ class commitHistory(serializers.Serializer):
     # token = serializers.CharField(help_text='Slack토큰')
     latest = serializers.DecimalField(max_digits=10, decimal_places=0, help_text='마지막시간')
     oldest = serializers.DecimalField(max_digits=10, decimal_places=0, help_text='최초시간')
-

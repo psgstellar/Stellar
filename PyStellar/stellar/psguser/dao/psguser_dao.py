@@ -1,17 +1,14 @@
 import pymysql
-
 from stellar.settings import MYSQLUSER, MYSQLNAME, MYSQLPASSWORD, MYSQLHOST, MYSQLPORT
 
 
 class PsgUserList:
 
-
-    def psguserdao(self, sql):
+    def psguserlistdao(self, sqluser):
         return_json = {}
-        userlist = []
-
+        userList = []
         try:
-            print('------try---------', sql)
+            print('------try---------')
             connection = pymysql.connect(
                 user=MYSQLUSER,
                 password=MYSQLPASSWORD,
@@ -19,12 +16,12 @@ class PsgUserList:
                 db=MYSQLNAME,
                 charset='utf8'
             )
-        except Exception as e:
-            print('-----Exception-----', e)
-        else:
-            print('--------Success------')
             cursor = connection.cursor()
-            cursor.execute(sql)
+            cursor.execute(sqluser)
+        except Exception as e:
+            print('-----UserListException-----', e)
+        else:
+            print('--------UserListSuccess------')
             rows = cursor.fetchall()
             for i in rows:
                 return_json = {
@@ -35,5 +32,46 @@ class PsgUserList:
                     'kakao_nickname': i[4],
                     'content': i[5]
                 }
-                userlist.append(return_json)
-        return userlist
+                userList.append(return_json)
+        finally:
+            cursor.close()
+            connection.close()
+
+
+        return userList
+
+    def usergitdao(self, sqlgit):
+        return_git_json = {}
+        gitList = []
+        try:
+            print('------try---------')
+            connection = pymysql.connect(
+                user=MYSQLUSER,
+                password=MYSQLPASSWORD,
+                host=MYSQLHOST,
+                db=MYSQLNAME,
+                charset='utf8'
+            )
+            cursor = connection.cursor()
+            cursor.execute(sqlgit)
+        except Exception as e:
+            print('-------GitListException-------', e)
+        else:
+            print('--------GitListSuccess------')
+
+            rows = cursor.fetchall()
+
+            for i in rows:
+                return_git_json = {
+                    'id': i[0],
+                    'git_name': i[1]
+                }
+                gitList.append(return_git_json)
+
+
+        finally:
+            cursor.close()
+            connection.close()
+
+        return gitList
+
