@@ -51,8 +51,48 @@
         body.loaded>div.preloader {
             animation: hidePreloader .5s linear .5s forwards;
         }
+      </style>
+      
+      <style>
+        
+        /* The Modal (background) */
+		.modal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+		
+		/* Modal Content/Box */
+		.modal-content {
+		    background-color: #fefefe;
+		    margin: 15% auto; /* 15% from the top and centered */
+		    padding: 20px;
+		    border: 1px solid #888;
+		    width: 50%; /* Could be more or less, depending on screen size */                          
+		}
+		/* The Close Button */
+		.close {
+		    color: #aaa;
+		    float: right;
+		    font-size: 28px;
+		    font-weight: bold;
+		}
+		.close:hover,
+		.close:focus {
+		    color: black;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
     </style>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>    
+	
+	<script src="<c:url value='/js/jquery.min.js'/> "></script>    
     
     <script>
         window.addEventListener("load", function() {
@@ -60,6 +100,41 @@
                 document.querySelector('body').classList.add('loaded');
             }, 300);
         });
+            
+        function show_info(info) {
+        	var modal = document.getElementById("info_modal");
+        	document.getElementById("contents").innerHTML = info;
+        	modal.style.display = "block";
+        }
+        
+        function close_info() {
+        	var modal = document.getElementById("info_modal");
+        	modal.style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+        	var modal = document.getElementById("info_modal");
+        	if(event.target == modal)
+        		modal.style.display = "none";
+        }
+        
+        function show_password() {
+        	var x = document.getElementById("password");
+        	
+        	if(x.type == "password")
+        		x.type = "text";
+        	else
+        		x.type = "password";
+        }
+        
+        function show_check_password() {
+        	var x = document.getElementById("passwordCheck");
+        	
+        	if(x.type == "password")
+        		x.type = "text";
+        	else
+        		x.type = "password";
+        }
  
         var MbrInput = {
         		
@@ -71,12 +146,12 @@
         				return false;
         			 
         			
-        			alert("유효함.");
+        			show_info("유효함.");
         			
         			$("form").submit();
         		},
         		
-    			duplicateChkFn : function() {
+        		duplicateChkFn : function() {
     				var loginId = $('#username').val();
     				
     				var token=$("input[name='_csrf']").val();
@@ -99,16 +174,16 @@
     						var dupCnt = data;
     						
     						if(dupCnt > 0) {
-    							alert(loginId + "은/는 사용하실 수 없습니다.");
+    							show_info(loginId + "은/는 사용하실 수 없습니다.");
     						}
     						else {
-    							alert(loginId + "은/는 사용가능 합니다.");
+    							show_info(loginId + "은/는 사용가능 합니다.");
     							$("#username").attr("readonly",true);
     						}
     						    		
     					},
     					error : function(request, status, error) {
-    						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    						show_info("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     					}
     					
     				})
@@ -118,15 +193,14 @@
     				var reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/;
     				
     				if(!reg.test(loginId)) {
-    					alert("아이디가 유효하지 않습니다");
+    					show_info("아이디가 유효하지 않습니다");
     					
     					return false;
     				}
     				
     				return true;
     			}, 
-    			
-    			    			
+    			 			
     			// 비밀번호 유효성 체크
             	pwdChkFn : function() {
             		var reg 	  		= /^(?=.*[a-zA-Z])(?=.*[!@#$^*+=-])(?=.*[0-9]).{8,15}$/;
@@ -135,14 +209,14 @@
             		
             		
             		if (!reg.test(password)) {       			        			
-            			alert("비밀번호는 영문/숫자/특수문자 포함 8~15 자리 입력해 주세요.");
+            			show_info("비밀번호는 영문/숫자/특수문자 포함 8~15 자리 입력해 주세요.");
             			
             			return false;
             		}
     				
             		// 비밀번호 확인
             		if (password !== passwordCheck) {					
-    					alert("비밀번호가 일치하지 않습니다. 일치하게 입력해 주세요.");
+    					show_info("비밀번호가 일치하지 않습니다. 일치하게 입력해 주세요.");
             			
             			return false;
             		}
@@ -156,7 +230,7 @@
             		var email = $("#email").val();
     				
             		if (!reg.test(email)) {				
-    					alert("이메일 형식에 맞게 입력해 주세요.");
+    					show_info("이메일 형식에 맞게 입력해 주세요.");
             			
             			return false;
             		}
@@ -192,6 +266,26 @@
             </div>
         </div>
     </div>
+    
+    <div id="info_modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="close_info()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="contents"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="close_info()">Okay</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_info()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
     	<div class="container">
@@ -233,15 +327,15 @@
                                 <div class="form-group">
                                 	<button type="button" class="btn btn-block btn-primary" onclick="MbrInput.duplicateChkFn()">아이디 중복 확인</button>
                                 </div>
-                                    
                                 
+                             
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <label class="form-control-label">Password</label>
                                         </div>
                                         <div class="mb-2">
-                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password">Show password</a>
+                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password" onclick="show_password()">Show password</a>
                                         </div>
                                     </div>
                                     
@@ -259,7 +353,7 @@
                                             <label class="form-control-label">Confirm Password</label>
                                         </div>
                                         <div class="mb-2">
-                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password">Show password</a>
+                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password" onclick="show_check_password()">Show password</a>
                                         </div>
                                     </div>
                                     
@@ -270,6 +364,7 @@
                                         <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인">
                                     </div>
                                 </div>
+                                
                                 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">

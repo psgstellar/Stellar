@@ -17,7 +17,7 @@
     
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://psg.or.kr:3306/psg?serverTimezone=UTC" />
+        <property name="url" value="jdbc:mysql://psg.or.kr:3306/psg?serverTimezone=Asia/Seoul" />
         <property name="username" value="stellar"/>
         <property name="password" value="psg@10026"/>
     </bean>
