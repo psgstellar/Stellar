@@ -47,18 +47,10 @@
                     <div class="dropdown-menu dropdown-menu-single">
                         <a href="<c:url value='/Intro.do' />" class="dropdown-item">Intro</a>
                         <a href="<c:url value='/About.do' />" class="dropdown-item">About us</a>
-                        <a href="<c:url value='/Contact.do' />" class="dropdown-item">Contact</a>
-                        <sec:authorize access="isAnonymous()">
-                        	<div class="dropdown-divider"></div>
-                       	 	<a href="<c:url value='/UserList.do' />" class="dropdown-item">UserList</a>
-                        </sec:authorize>
-                        
-                        
-                    </div>
-
-                </li>
-                
-                <sec:authorize access="hasRole('ROLE_MEMBER')">
+                        <a href="<c:url value='/Contact.do' />" class="dropdown-item">Contact</a>                  	
+            		</div>
+            	</li>		 
+            				<sec:authorize access="hasRole('ROLE_MEMBER')">
             		<sec:authentication property="principal" var="user" />
 	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
 	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Management</a>
@@ -74,7 +66,6 @@
 		              
                 
                 </sec:authorize>  
-                  
                 
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
             		<sec:authentication property="principal" var="user" />
@@ -92,29 +83,44 @@
 		              
                 
                 </sec:authorize>   
-                
-            	<sec:authorize access="isAuthenticated()">
-            		<sec:authentication property="principal" var="user" />
-	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
-	                    <div class="dropdown-menu dropdown-menu-single">
-	                        <div class="dropdown-item">${user.username}</div>
-	                        <a href="<c:url value='/Logout.do'/> " class="navbar-btn btn btn-sm btn-primary">
-               					Logout
-            				</a>
+            	
+                            
+				            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+	            			        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+	                    			<div class="dropdown-menu dropdown-menu-single">
+	                    				<sec:authorize access="isAuthenticated()">
+	            							<sec:authentication property="principal" var="user" />
+	                        					<div class="dropdown-item">${user.username}</div>
+	                       				 			<a href="<c:url value='/Logout.do'/> " class="dropdown-item">
+               											Logout
+            							 			</a>
+            							 </sec:authorize>   
+            							 
+            							 <sec:authorize access="isAnonymous()">
+            								<a href="<c:url value='/Login.do'/>" class="dropdown-item">
+               									Login
+            								</a>
+            							 </sec:authorize>
 	                        
-	                    </div>
+	                   				 </div>
 	
-	               		</li>
+	               					</li>
 		              
                 
-                </sec:authorize>   
-                
+                			
+                			
+                	      
                             
             </ul>
-            <!-- Button -->
             
-                        
+                    </div>
+                    
+                    
+
+                
+            
+            <!-- Button -->
+
             <sec:authorize access="isAnonymous()">
             	<a href="<c:url value='/Login.do'/>" class="navbar-btn btn btn-sm btn-primary d-none d-lg-inline-block ml-3">
                		Login

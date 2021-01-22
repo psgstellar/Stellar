@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,6 +78,12 @@
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="<c:url value='/Admin/Management.do' />">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+            </a>
+					</li>
+					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<c:url value='/Admin/Settings.do' />">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Settings</span>
             </a>
 					</li>
 					
@@ -302,7 +309,8 @@
 										<tr>
 											<td>${member.username}</td>
 											<td class="d-none d-xl-table-cell">${member.email}</td>
-											<td class="d-none d-xl-table-cell">${member.date}</td>
+											<td class="d-none d-xl-table-cell"><fmt:formatDate value="${member.date}" pattern="yyyy-MM-dd"/>
+											</td>
 											<td>
 												<c:if test="${member.auth eq 'ROLE_ADMIN'}">
 											 		<span class="badge bg-primary">${member.auth}</span>

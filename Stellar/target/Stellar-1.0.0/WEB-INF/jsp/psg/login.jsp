@@ -60,10 +60,10 @@
         });
     </script>
     <!-- Favicon -->
-    <link rel="icon" href="images/favicon.png" type="image/png"><!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="icon" href="<c:url value='/images/favicon.png' />" type="image/png"><!-- Font Awesome -->
+    <link rel="stylesheet" href="<c:url value='/css/all.css' /> ">
     <!-- Quick CSS -->
-    <link rel="stylesheet" href="css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css' /> " id="stylesheet">
 </head>
 
 <body>
@@ -107,12 +107,6 @@
                             
                             <form name="f" action="<c:url value='/Login.do'/>" method="POST">
                                 <div class="form-group">
-                                	<c:if test="${param.error != null}">
-                                		<p>아이디와 비밀번호가 잘못되었습니다.</p>
-                                	</c:if>
-                                	<c:if test="${param.logout != null}">
-                             			<p>로그아웃 하였습니다.</p>
-                                	</c:if>
                                 
                                     <label class="form-control-label">ID</label>
                                     <div class="input-group">
@@ -139,7 +133,13 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <button type="submit" class="btn btn-block btn-primary">Sign in</button></div>
+                                    <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+                                </div>
+                                
+                              	<div class="mt-4">
+                              		<p>${requestScope.loginFailMsg}</p>
+                              	</div>
+                                
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </div>
@@ -151,12 +151,12 @@
         </div>
     </section>
     <!-- Core JS  -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/svg-injector.min.js"></script>
-    <script src="js/feather.min.js"></script>
+    <script src="<c:url value='/js/jquery.min.js'/>"></script>
+    <script src="<c:url value='/js/bootstrap.bundle.min.js'/>"></script>
+    <script src="<c:url value='/js/svg-injector.min.js'/>"></script>
+    <script src="<c:url value='/js/feather.min.js' />"></script>
     <!-- JS -->
-    <script src="js/main.js"></script>
+    <script src="<c:url value='js/main.js' />" ></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({

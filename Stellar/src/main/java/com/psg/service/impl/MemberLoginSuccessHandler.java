@@ -29,8 +29,6 @@ public class MemberLoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		String prevPage = (String) request.getSession().getAttribute("prevPage");
 		
-		log.info(prevPage);
-		
 		if(prevPage != null)
 			request.getSession().removeAttribute("prevPage");
 		

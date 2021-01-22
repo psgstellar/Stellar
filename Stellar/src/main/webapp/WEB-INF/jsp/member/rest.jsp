@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,9 +41,15 @@
             </a>
 					</li>
 					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<c:url value='/Member/Settings.do' />">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Settings</span>
+            </a>
+					</li>
+					
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="<c:url value='/Member/Rest.do' /> ">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Settings</span>
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Rest</span>
             </a>
 					</li>
 
@@ -230,15 +237,42 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 
-					<h1 class="h3 mb-3">Blank Page</h1>
-
+					<h1 class="h3 mb-3">Rest Settings</h1>
+					
 					<div class="row">
 						<div class="col-12">
 							<div class="card">
 								<div class="card-header">
-									<h5 class="card-title mb-0">Empty card</h5>
+									<h5 class="card-title mb-0">Rest List</h5>
 								</div>
 								<div class="card-body">
+								<table class="table table-hover my-0" id="rest_table">
+									<thead>
+										<tr>
+											<th>Username</th>
+											<th class="d-none d-xl-table-cell">Start Date</th>
+											<th class="d-none d-xl-table-cell">End Date</th>
+										</tr>
+									</thead>
+									<c:forEach items="${memberRest}" var="member_rest" varStatus="status">
+									<c:choose>
+									<c:when test="${not empty member_rest}">
+									<tbody>
+										<tr>
+											<td>${member_rest.username}</td>
+											<td class="d-none d-xl-table-cell"><fmt:formatDate value="${member_rest.start_date}" pattern="yyyy-MM-dd"/>
+											</td>
+											<td class="d-none d-xl-table-cell"><fmt:formatDate value="${member_rest.end_date}" pattern="yyyy-MM-dd" />
+											</td>
+											
+										</tr>										
+									</tbody>
+									</c:when>
+									</c:choose>									
+									</c:forEach>
+								</table>
+								
+								
 								</div>
 							</div>
 						</div>

@@ -39,6 +39,12 @@
             </a>
 					</li>
 					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<c:url value='/Member/Settings.do' />">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Settings</span>
+            </a>
+					</li>
+					
 						<li class="sidebar-item">
 						<a class="sidebar-link" href="<c:url value='/Member/Rest.do' /> ">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Settings</span>

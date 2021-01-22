@@ -60,22 +60,59 @@
                 document.querySelector('body').classList.add('loaded');
             }, 300);
         });
+        
+        
+        
+        function show_info() {
+        	var modal = document.getElementById("info_modal");
+        	modal.style.display = "block";
+        }
+        
+        function close_info() {
+        	var modal = document.getElementById("info_modal");
+        	modal.style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+        	var modal = document.getElementById("info_modal");
+        	if(event.target == modal)
+        		modal.style.display = "none";
+        }
+        
+        function show_password() {
+        	var x = document.getElementById("password");
+        	
+        	if(x.type == "password")
+        		x.type = "text";
+        	else
+        		x.type = "password";
+        }
+        
+        function show_check_password() {
+        	var x = document.getElementById("passwordCheck");
+        	
+        	if(x.type == "password")
+        		x.type = "text";
+        	else
+        		x.type = "password";
+        }
  
         var MbrInput = {
         		
         		joinSubmitFn : function() {
-        			if(!this.idValidChkFn())
-        				return false;
+        			
         			if(!this.pwdChkFn())
         				return false;
         			if(!this.emailChkFn())
         				return false;
-        			
+        			 
         			
         			alert("유효함.");
+        			
+        			$("form").submit();
         		},
         		
-    			duplicateChkFn : function() {
+        		duplicateChkFn : function() {
     				var loginId = $('#username').val();
     				
     				var token=$("input[name='_csrf']").val();
@@ -85,7 +122,7 @@
     					return false;
     				
     				$.ajax({
-    					url : "./DupIdChk.do",
+    					url : "<c:url value='/DupIdChk.do'/>",
     					method : "get",
     					data : {"loginId" : loginId},
     					async : false,
@@ -95,15 +132,90 @@
     					},
     					
     					success : function(data) {
-    						var dupCnt = parseInt(data);
+    						var dupCnt = data;
     						
     						if(dupCnt > 0) {
     							alert(loginId + "은/는 사용하실 수 없습니다.");
-    							id_value = 0;
     						}
     						else {
     							alert(loginId + "은/는 사용가능 합니다.");
-    							id_value = 1;
+    							$("#username").attr("readonly",true);
+    						}
+    						    		
+    					},
+    					error : function(request, status, error) {
+    						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    					}
+    					
+    				})
+    			},
+    			
+    			duplicateSlackChkFn : function() {
+    				var slack_name = $('#slack_name').val();
+    				
+    				var token=$("input[name='_csrf']").val();
+    				var header = "X-CSRF-TOKEN";
+    				    				
+    				if(!this.slackValidChkFn(slack_name))
+    					return false;
+    				
+    				$.ajax({
+    					url : "<c:url value='/DupSlackChk.do'/>",
+    					method : "get",
+    					data : {"slack_name" : slack_name},
+    					async : false,
+    					
+    					beforeSend : function(xhr) {
+    						xhr.setRequestHeader(header, token);
+    					},
+    					
+    					success : function(data) {
+    						var dupCnt = data;
+    						
+    						if(dupCnt > 0) {
+    							alert(slack_name + "은/는 사용하실 수 없습니다.");
+    						}
+    						else {
+    							alert(slack_name + "은/는 사용가능 합니다.");
+    							$("#slack_name").attr("readonly",true);
+    						}
+    						    		
+    					},
+    					error : function(request, status, error) {
+    						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    					}
+    					
+    				})
+    			},
+    			
+    			duplicateGithubChkFn : function() {
+    				var github_name = $('#github_name').val();
+    				
+    				var token=$("input[name='_csrf']").val();
+    				var header = "X-CSRF-TOKEN";
+    				    				
+    				if(!this.githubValidChkFn(github_name))
+    					return false;
+    				
+    				$.ajax({
+    					url : "<c:url value='/DupGithubChk.do'/>",
+    					method : "get",
+    					data : {"github_name" : github_name},
+    					async : false,
+    					
+    					beforeSend : function(xhr) {
+    						xhr.setRequestHeader(header, token);
+    					},
+    					
+    					success : function(data) {
+    						var dupCnt = data;
+    						
+    						if(dupCnt > 0) {
+    							alert(github_name + "은/는 사용하실 수 없습니다.");
+    						}
+    						else {
+    							alert(github_name + "은/는 사용가능 합니다.");
+    							$("#github_name").attr("readonly",true);
     						}
     						    		
     					},
@@ -126,12 +238,37 @@
     				return true;
     			}, 
     			
+    			slackValidChkFn : function(slack_name) {
+    				var reg = /^(?=.*[a-zA-Z]).{5,15}$/;
+    				
+    				if(!reg.test(slack_name)) {
+    					alert("슬랙 사용자명이 유효하지 않습니다");
+    					
+    					return false;
+    				}
+    				
+    				return true;
+    			},
+    			
+    			githubValidChkFn : function(github_name) {
+    				var reg = /^(?=.*[a-zA-Z]).{5,15}$/;
+    				
+    				if(!reg.test(github_name)) {
+    					alert("깃헙 사용자명이 유효하지 않습니다");
+    					
+    					return false;
+    				}
+    				
+    				return true;
+    			},
+    			
     			    			
     			// 비밀번호 유효성 체크
             	pwdChkFn : function() {
             		var reg 	  		= /^(?=.*[a-zA-Z])(?=.*[!@#$^*+=-])(?=.*[0-9]).{8,15}$/;
             		var password 		= $("#password").val();
             		var passwordCheck 	= $("#passwordCheck").val();
+            		
             		
             		if (!reg.test(password)) {       			        			
             			alert("비밀번호는 영문/숫자/특수문자 포함 8~15 자리 입력해 주세요.");
@@ -192,6 +329,26 @@
         </div>
     </div>
     
+    <div id="info_modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Slack Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="close_info()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>PSG 멤버분들께서만 작성하여 주시기 바랍니다.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="close_info()">Okay</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_info()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
     	<div class="container">
         	<!-- Brand -->
@@ -214,7 +371,7 @@
                             </div>
                             <span class="clearfix"></span>
                             
-                            <%-- <form name="f" action="<c:url value='/Login.do'/>" method="POST"> --%>
+                            <form name="f" action="./Register.do" method="POST">
                                 <div class="form-group">
                                 	
                                 
@@ -232,7 +389,72 @@
                                 <div class="form-group">
                                 	<button type="button" class="btn btn-block btn-primary" onclick="MbrInput.duplicateChkFn()">아이디 중복 확인</button>
                                 </div>
+                                
+                                <div class="dropdown-divider"></div>
+                                
+                                
+                                <div class="form-group">
+                                
+                                
+                                	<div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <label class="form-control-label">Slack Username</label>
+                                        </div>
+                                        <div class="mb-2">
+                                            <a href="javascript:void(0);" onclick="show_info()" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password">Info</a>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                
                                     
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i data-feather="user"></i></span>
+                                        </div>
+                              
+                                        <input type="text" class="form-control" id="slack_name" name="slack_name" placeholder="Slack Username">
+                                                                              
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="form-group">                     	
+                                	<button type="button" class="btn btn-block btn-primary" onclick="MbrInput.duplicateSlackChkFn()">슬랙 중복 확인</button>
+                                </div>
+                                
+                                <div class="dropdown-divider"></div>
+                                
+                                <div class="form-group">
+                                
+                                
+                                	<div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <label class="form-control-label">GitHub Username</label>
+                                        </div>
+                                        <div class="mb-2">
+                                            <a href="javascript:void(0);" onclick="show_info()" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password">Info</a>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                
+                                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i data-feather="user"></i></span>
+                                        </div>
+                              
+                                        <input type="text" class="form-control" id="github_name" name="github_name" placeholder="GitHub Username">
+                                                                              
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">                     	
+                                	<button type="button" class="btn btn-block btn-primary" onclick="MbrInput.duplicateGithubChkFn()">깃헙 중복 확인</button>
+                                </div>
+                                
+                                <div class="dropdown-divider"></div>
                                 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -240,7 +462,7 @@
                                             <label class="form-control-label">Password</label>
                                         </div>
                                         <div class="mb-2">
-                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password">Show password</a>
+                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password" onclick="show_password()">Show password</a>
                                         </div>
                                     </div>
                                     
@@ -258,7 +480,7 @@
                                             <label class="form-control-label">Confirm Password</label>
                                         </div>
                                         <div class="mb-2">
-                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password">Show password</a>
+                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password" onclick="show_check_password()">Show password</a>
                                         </div>
                                     </div>
                                     
@@ -269,6 +491,8 @@
                                         <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인">
                                     </div>
                                 </div>
+                                
+                                <div class="dropdown-divider"></div>
                                 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -286,11 +510,12 @@
                                 </div>
                                
                                 <div class="mt-4">
-                                    <button type="submit" class="btn btn-block btn-primary" onclick="MbrInput.joinSubmitFn()">Sign up</button></div>
+                                    <button type="button" class="btn btn-block btn-primary" onclick="MbrInput.joinSubmitFn()">Sign up</button>
+                                </div>
                                 
                                 <input type="hidden" class="form-control" name="${_csrf.parameterName}" value="${_csrf.token}">
                                         
-                            <%-- </form> --%>
+                            </form>
                         </div>
                     </div>
                 </div>
