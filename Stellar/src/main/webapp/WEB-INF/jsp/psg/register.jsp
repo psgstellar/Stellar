@@ -243,10 +243,10 @@
     
     </script>
     <!-- Favicon -->
-    <link rel="icon" href="images/favicon.png" type="image/png"><!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="icon" href="<c:url value='/images/favicon.png' /> " type="image/png"><!-- Font Awesome -->
+    <link rel="stylesheet" href="<c:url value='/css/all.css' /> ">
     <!-- Quick CSS -->
-    <link rel="stylesheet" href="css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css' /> " id="stylesheet">
 </head>
 
 <body>
@@ -274,8 +274,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
     	<div class="container">
         	<!-- Brand -->
-        	<a class="navbar-brand" href="./Main.do">
-          	  <img alt="Image placeholder" src="images/logo.png" id="navbar-logo">
+        	<a class="navbar-brand" href="<c:url value='/Main.do' /> ">
+          	  <img alt="Image placeholder" src="<c:url value='/images/logo.png' /> " id="navbar-logo">
         	</a>
     	</div>
     </nav>
@@ -293,7 +293,7 @@
                             </div>
                             <span class="clearfix"></span>
                             
-                            <form name="f" action="./Register.do" method="POST">
+                            <form name="f" action="<c:url value='/Register.do' /> " method="POST">
                                 <div class="form-group">
                                 	
                                 
@@ -379,12 +379,12 @@
         </div>
     </section>
     <!-- Core JS  -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/svg-injector.min.js"></script>
-    <script src="js/feather.min.js"></script>
+    <script src="<c:url value='/js/jquery.min.js' /> "></script>
+    <script src="<c:url value='/js/bootstrap.bundle.min.js' /> "></script>
+    <script src="<c:url value='/js/svg-injector.min.js' /> "></script>
+    <script src="<c:url value='/js/feather.min.js' /> "></script>
     <!-- JS -->
-    <script src="js/main.js"></script>
+    <script src="<c:url value='/js/main.js' /> "></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({

@@ -60,14 +60,15 @@
         });
     </script>
     
-    <script defer src="js/all.js"></script>
+    <script src="<c:url value='/js/all.js' /> "></script>
     
     
     <!-- Favicon -->
-    <link rel="icon" href="images/favicon.png" type="image/png"><!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="icon" href="<c:url value='/images/favicon.png' /> " type="image/png"> <!-- Font Awesome -->
+    
+    <link rel="stylesheet" href="<c:url value='/css/all.css' /> ">
     <!-- StyleSheet -->
-    <link rel="stylesheet" href="css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css' /> " id="stylesheet">
 </head>
 
 <body>
@@ -192,7 +193,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/kjh.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kjh.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -205,7 +206,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/turtle.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/turtle.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -218,7 +219,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/kyg.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kyg.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -231,7 +232,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/nice.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/nice.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -246,12 +247,12 @@
     </section>
     <jsp:include page="../include/footer.jsp" />
     <!-- Core JS  -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/svg-injector.min.js"></script>
-    <script src="js/feather.min.js"></script>
+    <script src="<c:url value='/js/jquery.min.js' /> "></script>
+    <script src="<c:url value='/js/bootstrap.bundle.min.js' /> "></script>
+    <script src="<c:url value='/js/svg-injector.min.js' /> "></script>
+    <script src="<c:url value='/js/feather.min.js' /> "></script>
     <!-- JS -->
-    <script src="js/main.js"></script>
+    <script src="<c:url value='/js/main.js' /> "></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({

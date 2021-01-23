@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<c:url value='/css/main.css' />" id="stylesheet">
     
     
-    <script defer src="<c:url value='js/all.js'/> "></script>
+    <script defer src="<c:url value='/js/all.js'/> "></script>
     
 </head>
 

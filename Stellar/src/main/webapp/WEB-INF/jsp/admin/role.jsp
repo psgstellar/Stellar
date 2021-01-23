@@ -128,7 +128,6 @@
                 				</sec:authorize>     
               				</a>
 							<div class="dropdown-menu dropdown-menu-right">
-								<!-- <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Profile</a> -->
 								<a class="dropdown-item" href="<c:url value='/Main.do'/> "><i class="align-middle mr-1" data-feather="home"></i> Home</a>								
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<c:url value='/Logout.do'/> ">Log out</a>

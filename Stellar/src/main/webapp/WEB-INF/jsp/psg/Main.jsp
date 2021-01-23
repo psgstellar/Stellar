@@ -60,15 +60,15 @@
         });
     </script>
     
-    <script defer src="js/all.js"></script>
+    <script src="<c:url value='/js/all.js' /> "></script>
     
     
     <!-- Favicon -->
-    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="icon" href="<c:url value='/images/favicon.png' /> " type="image/png">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="<c:url value='/css/all.css' /> ">
     <!-- StyleSheet -->
-    <link rel="stylesheet" href="css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css' /> " id="stylesheet">
     
 </head>
 
@@ -91,7 +91,7 @@
                 <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
                     <!-- Image -->
                     <figure class="w-100">
-                        <img alt="Image placeholder" src="images/main.svg" class="img-fluid mw-md-120">
+                        <img alt="Image placeholder" src="<c:url value='/images/main.svg' /> " class="img-fluid mw-md-120">
                     </figure>
                 </div>
                 <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
@@ -221,12 +221,12 @@
 
     
     <!-- Core JS  -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/svg-injector.min.js"></script>
-    <script src="js/feather.min.js"></script>
+    <script src="<c:url value='/js/jquery.min.js' /> "></script>
+    <script src="<c:url value='/js/bootstrap.bundle.min.js' /> "></script>
+    <script src="<c:url value='/js/svg-injector.min.js' /> "></script>
+    <script src="<c:url value='/js/feather.min.js' /> "></script>
     <!-- JS -->
-    <script src="js/main.js"></script>
+    <script src="<c:url value='/js/main.js' /> "></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({
