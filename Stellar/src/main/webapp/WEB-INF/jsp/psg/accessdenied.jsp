@@ -79,24 +79,6 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-     
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false" aria-labelledby="modal-cookies" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
-            <div class="modal-content bg-dark-dark">
-                <div class="modal-body">
-                    <!-- Text -->
-                    <p class="text-sm text-white mb-3">
-                        We use cookies so that our themes work for you. By using our website, you agree to our use of cookies.
-                    </p>
-                    <!-- Buttons -->
-                    <a href="<c:url value='/pages/utility/terms.html' />" class="btn btn-sm btn-white" target="_blank">Learn more</a>
-                    <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
 
     <!-- Navbar -->
     <jsp:include page="../include/header.jsp" />
@@ -136,7 +118,7 @@
             <div class="row mt-4">
                 <div class="col-lg-6 pr-lg-5">
                     <p class="h5 lh-180 mb-3">
-                        운영진만 접근가능합니다.
+                        PSG Admin 또는 PSG Member만 접근가능합니다.
                     </p>
                 </div>
             </div>

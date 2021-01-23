@@ -45,7 +45,6 @@
                 <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                     <div class="dropdown-menu dropdown-menu-single">
-                        <a href="<c:url value='/Intro.do' />" class="dropdown-item">Intro</a>
                         <a href="<c:url value='/About.do' />" class="dropdown-item">About us</a>
                         <a href="<c:url value='/Contact.do' />" class="dropdown-item">Contact</a>                  	
             		</div>
@@ -55,7 +54,7 @@
 	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
 	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Management</a>
 	                    <div class="dropdown-menu dropdown-menu-single">
-	                        <div class="dropdown-item">PSG 멤버 ${user.username}</div>
+	                        <div class="dropdown-item">PSG Member : ${user.username}</div>
 	                        <a href="<c:url value='/Member/Management.do'/>" class="navbar-btn btn btn-sm btn-primary">
                					Management Page
             				</a>
@@ -72,7 +71,7 @@
 	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
 	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Management</a>
 	                    <div class="dropdown-menu dropdown-menu-single">
-	                        <div class="dropdown-item">운영진 ${user.username}</div>
+	                        <div class="dropdown-item">PSG Admin : ${user.username}</div>
 	                        <a href="<c:url value='/Admin/Management.do'/>" class="navbar-btn btn btn-sm btn-primary">
                					Management Page
             				</a>
@@ -133,7 +132,6 @@
             <!-- Mobile button -->
 
         </div>
-    </div>
 </nav>
 </body>
 </html>

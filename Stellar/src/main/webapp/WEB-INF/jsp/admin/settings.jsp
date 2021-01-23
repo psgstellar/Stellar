@@ -21,14 +21,81 @@
 
 	<link href="<c:url value='/css/app.css'/> " rel="stylesheet">
 	
+	<style>
+		/* The Modal (background) */
+		.modal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+		
+		/* Modal Content/Box */
+		.modal-content {
+		    background-color: #fefefe;
+		    margin: 15% auto; /* 15% from the top and centered */
+		    padding: 20px;
+		    border: 1px solid #888;
+		    width: 50%; /* Could be more or less, depending on screen size */                          
+		}
+		/* The Close Button */
+		.close {
+		    color: #aaa;
+		    float: right;
+		    font-size: 28px;
+		    font-weight: bold;
+		}
+		.close:hover,
+		.close:focus {
+		    color: black;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
+	</style>
+	
 	<script src="<c:url value='/js/jquery.min.js'/> "></script>
 	
 	<script>
-	/* function slackValidChkFn(slack_name) {
-		var reg = /^(?=.*[a-zA-Z]).{5,15}$/;
+		function show_info(info) {
+	    	var modal = document.getElementById("info_modal");
+	    	document.getElementById("contents").innerHTML = info;
+	    	modal.style.display = "block";
+	    }
+	    
+	    function close_info() {
+	    	var modal = document.getElementById("info_modal");
+	    	modal.style.display = "none";
+	    }
+	    
+	    window.onclick = function(event) {
+	    	var modal = document.getElementById("info_modal");
+	    	if(event.target == modal)
+	    		modal.style.display = "none";
+	    }
+	</script>
+	
+	
+	<script>
+	
+	function len_Chk(info) {
 		
-		if(!reg.test(slack_name)) {
-			show_info("슬랙 사용자명이 유효하지 않습니다");
+		if(info.length == 0 || info.length > 30)
+			return 1;
+	
+		return 0;
+	}
+	
+	function idValidChkFn(loginId) {
+		var reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/;
+		
+		if(!reg.test(loginId)) {
+			show_info("아이디가 유효하지 않습니다");
 			
 			return false;
 		}
@@ -36,108 +103,91 @@
 		return true;
 	}
 	
-	function githubValidChkFn(github_name) {
-		var reg = /^(?=.*[a-zA-Z]).{5,15}$/;
-		
-		if(!reg.test(github_name)) {
-			show_info("깃헙 사용자명이 유효하지 않습니다");
+	$(document).ready(function() {
+		$('#username_save').click(function() {
+			var username = $('#user_name').val();
 			
-			return false;
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			if(!idValidChkFn(username)) {
+				return false;
+			}
+			
+			$.ajax({
+				url : "<c:url value='/Admin/Username_Update.do'/>",
+				method : "get",
+				data : {"username" : username},
+				async : false,
+			
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+			
+				success : function(data) {
+				
+				if(data == 1) {
+					show_info("해당 아이디가 존재합니다.");
+				}else{
+					window.location.href = "<c:url value='/Logout.do'/>";
+				}	
+			},
+			error : function(request, status, error) {
+				show_info("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+			
+		});
+			
+		});
+	});
+	
+	$(document).ready(function() {
+		$('#kakao_save').click(function() {
+			var kakao_name = $('#kakao_name').val();
+			
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+			alert(kakao_name.length);
+			
+			if(len_Chk(kakao_name) == 0) {
+				$.ajax({
+					url : "<c:url value='/Admin/Kakao_Save.do'/>",
+					method : "get",
+					data : {"kakao_name" : kakao_name},
+					async : false,
+				
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+				
+					success : function(data) {
+					
+					if(data == 1) {
+						show_info("데이터가 존재합니다.");
+					}else{
+						location.reload();
+					}	
+				},
+				error : function(request, status, error) {
+					show_info("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+				
+			});
+		}else{
+			show_info("해당란이 공백이거나 30자 초과입니다.");
 		}
-		
-		return true;
-	}
-	
-	duplicateSlackChkFn : function() {
-		var slack_name = $('#slack_name').val();
-		
-		var token=$("input[name='_csrf']").val();
-		var header = "X-CSRF-TOKEN";
-		    				
-		if(!this.slackValidChkFn(slack_name))
-			return false;
-		
-		$.ajax({
-			url : "<c:url value='/DupSlackChk.do'/>",
-			method : "get",
-			data : {"slack_name" : slack_name},
-			async : false,
 			
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader(header, token);
-			},
-			
-			success : function(data) {
-				var dupCnt = data;
-				
-				if(dupCnt > 0) {
-					show_info(slack_name + "은/는 사용하실 수 없습니다.");
-				}
-				else {
-					show_info(slack_name + "은/는 사용가능 합니다.");
-					$("#slack_name").attr("readonly",true);
-				}
-				    		
-			},
-			error : function(request, status, error) {
-				show_info("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-			
-		})
-	},
-	
-	duplicateGithubChkFn : function() {
-		var github_name = $('#github_name').val();
-		
-		var token=$("input[name='_csrf']").val();
-		var header = "X-CSRF-TOKEN";
-		    				
-		if(!this.githubValidChkFn(github_name))
-			return false;
-		
-		$.ajax({
-			url : "<c:url value='/DupGithubChk.do'/>",
-			method : "get",
-			data : {"github_name" : github_name},
-			async : false,
-			
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader(header, token);
-			},
-			
-			success : function(data) {
-				var dupCnt = data;
-				
-				if(dupCnt > 0) {
-					
-					show_info(info);
-				}
-				else {
-					
-					show_info(info);
-					$("#github_name").attr("readonly",true);
-				}
-				    		
-			},
-			error : function(request, status, error) {
-				show_info("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-			
-		})
-	},  */
-	
-	/* alert(github_name + "은/는 사용하실 수 없습니다."); */
-	/* alert(github_name + "은/는 사용가능 합니다."); */
-	
+		});
+	});
+
 	$(document).ready(function(){
 		$('#slack_table').on("click", ".delete_slack", function() {		
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var tr = $(this).parent().parent();
 			var slack_name = tr.children().eq(0).text();
-			
-			alert(slack_name);
-						
+									
 			$.ajax({
 				url : "<c:url value='/Admin/Slack_Delete.do'/>",
 				method : "get",
@@ -147,7 +197,6 @@
 					xhr.setRequestHeader(header, token);
 				},				
 				success : function(data) {
-					alert("Success");
 					slack_delete_row(tr);
 				},
 				error : function(request, status, error) {
@@ -160,35 +209,39 @@
 		});
 	}); 
 	
+	
 	$(document).ready(function(){
 		$('#append_slack_row').on("click", function() {		
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var slack_name = $('#slack_info').val();
 			
-			alert(slack_name);
-						
-			$.ajax({
-				url : "<c:url value='/Admin/Slack_Append.do'/>",
-				method : "get",
-				data : {"slack_name" : slack_name},
-				async : false,
-				beforeSend : function(xhr) {
-					xhr.setRequestHeader(header, token);
-				},				
-				success : function(data) {
-					if(data == true) {
-						alert("Success");
-						slack_append_row();
-					} else {
-						alert("데이터가 존재합니다.");
-					}					
-				},
-				error : function(request, status, error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-				
-			});
+			if(len_Chk(slack_name) == 0) {
+				$.ajax({
+					url : "<c:url value='/Admin/Slack_Append.do'/>",
+					method : "get",
+					data : {"slack_name" : slack_name},
+					async : false,
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},				
+					success : function(data) {
+						if(data == true) {
+							slack_append_row();
+						} else {
+							show_info("데이터가 존재합니다.");
+						}					
+					},
+					error : function(request, status, error) {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+					
+				});
+			} else {
+				show_info("해당란이 공백이거나 30자 초과입니다.");
+			}
+			
+			
 
 			
 		});
@@ -200,8 +253,6 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var tr = $(this).parent().parent();
 			var github_name = tr.children().eq(0).text();
-			
-			alert(github_name);
 						
 			$.ajax({
 				url : "<c:url value='/Admin/Github_Delete.do'/>",
@@ -212,7 +263,6 @@
 					xhr.setRequestHeader(header, token);
 				},				
 				success : function(data) {
-					alert("Success");
 					github_delete_row(tr);
 				},
 				error : function(request, status, error) {
@@ -231,29 +281,32 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var github_name = $('#github_info').val();
 			
-			alert(github_name);
-						
-			$.ajax({
-				url : "<c:url value='/Admin/Github_Append.do'/>",
-				method : "get",
-				data : {"github_name" : github_name},
-				async : false,
-				beforeSend : function(xhr) {
-					xhr.setRequestHeader(header, token);
-				},				
-				success : function(data) {
-					if(data == true) {
-						alert("Success");
-						github_append_row();
-					} else {
-						alert("데이터가 존재합니다.");
+			if(len_Chk(github_name) == 0) {
+				$.ajax({
+					url : "<c:url value='/Admin/Github_Append.do'/>",
+					method : "get",
+					data : {"github_name" : github_name},
+					async : false,
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},				
+					success : function(data) {
+						if(data == true) {
+							github_append_row();
+						} else {
+							show_info("데이터가 존재합니다.");
+						}
+					},
+					error : function(request, status, error) {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					}
-				},
-				error : function(request, status, error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-				
-			});
+					
+				});
+			} else {
+				show_info("해당란이 공백이거나 30자 초과입니다.");
+			} 
+			
+			
 
 			
 		});
@@ -296,6 +349,26 @@
 </head>
 
 <body>
+
+<div id="info_modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="close_info()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="contents"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="close_info()">Okay</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_info()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -340,167 +413,23 @@
           <i class="hamburger align-self-center"></i>
         </a>
 
-				<form class="d-none d-sm-inline-block">
-					<div class="input-group input-group-navbar">
-						<input type="text" class="form-control" placeholder="Search…" aria-label="Search">
-						<button class="btn" type="button">
-              <i class="align-middle" data-feather="search"></i>
-            </button>
-					</div>
-				</form>
-
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
-								<div class="dropdown-menu-header">
-									4 New Notifications
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-danger" data-feather="alert-circle"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Update completed</div>
-												<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-												<div class="text-muted small mt-1">30m ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-warning" data-feather="bell"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Lorem ipsum</div>
-												<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-primary" data-feather="home"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Login from 192.186.1.8</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-success" data-feather="user-plus"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">New connection</div>
-												<div class="text-muted small mt-1">Christina accepted your request.</div>
-												<div class="text-muted small mt-1">14h ago</div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all notifications</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="messagesDropdown">
-								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										4 New Messages
-									</div>
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark">Vanessa Tucker</div>
-												<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
-												<div class="text-muted small mt-1">15m ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark">William Harris</div>
-												<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
-												<div class="text-muted small mt-1">2h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark">Christina Mason</div>
-												<div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-												<div class="text-muted small mt-1">4h ago</div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark">Sharon Lessman</div>
-												<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
-												<div class="text-muted small mt-1">5h ago</div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all messages</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
                 <i class="align-middle" data-feather="settings"></i>
-              </a>                          
+              </a>		                    	                                                    
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                				<sec:authorize access="isAuthenticated()">
-            						<sec:authentication property="principal" var="user" />            
-                						<img src="<c:url value='/images/rabbit.png'/> " class="avatar img-fluid rounded mr-1" alt="Charles Hall" /> <span class="text-dark">${user.username}</span>
-                				</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+            					<sec:authentication property="principal" var="user" />            
+                					<img src="<c:url value='/images/rabbit.png' /> " class="avatar img-fluid rounded mr-1" alt="${user.username}" /> <span class="text-dark">${user.username}</span>
+                				</sec:authorize>     
               				</a>
 							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle mr-1" data-feather="pie-chart"></i> Analytics</a>
+								<!-- <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Profile</a> -->
+								<a class="dropdown-item" href="<c:url value='/Main.do'/> "><i class="align-middle mr-1" data-feather="home"></i> Home</a>								
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle mr-1" data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle mr-1" data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Log out</a>
+								<a class="dropdown-item" href="<c:url value='/Logout.do'/> ">Log out</a>
 							</div>
 						</li>
 					</ul>
@@ -524,9 +453,6 @@
 									<a class="list-group-item list-group-item-action active" data-toggle="list" href="#account" role="tab">
           								Account
         							</a>
-									<a class="list-group-item list-group-item-action" data-toggle="list" href="#password" role="tab">
-          								Password
-        							</a>
 									<a class="list-group-item list-group-item-action" data-toggle="list" href="#slack" role="tab">
           								Slack Settings
         							</a>
@@ -547,56 +473,42 @@
 											<h5 class="card-title mb-0">PSG Info</h5>
 										</div>
 										<div class="card-body">
-											<form>
 												<div class="row">
 													<div class="col-md-8">
 														<div class="mb-3">
-															<label class="form-label" for="inputUsername">Username: </label>
+															<label class="form-label" for="user_name">Username: </label>
 															<sec:authorize access="isAuthenticated()">
             													<sec:authentication property="principal" var="user" />            
-                													<label class="form-label" for="inputUsername">${user.username}</label>
+                													<label class="form-label" for="user_name">${user.username}</label>
                 											</sec:authorize>
 																														
-															<input type="text" class="form-control" id="inputUsername" placeholder="Username">
+															<input type="text" class="form-control" id="user_name" placeholder="Username">
 														</div>													
 													</div>							
 												</div>
 
-												<button type="submit" class="btn btn-primary">Save changes</button>
-											</form>
-
+												<button id="username_save" type="button" class="btn btn-primary">Save changes</button>
+											
 										</div>
-									</div>
-
-									<div class="card">
 										
-									</div>
-
-								</div>
-								<div class="tab-pane fade" id="password" role="tabpanel">
-									<div class="card">
 										<div class="card-body">
-											<h5 class="card-title">Password</h5>
+											
+												<div class="row">
+													<div class="col-md-8">
+														<div class="mb-3">
+															<label class="form-label" for="kakao_name">Kakao_Name: </label>
+                													<label class="form-label" for="kakao_name">${kakao_info}</label>
+                											
+																														
+															<input type="text" class="form-control" id="kakao_name" placeholder="Kakao_Name">
+														</div>													
+													</div>							
+												</div>
 
-											<form>
-												<div class="mb-3">
-													<label class="form-label" for="inputPasswordCurrent">Current password</label>
-													<input type="password" class="form-control" id="inputPasswordCurrent">
-													<small><a href="#">Forgot your password?</a></small>
-												</div>
-												<div class="mb-3">
-													<label class="form-label" for="inputPasswordNew">New password</label>
-													<input type="password" class="form-control" id="inputPasswordNew">
-												</div>
-												<div class="mb-3">
-													<label class="form-label" for="inputPasswordNew2">Verify password</label>
-													<input type="password" class="form-control" id="inputPasswordNew2">
-												</div>
-												<button type="submit" class="btn btn-primary">Save changes</button>
-											</form>
-
+												<button id="kakao_save" type="button" class="btn btn-primary">Save changes</button>
 										</div>
 									</div>
+
 								</div>
 								
 								<div class="tab-pane fade" id="slack" role="tabpanel">
@@ -628,10 +540,7 @@
 									</c:choose>									
 									</c:forEach>
 								</table>
-								
-								
-
-										</div>
+									</div>
 										
 										<div class="card-body">
 											<table class="table table-hover my-0" id="slack_append_table">

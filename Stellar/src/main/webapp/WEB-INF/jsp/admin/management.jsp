@@ -66,149 +66,8 @@
           <i class="hamburger align-self-center"></i>
         </a>
 
-				<form class="d-none d-sm-inline-block">
-					<div class="input-group input-group-navbar">
-						<input type="text" class="form-control" placeholder="Search" aria-label="Search">
-						<button class="btn" type="button">
-              <i class="align-middle" data-feather="search"></i>
-            </button>
-					</div>
-				</form>
-
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
-								<div class="dropdown-menu-header">
-									4 New Notifications
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-danger" data-feather="alert-circle"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-warning" data-feather="bell"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-primary" data-feather="home"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-success" data-feather="user-plus"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all notifications</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="messagesDropdown">
-								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										4 New Messages
-									</div>
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all messages</a>
-								</div>
-							</div>
-						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
                 <i class="align-middle" data-feather="settings"></i>
@@ -407,55 +266,6 @@
 											<td><span class="badge bg-success"></span></td>
 											<td class="d-none d-md-table-cell"></td>
 										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-danger"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-warning"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-warning"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -471,7 +281,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-left">
 							<p class="mb-0">
-								<a href="<c:url value='/Management.do'/>" class="text-muted"><strong>PSG Admin Page</strong></a>
+								<a href="<c:url value='/Admin/Management.do'/>" class="text-muted"><strong>PSG Admin Page</strong></a>
 							</p>
 						</div>
 						<div class="col-6 text-right">
