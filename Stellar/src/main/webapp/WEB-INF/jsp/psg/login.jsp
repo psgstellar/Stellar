@@ -58,6 +58,16 @@
                 document.querySelector('body').classList.add('loaded');
             }, 300);
         });
+        
+        function show_password() {
+        	var x = document.getElementById("password");
+        	
+        	if(x.type == "password")
+        		x.type = "text";
+        	else
+        		x.type = "password";
+        }
+        
     </script>
     <!-- Favicon -->
     <link rel="icon" href="<c:url value='/images/favicon.png' />" type="image/png"><!-- Font Awesome -->
@@ -67,27 +77,12 @@
 </head>
 
 <body>
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false" aria-labelledby="modal-cookies" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
-            <div class="modal-content bg-dark-dark">
-                <div class="modal-body">
-                    <!-- Text -->
-                    <p class="text-sm text-white mb-3">
-                        We use cookies so that our themes work for you. By using our website, you agree to our use of cookies.
-                    </p>
-                    <!-- Buttons -->
-                    <a href="pages/utility/terms.html" class="btn btn-sm btn-white" target="_blank">Learn more</a>
-                    <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
     	<div class="container">
         	<!-- Brand -->
-        	<a class="navbar-brand" href="./Main.do">
-          	  <img alt="Image placeholder" src="images/logo.png" id="navbar-logo">
+        	<a class="navbar-brand" href="<c:url value='/Main.do' /> ">
+          	  <img alt="Image placeholder" src="<c:url value='/images/logo.png' />" id="navbar-logo">
         	</a>
     	</div>
     </nav>
@@ -104,6 +99,7 @@
                                 <p class="text-muted mb-0">Sign in to your account to continue.</p>
                             </div>
                             <span class="clearfix"></span>
+                            
                             
                             <form name="f" action="<c:url value='/Login.do'/>" method="POST">
                                 <div class="form-group">
@@ -122,7 +118,7 @@
                                             <label class="form-control-label">Password</label>
                                         </div>
                                         <div class="mb-2">
-                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password">Show password</a>
+                                            <a href="#" class="small text-muted text-underline--dashed border-primary" data-toggle="password-text" data-target="#input-password" onclick="show_password()">Show password</a>
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -144,7 +140,7 @@
                             </form>
                         </div>
                         <div class="card-footer px-md-5"><small>Not registered?</small>
-                            <a href="./Register.do" class="small font-weight-bold">Create account</a></div>
+                            <a href="<c:url value='/Register.do' /> " class="small font-weight-bold">Create account</a></div>
                     </div>
                 </div>
             </div>
@@ -156,7 +152,7 @@
     <script src="<c:url value='/js/svg-injector.min.js'/>"></script>
     <script src="<c:url value='/js/feather.min.js' />"></script>
     <!-- JS -->
-    <script src="<c:url value='js/main.js' />" ></script>
+    <script src="<c:url value='/js/main.js' />" ></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({

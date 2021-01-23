@@ -60,13 +60,13 @@
         });
     </script>
     
-    <script defer src="js/all.js"></script>
+    <script defer src="<c:url value='/js/all.js' /> "></script>
     
     <!-- Favicon -->
-    <link rel="icon" href="images/favicon.png" type="image/png"><!-- Font Awesome -->
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="icon" href="<c:url value='/images/favicon.png' /> " type="image/png"><!-- Font Awesome -->
+    <link rel="stylesheet" href="<c:url value='/css/all.css' /> ">
     <!-- Quick CSS -->
-    <link rel="stylesheet" href="css/main.css" id="stylesheet">
+    <link rel="stylesheet" href="<c:url value='/css/main.css' /> " id="stylesheet">
 </head>
 
 <body>
@@ -97,7 +97,7 @@
                     <div class="mt-5 text-center text-lg-left">
                         <a href="http://pf.kakao.com/_PEmxfxb/chat" data-scroll-to class="btn btn-white btn-lg btn-icon">
                             <span class="btn-inner--icon">
-                                <img src="images/kakaotalk.svg" alt="kakaotalk">
+                                <img src="<c:url value='/images/kakaotalk.svg' /> " alt="kakaotalk">
                             </span>
                             <span class="btn-inner--text">카카오톡 채널(PSG)</span>
                         </a>
@@ -181,7 +181,7 @@
             <!-- Title -->
             <div class="row">
                 <div class="col-lg-6 col-md-10">
-                    <span class="badge badge-primary badge-pill">Supporter</span>
+                    <span class="badge badge-primary badge-pill">Support</span>
                 </div>
             </div>
             <!-- Team -->
@@ -190,7 +190,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/kjh.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kjh.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -203,7 +203,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/turtle.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/turtle.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -216,7 +216,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/kyg.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kyg.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -229,7 +229,7 @@
                     <div data-animate-hover="2">
                         <div class="animate-this">
                             <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="images/nice.png">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/nice.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
@@ -244,14 +244,12 @@
 
     <jsp:include page="../include/footer.jsp" />
     <!-- Core JS  -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/svg-injector.min.js"></script>
-    <script src="jsfeather.min.js"></script>
-    <!-- Page JS -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1oALsXLX-XEh2iYbE8tOjxsdFNHE39WM"></script>
+    <script src="<c:url value='/js/jquery.min.js' /> "></script>
+    <script src="<c:url value='/js/bootstrap.bundle.min.js' /> "></script>
+    <script src="<c:url value='/js/svg-injector.min.js' /> "></script>
+    <script src="<c:url value='/js/feather.min.js' /> "></script>
     <!-- JS -->
-    <script src="js/main.js"></script>
+    <script src="<c:url value='/js/main.js' /> "></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({
