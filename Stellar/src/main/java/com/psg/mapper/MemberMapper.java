@@ -25,4 +25,6 @@ public interface MemberMapper {
 	ArrayList<MemberVO> memberRest() throws Exception;
 	
 	void updateRole(@Param("username")String username, @Param("auth")String auth) throws Exception;
+	
+	void Username_Update(@Param("username") String username, @Param("old_username") String old_username) throws Exception;
 }

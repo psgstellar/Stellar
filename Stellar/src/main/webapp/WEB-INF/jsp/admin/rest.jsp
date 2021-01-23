@@ -97,14 +97,14 @@
 		$('#append_rest_row').on("click", function() {		
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
-			var username = $('#member_option').val();
+			var kakao_name = $('#member_option').val();
 			var start_date = $('#start').val();
 			var end_date = $('#end').val();
 					
 			$.ajax({
 				url : "<c:url value='/Admin/Append_Rest.do'/>",
 				method : "get",
-				data : {"username" : username, "start_date" : start_date, "end_date" : end_date},
+				data : {"kakao_name" : kakao_name, "start_date" : start_date, "end_date" : end_date},
 				async : false,
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader(header, token);
@@ -136,14 +136,14 @@
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var tr = $(this).parent().parent();
-			var username = tr.children().eq(0).text();
+			var kakao_name = tr.children().eq(0).text();
 			var start_date = tr.children().eq(1).text();
 			var end_date = tr.children().eq(2).text();
 						
 			$.ajax({
 				url : "<c:url value='/Admin/Delete_Rest.do'/>",
 				method : "get",
-				data : {"username" : username, "start_date" : start_date, "end_date" : end_date},
+				data : {"kakao_name" : kakao_name, "start_date" : start_date, "end_date" : end_date},
 				async : false,
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader(header, token);
@@ -238,153 +238,20 @@
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
-								<div class="dropdown-menu-header">
-									4 New Notifications
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-danger" data-feather="alert-circle"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-warning" data-feather="bell"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-primary" data-feather="home"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-success" data-feather="user-plus"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all notifications</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="messagesDropdown">
-								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										4 New Messages
-									</div>
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all messages</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
                 <i class="align-middle" data-feather="settings"></i>
-              </a>
-
+              </a>		                    	                                                    
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
 							<sec:authorize access="isAuthenticated()">
             					<sec:authentication property="principal" var="user" />            
-                					<img src="<c:url value='/images/rabbit.png'/> " class="avatar img-fluid rounded mr-1" alt="Charles Hall" /> <span class="text-dark">${user.username}</span>
+                					<img src="<c:url value='/images/rabbit.png' /> " class="avatar img-fluid rounded mr-1" alt="${user.username}" /> <span class="text-dark">${user.username}</span>
                 				</sec:authorize>     
               				</a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<!-- <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Profile</a> -->
-								<a class="dropdown-item" href="<c:url value='/Main.do' />" ><i class="align-middle mr-1" data-feather="home"></i> Home</a>								
+								<a class="dropdown-item" href="<c:url value='/Main.do'/> "><i class="align-middle mr-1" data-feather="home"></i> Home</a>								
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="<c:url value='/Logout.do'/>">Log out</a>
+								<a class="dropdown-item" href="<c:url value='/Logout.do'/> ">Log out</a>
 							</div>
 						</li>
 					</ul>
@@ -407,17 +274,30 @@
 									<thead>
 										<tr>
 											<th>Username</th>
+											<th>Kakao_Name</th>
 											<th class="d-none d-xl-table-cell">Start Date</th>
 											<th class="d-none d-xl-table-cell">End Date</th>
 											<th>Settings</th>
 										</tr>
 									</thead>
-									<c:forEach items="${memberRest}" var="member_rest" varStatus="status">
+									<c:forEach items="${memberRest}" var="member_rest">
 									<c:choose>
 									<c:when test="${not empty member_rest}">
 									<tbody>
 										<tr>
 											<td>${member_rest.username}</td>
+											<td>
+											<c:set var="loop_flag" value="false" />
+											<c:forEach items="${memberKakao}" var="member_kakao">
+												<c:if test="${not loop_flag}">
+													<c:if test="${member_rest.username eq member_kakao.username}">
+														${member_kakao.kakao_name}
+														<c:set var="loop_flag" value="true" />
+													</c:if>
+												</c:if>
+											</c:forEach>
+											</td>
+											
 											<td class="d-none d-xl-table-cell"><fmt:formatDate value="${member_rest.start_date}" pattern="yyyy-MM-dd"/>
 											</td>
 											<td class="d-none d-xl-table-cell"><fmt:formatDate value="${member_rest.end_date}" pattern="yyyy-MM-dd" />
@@ -440,7 +320,7 @@
 									<table class="table table-hover my-0">
 									<thead>
 										<tr>
-											<th>Username</th>
+											<th>Kakao_Name</th>
 											<th class="d-none d-xl-table-cell">Start Date</th>
 											<th class="d-none d-xl-table-cell">End Date</th>
 										</tr>
@@ -450,10 +330,10 @@
 										<tr>
 											<td>
 												<select id="member_option">
-													<c:forEach items="${memberList}" var="member" varStatus="status">
+													<c:forEach items="${memberKakao}" var="member" varStatus="status">
 														<c:choose>
 															<c:when test="${not empty member}">
-																<option value="${member.username}">${member.username}</option>																					
+																<option value="${member.kakao_name}">${member.kakao_name}</option>																					
 															</c:when>
 														</c:choose>									
 													</c:forEach>												

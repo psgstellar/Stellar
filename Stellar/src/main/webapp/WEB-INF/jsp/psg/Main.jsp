@@ -79,25 +79,7 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-     
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false" aria-labelledby="modal-cookies" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
-            <div class="modal-content bg-dark-dark">
-                <div class="modal-body">
-                    <!-- Text -->
-                    <p class="text-sm text-white mb-3">
-                        We use cookies so that our themes work for you. By using our website, you agree to our use of cookies.
-                    </p>
-                    <!-- Buttons -->
-                    <a href="pages/utility/terms.html" class="btn btn-sm btn-white" target="_blank">Learn more</a>
-                    <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
     
-    
-
     <!-- Navbar -->
     <jsp:include page="../include/header.jsp" />
     <!-- Main content -->
@@ -148,7 +130,7 @@
                             </h2>
                             <h4 class="text-white mt-3">이곳에서 새로운 경험을 해보세요 !</h4>
                             <!-- Play button -->
-                            <a href="intro.html" class="btn btn-primary btn-icon mt-4">시작하기</a>
+                            <a href="<c:url value='/Contact.do'/> " class="btn btn-primary btn-icon mt-4">시작하기</a>
                         </div>
                     </div>
                 </div>

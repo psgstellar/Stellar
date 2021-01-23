@@ -15,7 +15,7 @@
 
 	<link rel="shortcut icon" href="<c:url value='/images/logo.png' /> " />
 
-	<title>PSG Admin Page</title>
+	<title>PSG Member Page</title>
 
 	<link href="<c:url value='/css/app.css' />" rel="stylesheet">
 </head>
@@ -25,7 +25,7 @@
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="<c:url value='/Member/Management.do' />">
-          <span class="align-middle">PSG Admin</span>
+          <span class="align-middle">PSG Member</span>
         </a>
 
 				<ul class="sidebar-nav">
@@ -45,11 +45,11 @@
             </a>
 					</li>
 					
-						<li class="sidebar-item">
+					<li class="sidebar-item">
 						<a class="sidebar-link" href="<c:url value='/Member/Rest.do' /> ">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Settings</span>
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Rest</span>
             </a>
-					</li>			
+					</li>					
 				</ul>
 			</div>
 		</nav>
@@ -60,149 +60,8 @@
           <i class="hamburger align-self-center"></i>
         </a>
 
-				<form class="d-none d-sm-inline-block">
-					<div class="input-group input-group-navbar">
-						<input type="text" class="form-control" placeholder="Search" aria-label="Search">
-						<button class="btn" type="button">
-              <i class="align-middle" data-feather="search"></i>
-            </button>
-					</div>
-				</form>
-
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">4</span>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
-								<div class="dropdown-menu-header">
-									4 New Notifications
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-danger" data-feather="alert-circle"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-warning" data-feather="bell"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-primary" data-feather="home"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-success" data-feather="user-plus"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all notifications</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="messagesDropdown">
-								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										4 New Messages
-									</div>
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="" class="avatar img-fluid rounded-circle" alt="">
-											</div>
-											<div class="col-10 pl-2">
-												<div class="text-dark"></div>
-												<div class="text-muted small mt-1"></div>
-												<div class="text-muted small mt-1"></div>
-											</div>
-										</div>
-									</a>
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Show all messages</a>
-								</div>
-							</div>
-						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
                 <i class="align-middle" data-feather="settings"></i>
@@ -210,7 +69,7 @@
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
 							<sec:authorize access="isAuthenticated()">
             					<sec:authentication property="principal" var="user" />            
-                					<img src="<c:url value='/images/rabbit.png' /> " class="avatar img-fluid rounded mr-1" alt="Charles Hall" /> <span class="text-dark">${user.username}</span>
+                					<img src="<c:url value='/images/rabbit.png' /> " class="avatar img-fluid rounded mr-1" alt="${user.username}" /> <span class="text-dark">${user.username}</span>
                 				</sec:authorize>     
               				</a>
 							<div class="dropdown-menu dropdown-menu-right">
@@ -235,7 +94,7 @@
 						<div class="col-auto ml-auto text-right mt-n1">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-									<li class="breadcrumb-item"><a href="#">PSG Admin Page</a></li>
+									<li class="breadcrumb-item"><a href="#">PSG Member Page</a></li>
 									<li class="breadcrumb-item"><a href="#">Dashboards</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Analytics</li>
 								</ol>
@@ -401,55 +260,6 @@
 											<td><span class="badge bg-success"></span></td>
 											<td class="d-none d-md-table-cell"></td>
 										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-danger"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-warning"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-warning"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -465,7 +275,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-left">
 							<p class="mb-0">
-								<a href="<c:url value='/Member/Management.do'/>" class="text-muted"><strong>PSG Admin Page</strong></a>
+								<a href="<c:url value='/Member/Management.do'/>" class="text-muted"><strong>PSG Member Page</strong></a>
 							</p>
 						</div>
 						<div class="col-6 text-right">

@@ -2,43 +2,31 @@ package com.psg.web;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.psg.service.MemberService;
 import com.psg.vo.GithubVO;
-import com.psg.vo.GitVO;
+import com.psg.vo.KakaoVO;
 import com.psg.vo.MemberDetailsVO;
 import com.psg.vo.MemberVO;
 import com.psg.vo.RestVO;
@@ -80,8 +68,6 @@ public class MainController {
 	public String Login(HttpServletRequest request) {
 		String uri = request.getHeader("Referer");
 		
-		log.info("Hello Param");
-		
 		if(uri != null) {
 			if(!uri.contains("/Login.do")) {
 				request.getSession().setAttribute("prevPage", request.getHeader("Referer"));
@@ -91,32 +77,6 @@ public class MainController {
 		return "psg/login";
 	}
 	
-//	@GetMapping(value="/Login.do")
-//	public String Login() {
-//		
-//		log.info("Hello Login.do");
-//		
-//		return "psg/login";
-//	}
-////	
-//	@PostMapping(value="/Login.do")
-//	public String postLogin() {
-//		
-//		return "psg/login";
-//	}
-//	
-	
-//	@RequestMapping(value="/Login.do")
-//	public String Login(HttpServletRequest request) {
-//		String uri = request.getHeader("Referer");
-//		if (!uri.contains("/Login.do")) {
-//			request.getSession().setAttribute("prevPage",
-//					request.getHeader("Referer"));
-//		}
-//		
-//		return "psg/login";
-//	}
-//	
 	@GetMapping(value="/Register.do")
 	public String getRegister() {
 		log.info("register");
@@ -166,9 +126,11 @@ public class MainController {
 	}
 	
 	@GetMapping(value="/Admin/Settings.do")
-	public String AdminSettings(Model model) {
+	public String Admin_Settings(Model model) {
 		ArrayList<GithubVO> get_github_info = null;
 		ArrayList<SlackVO> get_slack_info = null;
+		String get_kakao_info = null;
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
@@ -176,38 +138,84 @@ public class MainController {
 		try {
 			get_github_info = memberService.get_github_info(username);
 			get_slack_info = memberService.get_slack_info(username);
+			get_kakao_info = memberService.get_kakao_info(username);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("slack_info", get_slack_info);
 		model.addAttribute("github_info", get_github_info);
+		model.addAttribute("kakao_info", get_kakao_info);
 		
 		return "admin/settings";
+	}
+	
+	@GetMapping(value="/Admin/Username_Update.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public int Admin_Username_Update(String username) {		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String old_username = authentication.getName();
+		
+		try {
+			if(DupIdChk(username) > 0)
+				return 1;
+			
+			memberService.Username_Update(username, old_username);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@GetMapping(value="/Admin/Kakao_Save.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public int Admin_Kakao_Save(String kakao_name) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		try {
+			if(memberService.DupKakaoChk(kakao_name) > 0) {
+				return 1;
+			} else {
+				if(memberService.ExistKakaoChk(username) > 0) {
+					memberService.update_kakao_info(username, kakao_name);
+				} else {
+					memberService.put_kakao_info(username, kakao_name);
+				}				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		return 0;
 	}
 	
 	@GetMapping(value="/Admin/Rest.do")
 	public String Admin_Member_Rest(Model model) {
 		ArrayList<RestVO> memberRest = null;
-		ArrayList<MemberVO> memberList = null;
+		ArrayList<KakaoVO> memberKakao = null;
+		
 		try {
 			memberRest = memberService.get_rest();
-			memberList = memberService.memberList();
+			memberKakao = memberService.get_kakao();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("memberRest", memberRest);
-		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberKakao", memberKakao);
 		
 		return "admin/rest";
 	}
-	// @DateTimeFormat(pattern="dd/MM/yyyy h:mm tt") 
-	
 	
 	@GetMapping(value="/Admin/Append_Rest.do", produces="application/json; charset=utf8")
 	@ResponseBody
-	public int Append_Rest(String username, String start_date, String end_date) {
+	public int Append_Rest(String kakao_name, String start_date, String end_date) {
 		Date start=null;
 		Date end=null;
 		
@@ -226,7 +234,7 @@ public class MainController {
 			}
 			
 			try {
-				if(memberService.DupRestChk(username, start, end) > 0)
+				if(memberService.DupRestChk(kakao_name, start, end) > 0)
 					return 1;
 				
 			} catch (Exception e) {
@@ -234,8 +242,10 @@ public class MainController {
 				e.printStackTrace();
 			}
 			
+			log.info("test");
+			
 			try {
-				memberService.put_rest(username, start, end);
+				memberService.put_rest(kakao_name, start, end);
 			} catch (Exception e) {
 						// TODO Auto-generated catch block	
 			}
@@ -274,7 +284,7 @@ public class MainController {
 	
 	
 	@GetMapping(value="/Admin/Role.do")
-	public String MemberInfo(Model model) {
+	public String Admin_Member_Info(Model model) {
 		ArrayList<MemberVO> memberList=null;
 		try {
 			memberList = memberService.memberList();
@@ -347,35 +357,154 @@ public class MainController {
 		}		
 	}
 	
+	
 	@GetMapping(value="/Member/Management.do")
 	public String MemberManagement() {
 		return "member/management";
 	}
 	
 	@GetMapping(value="/Member/Settings.do")
-	public String MemberSettings() {
-		return "member/settings";
-	}
-	
-	@GetMapping(value="/Member/Rest.do")
-	public String Member_Rest(Model model) {
-		ArrayList<RestVO> memberRest = null;
+	public String Member_Settings(Model model) {
+		ArrayList<GithubVO> get_github_info = null;
+		ArrayList<SlackVO> get_slack_info = null;
+		String get_kakao_info = null;
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
+		
 		try {
-			memberRest = memberService.get_member_rest(username);
+			get_github_info = memberService.get_github_info(username);
+			get_slack_info = memberService.get_slack_info(username);
+			get_kakao_info = memberService.get_kakao_info(username);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("slack_info", get_slack_info);
+		model.addAttribute("github_info", get_github_info);
+		model.addAttribute("kakao_info", get_kakao_info);
+		
+		return "member/settings";
+	}
+	
+	@GetMapping(value="/Member/Username_Update.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public int Member_Username_Update(String username) {		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String old_username = authentication.getName();
+		
+		try {
+			if(DupIdChk(username) > 0)
+				return 1;
+			
+			memberService.Username_Update(username, old_username);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	
+	@GetMapping(value="/Member/Kakao_Save.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public int Member_Kakao_Save(String kakao_name) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		try {
+			if(memberService.DupKakaoChk(kakao_name) > 0) {
+				return 1;
+			} else {
+				if(memberService.ExistKakaoChk(username) > 0) {
+					memberService.update_kakao_info(username, kakao_name);
+				} else {
+					memberService.put_kakao_info(username, kakao_name);
+				}				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		return 0;
+	}
+	
+	@GetMapping(value="/Member/Slack_Delete.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public void Member_Slack_Delete(String slack_name) throws Exception {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		memberService.delete_slack_info(username, slack_name);
+	}
+	
+	@GetMapping(value="/Member/Slack_Append.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public boolean Member_Slack_Append(String slack_name) throws Exception {		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		if(memberService.DupSlackChk(slack_name) > 0) {
+			
+			log.info(memberService.DupSlackChk(slack_name));
+			return false;
+		} else {
+			memberService.put_slack_info(username, slack_name);
+			return true;
+		}
+		
+		
+		
+	}
+	
+	@GetMapping(value="/Member/Github_Delete.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public void Member_Github_Delete(String github_name) throws Exception {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		memberService.delete_github_info(username, github_name);
+	}
+	
+	@GetMapping(value="/Member/Github_Append.do", produces="application/json; charset=utf8")
+	@ResponseBody
+	public boolean Member_Github_Append(String github_name) throws Exception {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		if(memberService.DupGithubChk(github_name) > 0) {
+			log.info(memberService.DupGithubChk(github_name));
+			
+			return false;
+		} else {
+			memberService.put_github_info(username, github_name);
+			return true;
+		}		
+	}
+	
+	
+	@GetMapping(value="/Member/Rest.do")
+	public String Member_Rest(Model model) {
+		ArrayList<RestVO> memberRest = null;
+		ArrayList<KakaoVO> memberKakao = null;
+		
+		try {
+			memberRest = memberService.get_rest();
+			memberKakao = memberService.get_kakao();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("memberRest", memberRest);
+		model.addAttribute("memberKakao", memberKakao);
 		
 		return "member/rest";
 	}
-	
-	
 	
 	@RequestMapping(value="/AccessDenied.do")
 	public String Denied(Model model, Authentication auth, HttpServletRequest req) {
