@@ -151,12 +151,12 @@
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>
-											<th>Username</th>
-											<th>Kakao_name</th>
+											<th>User</th>
+											<th>Kakao</th>
 											<th class="d-none d-xl-table-cell">Email</th>
 											<th class="d-none d-xl-table-cell">Registration Date</th>
-											<th>Role</th>
-											<th class="d-none d-md-table-cell">Settings</th>
+											<th class="d-none d-xl-table-cell">Role</th>
+											<th>Settings</th>
 										</tr>
 									</thead>
 									<c:forEach items="${memberList}" var="member">
@@ -179,7 +179,7 @@
 											<td class="d-none d-xl-table-cell">${member.email}</td>
 											<td class="d-none d-xl-table-cell"><fmt:formatDate value="${member.date}" pattern="yyyy-MM-dd"/>
 											</td>
-											<td>
+											<td class="d-none d-xl-table-cell">
 												<c:if test="${member.auth eq 'ROLE_ADMIN'}">
 											 		<span class="badge bg-primary">${member.auth}</span>
 											 	</c:if>
@@ -190,7 +190,7 @@
 											 		<span class="badge bg-warning">${member.auth}</span>
 											 	</c:if>
 											 	</td>
-											<td class="d-none d-md-table-cell">
+											<td>
 												<c:if test="${member.auth ne 'ROLE_ADMIN'}">
 												<select name="RoleSettings">
 													<option value="ROLE_MEMBER" <c:if test="${member.auth eq 'ROLE_MEMBER'}">selected</c:if>>ROLE_MEMBER</option>
