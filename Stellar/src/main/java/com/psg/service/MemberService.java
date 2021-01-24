@@ -15,7 +15,15 @@ public interface MemberService {
 
 	public boolean register(MemberVO vo) throws Exception;
 	
+	public int Count_Commit_Today() throws Exception;
+	
+	public int Count_Commit_Weekly() throws Exception;
+	
+	public int Count_Commit_Monthly() throws Exception;
+	
 	public int DupIdChk(String loginId) throws Exception;
+	
+	public int Number_Member() throws Exception;
 	
 	public int DupSlackChk(String slack_name) throws Exception;
 	

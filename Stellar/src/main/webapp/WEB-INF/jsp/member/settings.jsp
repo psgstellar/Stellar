@@ -85,8 +85,6 @@
 	
 	function len_Chk(info) {
 		
-		alert(info.length);
-		
 		if(info.length == 0 || info.length >= 50)
 			return 1;
 	

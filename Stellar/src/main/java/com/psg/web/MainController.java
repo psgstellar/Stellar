@@ -45,7 +45,12 @@ public class MainController {
 	
 	
 	@GetMapping(value="/Main.do")
-	public String Main(Authentication authentication) throws Exception{
+	public String Main(Authentication authentication, Model model) throws Exception{
+		int memberCount = memberService.Number_Member();
+		int commitCountToday = memberService.Count_Commit_Today();
+		int commitCountWeekly = memberService.Count_Commit_Weekly();
+		int commitCountMonthly = memberService.Count_Commit_Monthly();
+		
 		if(authentication != null) {
 			System.out.println("타입 정보: " + authentication.getClass());
 			
@@ -56,12 +61,36 @@ public class MainController {
 			MemberDetailsVO memberDetails = (MemberDetailsVO)authentication.getPrincipal();
 			System.out.println("ID정보 : " + memberDetails.getUsername());
 		}
+		
+		model.addAttribute("memberCount", memberCount);
+		model.addAttribute("commitCountToday", commitCountToday);
+		model.addAttribute("commitCountWeekly", commitCountWeekly);
+		model.addAttribute("commitCountMonthly", commitCountMonthly);
+		
 		return "psg/Main";
 	}
 	
 	@GetMapping(value="/About.do")
-	public String About() {
+	public String About(Model model) {
+		int memberCount = 0;
+		int commitCountToday = 0;
+		try {
+			memberCount = memberService.Number_Member();
+			commitCountToday = memberService.Count_Commit_Today();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("memberCount", memberCount);
+		model.addAttribute("commitCountToday", commitCountToday);
+		
 		return "psg/about";
+	}
+	
+	@GetMapping(value="/Developer.do")
+	public String Developer() {
+		return "psg/developer";
 	}
 	
 	@RequestMapping(value="/Login.do")
@@ -219,7 +248,7 @@ public class MainController {
 		Date start=null;
 		Date end=null;
 		
-		if((start_date == null || start_date.equals("")) || (end_date == null || end_date.equals(""))) {
+		if((start_date == null || start_date.equals("")) || (end_date == null || end_date.equals("")) || (kakao_name == null || kakao_name.equals(""))) {
 			return 0;
 		}else {
 			SimpleDateFormat transFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -251,9 +280,6 @@ public class MainController {
 			}
 				return 2;
 		}
-		
-		
-		
 			
 	}
 	
@@ -286,13 +312,16 @@ public class MainController {
 	@GetMapping(value="/Admin/Role.do")
 	public String Admin_Member_Info(Model model) {
 		ArrayList<MemberVO> memberList=null;
+		ArrayList<KakaoVO> memberKakao=null;
 		try {
 			memberList = memberService.memberList();
+			memberKakao = memberService.get_kakao();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberKakao", memberKakao);
 		
 		return "admin/role";
 	}

@@ -10,6 +10,10 @@
 	select count(*) from psg_info where username = #{_parameter}
 </select>
 
+<select id="Number_Member" resultType="int">
+	select count(*) from psg_info where auth = "ROLE_ADMIN" or auth = "ROLE_MEMBER"
+</select>
+
 <select id="selectUserInfoOne" parameterType="String" resultType="com.psg.vo.MemberVO">
 	select username, password, email, auth from psg_info where username = #{_parameter}
 </select>

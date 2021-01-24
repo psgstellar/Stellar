@@ -43,10 +43,11 @@
                     <a class="nav-link" href="<c:url value='/Main.do'/> ">Home</a>
                 </li>
                 <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Info</a>
                     <div class="dropdown-menu dropdown-menu-single">
                         <a href="<c:url value='/About.do' />" class="dropdown-item">About us</a>
-                        <a href="<c:url value='/Contact.do' />" class="dropdown-item">Contact</a>                  	
+                        <a href="<c:url value='/Contact.do' />" class="dropdown-item">Contact</a>
+                        <a href="<c:url value='/Developer.do' />" class="dropdown-item">Developer</a>                       	
             		</div>
             	</li>		 
             				<sec:authorize access="hasRole('ROLE_MEMBER')">

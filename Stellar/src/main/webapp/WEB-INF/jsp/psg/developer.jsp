@@ -82,18 +82,16 @@
     <!-- Navbar -->
     <jsp:include page="../include/header.jsp" />
     <!-- Main content -->
-    <section class="slice py-8 bg-primary">
+    <section class="slice py-8 bg-secondary">
         <div class="container py-5">
             <div class="row row-grid align-items-center">
                 <div class="col-lg-8 text-center text-lg-left">
+                	<span class="badge badge-primary badge-pill">HoF</span>
+                
                     <!-- Heading -->
-                    <h1 class="text-white mb-4">
-                        우리는 최고의 교육 플랫폼을 위해서 <br>끊임없이 노력합니다.
+                    <h1 class="text-black mb-4">
+                       	Hall of Fame
                     </h1>
-                    <!-- Text -->
-                    <p class="lead text-white opacity-8">
-                        우리는 PSG Admin입니다.
-                    </p>
 
                 </div>
             </div>
@@ -108,23 +106,18 @@
     
     <section class="slice slice-lg">
         <div class="container">
-            <span class="badge badge-primary badge-pill">Our Vision</span>
+            <span class="badge badge-danger badge-pill">Motto</span>
             <div class="row mt-4">
                 <div class="col-lg-6 pr-lg-5">
                     <p class="h5 lh-180 mb-3">
-                        최고의 프로그래밍 스터디그룹을 향해 끊임없이 노력할것입니다.
-                    </p>
-                </div>
-                <div class="col-lg-6">
-                    <p class="lead lh-180">
-                        우리는 <strong class="text-primary">PSG</strong>입니다.
+                        Stay Hungry, Stay Foolish.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="slice slice-lg pt-10 bg-primary">
+    <section class="slice slice-lg pt-10 bg-secondary">
         <!-- SVG separator -->
         <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
             <svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve" class="">
@@ -138,44 +131,7 @@
                     <!-- Badge -->
                     <span class="badge badge-warning badge-pill">Info</span>
                     <!-- Title -->
-                    <h2 class="my-4 text-white">현재 PSG는</h2>
-                </div>
-            </div>
-            <!-- Milestones -->
-            <div class="row mt-6">
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="card shadow-lg rounded-lg border-0 mb-sm-0">
-                                <div class="p-4 text-center text-sm-left">
-                                    <h3 class="mb-0">${memberCount}</h3>
-                                    <p class="text-muted mb-0">
-                                        Member
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card shadow-lg rounded-lg border-0 mb-sm-0">
-                                <div class="p-4 text-center text-sm-left">
-                                    <h3 class="mb-0">${commitCountToday}</h3>
-                                    <p class="text-muted mb-0">
-                                        Today Request
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card shadow-lg rounded-lg border-0 mb-sm-0">
-                                <div class="p-4 text-center text-sm-left">
-                                    <h3 class="mb-0">xxx</h3>
-                                    <p class="text-muted mb-0">
-                                        Very Hard Studying Users
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h2 class="my-4 text-black">Developer Info</h2>
                 </div>
             </div>
         </div>
@@ -185,63 +141,85 @@
             <!-- Section title -->
             <div class="row mb-5 justify-content-center text-center">
                 <div class="col-lg-8 col-md-10">
-                    <h2 class=" mt-4">The PSG Admin</h2>
+                    <h2 class=" mt-4">The Stellar Project</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-sm-6 mb-5">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
+                            <a href="https://github.com/enfycius">
                                 <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kjh.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
                             <h5 class="h6 mb-0">김종혁</h5>
-                            <p class="text-muted text-sm mb-0">Founder &amp; Manager</p>
+                            <p class="text-muted text-sm mb-0">Full-Stack Developer</p>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-3 col-sm-6 mb-5">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/turtle.png' /> ">
+                            <a href="https://github.com/mjk6828">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/hsy.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
-                            <h5 class="h6 mb-0">김지환</h5>
-                            <p class="text-muted text-sm mb-0">Manager</p>
+                            <h5 class="h6 mb-0">한승연</h5>
+                            <p class="text-muted text-sm mb-0">Back-End Developer</p>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-3 col-sm-6 mb-5">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
-                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kyg.png' /> ">
+                            <a href="https://github.com/hoartist">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/lyh.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
-                            <h5 class="h6 mb-0">김영관</h5>
-                            <p class="text-muted text-sm mb-0">Manager</p>
+                            <h5 class="h6 mb-0">이용호</h5>
+                            <p class="text-muted text-sm mb-0">Back-End Developer</p>
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="col-lg-3 col-sm-6 mb-5">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
+                            <a href="https://github.com/Delaying">
+                                <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/santa.png' /> ">
+                            </a>
+                        </div>
+                        <div class="mt-3">
+                            <h5 class="h6 mb-0">박지연</h5>
+                            <p class="text-muted text-sm mb-0">Front-End Developer</p>
+                        </div>
+                    </div>
+                </div>
+     
+                <div class="col-lg-3 col-sm-6 mb-5">
+                    <div data-animate-hover="2">
+                        <div class="animate-this">
+                            <a href="https://github.com/LeeDongHo">
                                 <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/nice.png' /> ">
                             </a>
                         </div>
                         <div class="mt-3">
                             <h5 class="h6 mb-0">이동호</h5>
-                            <p class="text-muted text-sm mb-0">Manager</p>
+                            <p class="text-muted text-sm mb-0">Back-End Developer</p>
                         </div>
                     </div>
                 </div>
+                
+                
             </div>
+            
+            
 
         </div>
     </section>

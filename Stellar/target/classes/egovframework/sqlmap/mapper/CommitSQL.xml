@@ -2,6 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.psg.mapper.CommitMapper">
 
+<select id="Count_Commit_Today" resultType="int">
+	select count(*) from commit_info where date_format(commit_date, '%Y-%m-%d') = curdate()
+</select>
+
+<select id="Count_Commit_Weekly" resultType="int">
+	select count(*) from commit_info where commit_date between date_add(now(), interval -1 week) and now()
+</select>
+
+<select id="Count_Commit_Monthly" resultType="int">
+	select count(*) from commit_info where commit_date between date_add(now(), interval -1 month) and now()
+</select>
+
 <select id="DupSlackChk" parameterType="String" resultType="int">
 	select count(*) from psg_slack where slack_name = #{_parameter}
 </select>

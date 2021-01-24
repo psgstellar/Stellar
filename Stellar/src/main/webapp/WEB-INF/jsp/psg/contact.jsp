@@ -125,8 +125,8 @@
                                 </div>
                             </div>
                             <h5 class="">김종혁</h5>
-                            <p class="mt-2 mb-0">카카오톡 아이디: <strong class="text-warning">hexk0131</strong></p>
-                            <p class="mt-2 mb-0">이메일 주소: <strong class="text-warning">hexk0131@gmail.com</strong></p>
+                            <p class="mt-2 mb-0">카카오톡 아이디 <br> <strong class="text-warning">hexk0131</strong></p>
+                            <p class="mt-2 mb-0">이메일 주소 <br> <strong class="text-warning">hexk0131@gmail.com</strong></p>
                         </div>
                     </div>
                 </div>
@@ -139,8 +139,8 @@
                                 </div>
                             </div>
                             <h5 class="">김지환</h5>
-                            <p class="mt-2 mb-0">카카오톡 아이디: <strong class="text-warning"></strong></p>
-                            <p class="mt-2 mb-0">이메일 주소: <strong class="text-warning"></strong></p>
+                            <p class="mt-2 mb-0">카카오톡 아이디 <br> <strong class="text-warning">shinbian11</strong></p>
+                            <p class="mt-2 mb-0">이메일 주소 <br> <strong class="text-warning">shinbian11@naver.com</strong></p>
                         </div>
                     </div>
                 </div>
@@ -153,8 +153,8 @@
                                 </div>
                             </div>
                             <h5 class="">김영관</h5>
-                            <p class="mt-2 mb-0">카카오톡 아이디: <strong class="text-warning"></strong></p>
-                            <p class="mt-2 mb-0">이메일 주소: <strong class="text-warning"></strong></p>
+                            <p class="mt-2 mb-0">카카오톡 아이디 <br> <strong class="text-warning">positiveperson</strong></p>
+                            <p class="mt-2 mb-0">이메일 주소 <br> <strong class="text-warning">timeundtime@gmail.com</strong></p>
                         </div>
                     </div>
                 </div>
@@ -167,10 +167,30 @@
                                 </div>
                             </div>
                             <h5 class="">도호</h5>
-                            <p class="mt-2 mb-0">카카오톡 아이디: <strong class="text-warning"></strong></p>
-                            <p class="mt-2 mb-0">이메일 주소: <strong class="text-warning"></strong></p>
+                            <p class="mt-2 mb-0">카카오톡 아이디 <br> <strong class="text-warning">nach4176</strong></p>
+                            <p class="mt-2 mb-0">이메일 주소 <br> <strong class="text-warning">edh1021@gmail.com</strong></p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slice slice-lg pt-10 bg-dark">
+        <!-- SVG separator -->
+        <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
+            <svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve" class="">
+                <polygon points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+        <!-- Container -->
+        <div class="container">
+            <div class="row row-grid">
+                <div class="col-lg-8">
+                    <!-- Badge -->
+                    <span class="badge badge-warning badge-pill">Info</span>
+                    <!-- Title -->
+                    <h2 class="my-4 text-white">Manager Info</h2>
                 </div>
             </div>
         </div>
@@ -189,7 +209,7 @@
                 <div class="col-lg-3 col-sm-6 mb-5 mb-lg-0">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
+                            <a href="https://github.com/enfycius">
                                 <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kjh.png' /> ">
                             </a>
                         </div>
@@ -202,7 +222,7 @@
                 <div class="col-lg-3 col-sm-6 mb-5 mb-lg-0">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
+                            <a href="https://github.com/shinbian11">
                                 <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/turtle.png' /> ">
                             </a>
                         </div>
@@ -215,7 +235,7 @@
                 <div class="col-lg-3 col-sm-6 mb-5 mb-lg-0">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
+                            <a href="https://github.com/zedonora">
                                 <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/kyg.png' /> ">
                             </a>
                         </div>
@@ -228,7 +248,7 @@
                 <div class="col-lg-3 col-sm-6 mb-5 mb-lg-0">
                     <div data-animate-hover="2">
                         <div class="animate-this">
-                            <a href="#">
+                            <a href="https://github.com/LeeDongHo">
                                 <img alt="Image placeholder" class="img-fluid rounded shadow" src="<c:url value='/images/nice.png' /> ">
                             </a>
                         </div>
@@ -241,8 +261,6 @@
             </div>
         </div>
     </section>
-
-    <jsp:include page="../include/footer.jsp" />
     <!-- Core JS  -->
     <script src="<c:url value='/js/jquery.min.js' /> "></script>
     <script src="<c:url value='/js/bootstrap.bundle.min.js' /> "></script>
