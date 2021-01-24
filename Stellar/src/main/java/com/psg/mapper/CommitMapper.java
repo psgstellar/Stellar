@@ -15,6 +15,12 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 @Mapper("CommitMapper")
 public interface CommitMapper {
 	
+	int Count_Commit_Today() throws Exception;
+	
+	int Count_Commit_Weekly() throws Exception;
+	
+	int Count_Commit_Monthly() throws Exception;
+	
 	int DupSlackChk(String slack_name) throws Exception;
 	
 	int DupGithubChk(String github_name) throws Exception;

@@ -118,7 +118,7 @@
 												<h1 class="mt-1 mb-3"></h1>
 												<div class="mb-1">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>  </span>
-													<span class="text-muted">Since last week</span>
+													<span class="text-muted">${commitCount}</span>
 												</div>
 											</div>
 										</div>
@@ -188,90 +188,6 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Github Usage</h5>
-								</div>
-								<div class="card-body d-flex">
-									<div class="align-self-center w-100">
-										<div class="py-3">
-											<div class="chart chart-xs">
-												<canvas id="chartjs-dashboard-pie"></canvas>
-											</div>
-										</div>
-
-										<table class="table mb-0">
-											<tbody>
-												<tr>
-													<td></td>
-													<td class="text-right"></td>
-												</tr>
-												<tr>
-													<td></td>
-													<td class="text-right"></td>
-												</tr>
-												<tr>
-													<td></td>
-													<td class="text-right"></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
-							<div class="card flex-fill">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Rest Check</h5>
-								</div>
-								<div class="card-body d-flex">
-									<div class="align-self-center w-100">
-										<div class="chart">
-											<div id="datetimepicker-dashboard"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-9 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Latest Projects</h5>
-								</div>
-								<table class="table table-hover my-0">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th class="d-none d-xl-table-cell">Start Date</th>
-											<th class="d-none d-xl-table-cell">End Date</th>
-											<th>Status</th>
-											<th class="d-none d-md-table-cell">Assignee</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td class="d-none d-xl-table-cell"></td>
-											<td><span class="badge bg-success"></span></td>
-											<td class="d-none d-md-table-cell"></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-
-					</div>
 
 				</div>
 			</main>
@@ -318,26 +234,13 @@
 			new Chart(document.getElementById("chartjs-dashboard-line"), {
 				type: "line",
 				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					labels: [""],
 					datasets: [{
-						label: "Sales ($)",
+						label: "",
 						fill: true,
 						backgroundColor: gradient,
 						borderColor: window.theme.primary,
-						data: [
-							2115,
-							1562,
-							1584,
-							1892,
-							1587,
-							1923,
-							2566,
-							2448,
-							2805,
-							3438,
-							2917,
-							3327
-						]
+						data: [""]
 					}]
 				},
 				options: {
@@ -384,9 +287,9 @@
 			new Chart(document.getElementById("chartjs-dashboard-pie"), {
 				type: "pie",
 				data: {
-					labels: ["Chrome", "Firefox", "IE"],
+					labels: [""],
 					datasets: [{
-						data: [4306, 3801, 1689],
+						data: [""],
 						backgroundColor: [
 							window.theme.primary,
 							window.theme.warning,
@@ -412,14 +315,14 @@
 			new Chart(document.getElementById("chartjs-dashboard-bar"), {
 				type: "bar",
 				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					labels: [],
 					datasets: [{
-						label: "This year",
+						label: "",
 						backgroundColor: window.theme.primary,
 						borderColor: window.theme.primary,
 						hoverBackgroundColor: window.theme.primary,
 						hoverBorderColor: window.theme.primary,
-						data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+						data: [""],
 						barPercentage: .75,
 						categoryPercentage: .5
 					}]
@@ -447,15 +350,6 @@
 						}]
 					}
 				}
-			});
-		});
-	</script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			document.getElementById("datetimepicker-dashboard").flatpickr({
-				inline: true,
-				prevArrow: "<span class=\"fas fa-chevron-left\" title=\"Previous month\"></span>",
-				nextArrow: "<span class=\"fas fa-chevron-right\" title=\"Next month\"></span>",
 			});
 		});
 	</script>

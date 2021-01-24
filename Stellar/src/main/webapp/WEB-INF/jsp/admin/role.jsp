@@ -41,7 +41,6 @@
 					xhr.setRequestHeader(header, token);
 				},				
 				success : function(data) {
-					alert("Success");
 					location.reload();
 				},
 				error : function(request, status, error) {
@@ -153,6 +152,7 @@
 									<thead>
 										<tr>
 											<th>Username</th>
+											<th>Kakao_name</th>
 											<th class="d-none d-xl-table-cell">Email</th>
 											<th class="d-none d-xl-table-cell">Registration Date</th>
 											<th>Role</th>
@@ -165,6 +165,17 @@
 									<tbody>
 										<tr>
 											<td>${member.username}</td>
+											<td>
+											<c:set var="loop_flag" value="false" />
+											<c:forEach items="${memberKakao}" var="member_kakao">
+												<c:if test="${not loop_flag}">
+													<c:if test="${member.username eq member_kakao.username}">
+														${member_kakao.kakao_name}
+														<c:set var="loop_flag" value="true" />
+													</c:if>
+												</c:if>
+											</c:forEach>
+											</td>
 											<td class="d-none d-xl-table-cell">${member.email}</td>
 											<td class="d-none d-xl-table-cell"><fmt:formatDate value="${member.date}" pattern="yyyy-MM-dd"/>
 											</td>

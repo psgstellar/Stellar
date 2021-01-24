@@ -16,6 +16,8 @@ public interface MemberMapper {
 	
 	int DupIdChk(String loginId) throws Exception;
 	
+	int Number_Member() throws Exception;
+	
 	MemberVO selectUserInfoOne(String username) throws Exception;
 	
 	List<String> selectUserAuthOne(String username) throws Exception;

@@ -148,8 +148,6 @@
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
-			alert(kakao_name.length);
-			
 			if(len_Chk(kakao_name) == 0) {
 				$.ajax({
 					url : "<c:url value='/Admin/Kakao_Save.do'/>",

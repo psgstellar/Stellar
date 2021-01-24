@@ -136,14 +136,14 @@
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var tr = $(this).parent().parent();
-			var kakao_name = tr.children().eq(0).text();
-			var start_date = tr.children().eq(1).text();
-			var end_date = tr.children().eq(2).text();
+			var username = tr.children().eq(0).text();
+			var start_date = tr.children().eq(2).text();
+			var end_date = tr.children().eq(3).text();
 						
 			$.ajax({
 				url : "<c:url value='/Admin/Delete_Rest.do'/>",
 				method : "get",
-				data : {"kakao_name" : kakao_name, "start_date" : start_date, "end_date" : end_date},
+				data : {"username" : username, "start_date" : start_date, "end_date" : end_date},
 				async : false,
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader(header, token);

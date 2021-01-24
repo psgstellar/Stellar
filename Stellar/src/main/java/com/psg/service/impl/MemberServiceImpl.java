@@ -55,8 +55,28 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 	}
 	
 	@Override
+	public int Count_Commit_Today() throws Exception {
+		return commitMapper.Count_Commit_Today();
+	}
+	
+	@Override
+	public int Count_Commit_Weekly() throws Exception {
+		return commitMapper.Count_Commit_Weekly();
+	}
+	
+	@Override
+	public int Count_Commit_Monthly() throws Exception {
+		return commitMapper.Count_Commit_Monthly();
+	}
+	
+	@Override
 	public int DupIdChk(String loginId) throws Exception {
 		return memberMapper.DupIdChk(loginId);
+	}
+	
+	@Override
+	public int Number_Member() throws Exception {
+		return memberMapper.Number_Member();
 	}
 	
 	@Override

@@ -145,12 +145,12 @@
                     <div class="card">
                         <div class="d-flex p-5">
                             <div>
-                                <span class="badge badge-success badge-pill">Info</span>
+                                <span class="badge badge-primary badge-pill">Info</span>
                             </div>
                             <div class="pl-4">
                                 <h5 class="lh-130">Total Team Members</h5>
                                 <p class="text-muted mb-0">
-                                      23
+                                      ${memberCount}
                                 </p>
                             </div>
                         </div>
@@ -160,12 +160,12 @@
                     <div class="card">
                         <div class="d-flex p-5">
                             <div>
-                                <span class="badge badge-success badge-pill">Info</span>
+                                <span class="badge badge-warning badge-pill">Info</span>
                             </div>
                             <div class="pl-4">
                                 <h5 class="lh-130">Commit Traffic (Today)</h5>
                                 <p class="text-muted mb-0">
-                                    100
+                                    ${commitCountToday}
                                 </p>
                             </div>
                         </div>
@@ -182,9 +182,9 @@
                                 <span class="badge badge-success badge-pill">Info</span>
                             </div>
                             <div class="pl-3">
-                                <h5 class="lh-130">Commit Traffic (Monthly)</h5>
+                                <h5 class="lh-130">Commit Traffic (Weekly)</h5>
                                 <p class="text-muted mb-0">
-                                    1000
+                                    ${commitCountWeekly}
                                 </p>
                             </div>
                         </div>
@@ -195,12 +195,12 @@
                     <div class="card">
                         <div class="d-flex p-5">
                             <div>
-                                <span class="badge badge-success badge-pill">Info</span>
+                                <span class="badge badge-danger badge-pill">Info</span>
                             </div>
                             <div class="pl-3">
-                                <h5 class="lh-130">Commit Traffic (Annually)</h5>
+                                <h5 class="lh-130">Commit Traffic (Monthly)</h5>
                                 <p class="text-muted mb-0">
-                                    100000
+                                    ${commitCountMonthly}
                                 </p>
                             </div>
                         </div>
@@ -212,12 +212,50 @@
 
         </div>
     </section>
+	<footer class="position-relative" id="footer-main">
+        <div class="footer pt-lg-7 footer-dark bg-dark">
+
+            <!-- Footer -->
+            <div class="container pt-4">
+                <div class="row">
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <!-- Theme's logo -->
+                        <a href="<c:url value='/Main.do' />">
+                            <img alt="Image placeholder" width="auto" height="64px" src="<c:url value='/images/logo.png' />" id="footer-logo">
+                        </a>
+                        <!-- Webpixels' mission -->
+                        <p class="mt-4 text-sm opacity-8 pr-lg-4">We Are PSG</p>
+                        <!-- Social -->
+                        <ul class="nav mt-4">
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="<c:url value='/Main.do' /> " target="_blank">
+                                    <img alt="Image placeholder" width="auto" height="32px" src="<c:url value='/images/logo.png' />" >
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/psgstellar/Stellar" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" target="_blank">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
 
-
-
-
-	<jsp:include page="../include/footer.jsp" />
+            </div>
+        </div>
+        </div>
+        
+    </footer>
 
     
     <!-- Core JS  -->
