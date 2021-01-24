@@ -215,7 +215,7 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var slack_name = $('#slack_info').val();
 			
-			if(lenChk(slack_name) == 0) {
+			if(len_Chk(slack_name) == 0) {
 				$.ajax({
 					url : "<c:url value='/Member/Slack_Append.do'/>",
 					method : "get",
