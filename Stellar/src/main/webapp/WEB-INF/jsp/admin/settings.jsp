@@ -313,8 +313,8 @@
 	function slack_append_row() {
 		$('#slack_table').append(
 			$('<tr>').append(
-				$('<td>').append($('#slack_info').val()),
-				$('<td>').append($('<a>').addClass('delete_slack').append('Delete'))
+				$('<td>').append($('#slack_info').val()).trigger("create"),
+				$('<td>').append($('<a>').addClass('delete_slack').append('Delete')).trigger("create")
 			)
 			
 		);
@@ -330,8 +330,8 @@
 	function github_append_row() {
 		$('#github_table').append(
 			$('<tr>').append(
-				$('<td>').append($('#github_info').val()),
-				$('<td>').append($('<a>').addClass('delete_github').append('Delete'))
+				$('<td>').append($('#github_info').val()).trigger("create"),
+				$('<td>').append($('<a>').addClass('delete_github').append('Delete')).trigger("create")
 			)
 			
 		);
