@@ -25,6 +25,6 @@ def psguserrest():
                     psg_rest.start_date, 
                     psg_rest.end_date 
             FROM psg_info LEFT JOIN psg_rest ON psg_info.username = psg_rest.username
-            LEFT JOIN psg_kakao ON psg_rest.username = psg_kakao.username;
+            LEFT JOIN psg_kakao ON psg_info.username = psg_kakao.username
             """
     return sql
