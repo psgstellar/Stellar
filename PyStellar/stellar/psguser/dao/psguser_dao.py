@@ -95,7 +95,7 @@ class PsgUserList:
             print('-------RestListException-------', e)
         else:
             print('--------RestListSuccess------')
-            columns = ('username', 'start_date', 'end_date')
+            columns = ('username', 'kakao_name', 'start_date', 'end_date')
             rows = cursor.fetchall()
             for i in rows:
                 restlist.append(dict(zip(columns, i)))
