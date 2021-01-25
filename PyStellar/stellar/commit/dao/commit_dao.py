@@ -41,10 +41,13 @@ class CommitDao:
             print('-----Exception-----', error)
         else:
             print('-------success-------')
+            insert_count = cursor.rowcount
             return_json = {
+                'count': insert_count,
                 'result': 'success'
             }
             connection.commit()
+
         finally:
             cursor.close()
             connection.close()

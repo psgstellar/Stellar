@@ -74,3 +74,35 @@ class userList(ListAPIView):
 
     # def list(self, request, *args, **kwargs):
     #     return Response()
+
+class psg_rest(ListAPIView):
+    """
+    '''
+        PSG User Rest List
+
+    '''
+    """
+    permission_classes = [AllowAny, ]
+
+    @swagger_auto_schema(
+        # query_serializer=psgserializer,
+        tags=['Psg User', ],
+        responses={'200': openapi.Schema(type=openapi.TYPE_STRING,
+                                         description='성공')},
+        operation_summary="PSG User Rest List",
+        produces='application/json',
+        operation_description=
+        """
+        Psg User List
+        ---
+                    Psg 회원들의 ID와 Rest 설정 목록조회
+
+        """
+
+    )
+    def get(self, request, *args, **kwargs):
+
+        restlist = PsgUserListService()
+        return_rest = restlist.psguserrestlistservice()
+        result = {'content': return_rest}
+        return Response(result)

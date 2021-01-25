@@ -1,6 +1,4 @@
-
 def psgusersql():
-
     sql = """
 SELECT user_info.id,user_info.slack_name, user_info.slack_nickname, user_info.kakao_name,
 user_info.kakao_nickname, user_info.content, user_git.git_name
@@ -9,10 +7,25 @@ user_info.kakao_nickname, user_info.content, user_git.git_name
 
     return sql
 
-def psgusergitsql():
 
+def psgusergitsql():
     sql = """
             select id,
                    git_name
             from user_git
     """
+    return sql
+
+
+def psguserrest():
+    sql = """
+            SELECT  psg_info.username,
+                    psg_rest.start_date, 
+                    psg_rest.end_date
+            FROM
+                psg_info
+            LEFT JOIN
+            psg_rest
+            ON psg_info.username = psg_rest.username;
+            """
+    return sql

@@ -69,11 +69,9 @@ class commitMessageHistory(ListAPIView):
 
 class CommitMessage(CreateAPIView):
     """
-    InsertCommit
+    커밋 내역 디비 저장
     ---
-        커밋 내역 디비 저장
-        '''
-        #json
+        ```
         {
             "latest": "1610582399",
             "oldest": "1610496000"

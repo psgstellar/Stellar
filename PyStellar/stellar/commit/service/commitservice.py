@@ -3,7 +3,7 @@ import requests
 from commit.dao.commit_dao import CommitDao
 from commit.resources.commit_sql import insert_commit
 
-token = 'xoxb-992233197952-1249394514658-6FUEuQr2P86cQifKVWqS0BUf'
+token = 'xoxp-992233197952-991778360580-1234657913751-3fb301165d48d3f4c7940ae888b32d87'
 channel = 'CUW4CLH4Z'
 url = 'https://slack.com/api/conversations.history'
 
@@ -53,7 +53,6 @@ class commithistory:
     def insertcommit(self, attachments):
 
         insert_commit_json = CommitDao()
-        return_json = insert_commit_json.insertcommit( attachments)
+        return_json = insert_commit_json.insertcommit(attachments)
 
         return return_json
-
