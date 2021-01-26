@@ -46,6 +46,7 @@ class PsgUserList:
     def usergitdao(self, sqlgit):
         return_git_json = {}
         gitList = []
+        columns = ["username", "github_name", "kakao_name", "start_date", "end_date"]
         try:
             print('------try---------')
             connection = pymysql.connect(
@@ -65,11 +66,7 @@ class PsgUserList:
             rows = cursor.fetchall()
 
             for i in rows:
-                return_git_json = {
-                    'id': i[0],
-                    'git_name': i[1]
-                }
-                gitList.append(return_git_json)
+                gitList.append(dict(zip(columns, i)))
 
 
         finally:

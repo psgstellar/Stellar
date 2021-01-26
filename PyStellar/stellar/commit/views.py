@@ -108,3 +108,41 @@ class CommitMessage(CreateAPIView):
         attachments = r.messagelist(data)
         result = r.insertcommit(attachments)
         return Response(result)
+
+class commitcheck(ListAPIView):
+    """
+    커밋 체크 디비 저장
+    """
+    permission_classes = [AllowAny, ]
+
+    @swagger_auto_schema(
+        query_serializer=commitHistory,
+        tags=['Psg User', ],
+        responses={"200": openapi.Schema(type=openapi.TYPE_STRING,
+                                         description='성공')},
+        operation_summary="commit 체크",
+        produces='application/json',
+        operation_description=
+        """
+        CommitCheck
+        ---
+                    CommitCheck 명단
+                    '''
+                        #json
+                        {
+                            'latest': 1610582399,
+                            'oldest': 1610496000
+                        }
+                        '''        
+            """
+
+    )
+    def get(self, request, *args, **kwargs):
+        latest = request.GET['latest']
+        oldest = request.GET['oldest']
+        r = commithistory(latest, oldest)
+        data = r.historyrequest()
+        attachments = r.messagelist(data)
+        commitlist = r.commituserlist(attachments)
+        uncommitlist = r.commitcheck(commitlist)
+        return Response(uncommitlist)

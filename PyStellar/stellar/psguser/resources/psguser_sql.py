@@ -10,9 +10,15 @@ user_info.kakao_nickname, user_info.content, user_git.git_name
 
 def psgusergitsql():
     sql = """
-            select id,
-                   git_name
-            from user_git
+            SELECT psg_info.username,
+                   psg_github.github_name, 
+                   psg_kakao.kakao_name, 
+                   psg_rest.start_date,
+                   psg_rest.end_date 
+            FROM psg_info 
+            LEFT JOIN psg_github ON psg_info.username = psg_github.username
+            LEFT JOIN psg_kakao ON psg_info.username = psg_kakao.username
+            LEFT JOIN psg_rest ON psg_info.username = psg_rest.username
     """
     return sql
 

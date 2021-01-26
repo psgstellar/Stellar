@@ -2,8 +2,9 @@ import requests
 
 from commit.dao.commit_dao import CommitDao
 from commit.resources.commit_sql import insert_commit
+from psguser.service.psguser_service import PsgUserListService
 
-token = 'xoxp-992233197952-991778360580-1234657913751-3fb301165d48d3f4c7940ae888b32d87'
+token = 'xoxb-992233197952-1661853654679-wdyMzsIpoLudwtWSPryzKBcD'
 channel = 'CUW4CLH4Z'
 url = 'https://slack.com/api/conversations.history'
 
@@ -56,3 +57,24 @@ class commithistory:
         return_json = insert_commit_json.insertcommit(attachments)
 
         return return_json
+
+    def commitcheck(self, commitList):
+        restlist = PsgUserListService()
+        restuser = restlist.psgusergitlistservice()
+        unchecklist = []
+        print('-------commitlist-------', commitList)
+        print('-------restuser-------', restuser)
+        for i in commitList:
+            print('-----i-----', i)
+            for j in restuser:
+                print('-----j-----', restuser)
+                for k, v in j.items():
+                    print('-------items--------', j.items())
+                    if k == 'github_name':
+                        print('----k----', v)
+                        if i == v:
+                            print('-----v-----', v)
+                            restuser.remove(j)
+        print('-----restuser-----', restuser)
+        return restuser
+
