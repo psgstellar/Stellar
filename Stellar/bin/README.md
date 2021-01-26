@@ -1,2 +1,0 @@
-# stell
-About Stellar Project
