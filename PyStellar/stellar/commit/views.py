@@ -1,3 +1,6 @@
+import datetime
+import time
+
 from drf_yasg import openapi
 
 from drf_yasg.utils import swagger_auto_schema
@@ -126,23 +129,38 @@ class commitcheck(ListAPIView):
         """
         CommitCheck
         ---
-                    CommitCheck 명단
-                    '''
-                        #json
-                        {
-                            'latest': 1610582399,
-                            'oldest': 1610496000
-                        }
-                        '''        
+                        입력 없이 실행하면 오늘의 커밋 검사
+                          
             """
 
     )
     def get(self, request, *args, **kwargs):
-        latest = request.GET['latest']
-        oldest = request.GET['oldest']
+        # 오늘 커밋
+        print('-------request------', request.GET)
+        if request.GET:
+            # 입력값 존재
+            latest = request.GET['latest']
+            oldest = request.GET['oldest']
+        else:
+            # 입력값 X
+            today = datetime.datetime.now()
+            latesttoday = datetime.datetime(today.year, today.month, today.day, hour=23, minute=59, second=59)
+            # GMT시간으로 변환되어 한국시간과 맞추기 위해 32400초를 더함.
+            latest = str(latesttoday.timestamp()+32400)[0:10]
+            oldesttoday = datetime.datetime(today.year, today.month, today.day, hour=0, minute=0, second=0)
+            # GMT시간으로 변환되어 한국시간과 맞추기 위해 32400초를 더함.
+            oldest = str(oldesttoday.timestamp()+32400)[0:10]
+
+        print('-----latest-----', latest)
+        print('-----oldest-----', oldest)
+
         r = commithistory(latest, oldest)
         data = r.historyrequest()
         attachments = r.messagelist(data)
-        commitlist = r.commituserlist(attachments)
-        uncommitlist = r.commitcheck(commitlist)
-        return Response(uncommitlist)
+        if len(attachments) > 0:
+            commitlist = r.commituserlist(attachments)
+            uncommitlist = r.commitcheck(commitlist)
+            return Response(uncommitlist)
+        else:
+            result = {'result': '커밋 기록 없음'}
+            return Response(result)

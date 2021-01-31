@@ -73,6 +73,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stellar.wsgi.application'
 
+BOTTOKEN = 'xoxb-992233197952-1661853654679-vlxHZQc9h7b10UAT75YCZtnX'
+CHANNEL = 'CUW4CLH4Z'
+SLACKURL = 'https://slack.com/api/conversations.history'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
