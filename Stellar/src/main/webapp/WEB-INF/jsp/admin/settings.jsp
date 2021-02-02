@@ -563,6 +563,7 @@
 										<div class="card-header">
 
 											<h5 class="card-title mb-0">Github</h5>
+											<p>슬랙에 연동한 Github 유저네임을 추가해주세요.</p>
 										</div>
 										<div class="card-body">
 											<table class="table table-hover my-0" id="github_table">
