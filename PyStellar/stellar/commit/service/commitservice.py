@@ -42,6 +42,7 @@ class commithistory:
 
     def commituserlist(self, attachments):
         commitlist = []
+        commitList = set()
         for i in attachments:
             for j in i:
                 # author_name 이 attachments에 존재할 때
