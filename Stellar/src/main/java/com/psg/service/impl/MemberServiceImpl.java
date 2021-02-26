@@ -85,8 +85,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 	}
 	
 	@Override
-	public int DupGithubChk(String github_name) throws Exception {
-		return commitMapper.DupGithubChk(github_name);
+	public int DupGithubChk(String github_name, String github_repo, String github_token) throws Exception {
+		return commitMapper.DupGithubChk(github_name, github_repo, github_token);
 	}
 	
 	@Override
@@ -135,13 +135,13 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 	}
 	
 	@Override
-	public void delete_github_info(String username, String github_name) throws Exception {
-		commitMapper.delete_github_info(username, github_name);
+	public void delete_github_info(String username, String github_name, String github_repo, String github_token) throws Exception {
+		commitMapper.delete_github_info(username, github_name, github_repo, github_token);
 	}
 	
 	@Override
-	public void put_github_info(String username, String github_name) throws Exception {
-		commitMapper.put_github_info(username, github_name);
+	public void put_github_info(String username, String github_name, String github_repo, String github_token) throws Exception {
+		commitMapper.put_github_info(username, github_name, github_repo, github_token);
 	}
 	
 	@Override

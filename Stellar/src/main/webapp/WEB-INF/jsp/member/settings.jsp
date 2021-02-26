@@ -83,9 +83,8 @@
 	
 	<script>
 	
-	function len_Chk(info) {
-		
-		if(info.length == 0 || info.length >= 50)
+	function len_Chk(info, length) {
+		if(info.length == 0 || info.length > length)
 			return 1;
 	
 		return 0;
@@ -149,34 +148,36 @@
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			
-			if(len_Chk(kakao_name) == 0) {
-				$.ajax({
-					url : "<c:url value='/Member/Kakao_Save.do'/>",
-					method : "get",
-					data : {"kakao_name" : kakao_name},
-					async : false,
-					
-					beforeSend : function(xhr) {
-						xhr.setRequestHeader(header, token);
-					},
-					
-					success : function(data) {
-						
-						if(data == 1) {
-							show_info("데이터가 존재합니다.");
-						}else{
-							location.reload();
-						}	
-					},
-					
-					error : function(request, status, error) {
-						show_info("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					}
-					
-				});
-			} else {
-				show_info("해당란이 공백이거나 30자 초과입니다.");
+			if(len_Chk(kakao_name, 30) != 0) {
+				show_info("카카오톡 닉네임 입력란이 공백이거나 30자를 초과합니다.");
+				return;
 			}
+			
+			$.ajax({
+				url : "<c:url value='/Member/Kakao_Save.do'/>",
+				method : "get",
+				data : {"kakao_name" : kakao_name},
+				async : false,
+				
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				
+				success : function(data) {
+					
+					if(data == 1) {
+						show_info("데이터가 존재합니다.");
+					}else{
+						location.reload();
+					}	
+				},
+				
+				error : function(request, status, error) {
+					show_info("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+				
+			});
+			
 		});
 	});
 
@@ -215,34 +216,31 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var slack_name = $('#slack_info').val();
 			
-			if(lenChk(slack_name) == 0) {
-				$.ajax({
-					url : "<c:url value='/Member/Slack_Append.do'/>",
-					method : "get",
-					data : {"slack_name" : slack_name},
-					async : false,
-					beforeSend : function(xhr) {
-						xhr.setRequestHeader(header, token);
-					},				
-					success : function(data) {
-						if(data == true) {
-							slack_append_row();
-						} else {
-							show_info("데이터가 존재합니다.");
-						}					
-					},
-					error : function(request, status, error) {
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					}
-					
-				});
-			} else {
-				show_info("해당란이 공백이거나 30자 초과입니다.");
+			if(lenChk(slack_name) != 0) {
+				show_info("슬랙 닉네임 입력란이 공백이거나 30자를 초과합니다.");
+				return;
 			}
-						
 			
-
-			
+			$.ajax({
+				url : "<c:url value='/Member/Slack_Append.do'/>",
+				method : "get",
+				data : {"slack_name" : slack_name},
+				async : false,
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},				
+				success : function(data) {
+					if(data == true) {
+						slack_append_row();
+					} else {
+						show_info("데이터가 존재합니다.");
+					}					
+				},
+				error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+				
+			});
 		});
 	});
 	
@@ -252,11 +250,13 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var tr = $(this).parent().parent();
 			var github_name = tr.children().eq(0).text();
+			var github_repo = tr.children().eq(1).text();
+			var github_token = tr.children().eq(2).text();
 						
 			$.ajax({
 				url : "<c:url value='/Member/Github_Delete.do'/>",
 				method : "get",
-				data : {"github_name" : github_name},
+				data : {"github_name" : github_name, "github_repo" : github_repo, "github_token" : github_token},
 				async : false,
 				beforeSend : function(xhr) {
 					xhr.setRequestHeader(header, token);
@@ -267,10 +267,7 @@
 				error : function(request, status, error) {
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
-				
 			});
-
-			
 		});
 	});
 	
@@ -278,36 +275,45 @@
 		$('#append_github_row').on("click", function() {		
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
-			var github_name = $('#github_info').val();
-			
-			
-			if(len_Chk(github_name) == 0) {
-				$.ajax({
-					url : "<c:url value='/Member/Github_Append.do'/>",
-					method : "get",
-					data : {"github_name" : github_name},
-					async : false,
-					beforeSend : function(xhr) {
-						xhr.setRequestHeader(header, token);
-					},				
-					success : function(data) {
-						if(data == true) {
-							github_append_row();
-						} else {
-							show_info("데이터가 존재합니다.");
-						}
-					},
-					error : function(request, status, error) {
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					}
-					
-				});
-			} else {
-				show_info("해당란이 공백이거나 30자 초과입니다.");
+			var github_name = $('#github_username').val();
+			var github_repo = $('#github_repo').val();
+			var github_token = $('#github_token').val();	
+		
+			if(len_Chk(github_name, 30) != 0) {
+				show_info("Github Username 입력란이 공백이거나 30자를 초과합니다.");
+				return;
 			}
 			
-
+			if(len_Chk(github_repo, 50) != 0) {
+				show_info("Github Repo 입력란이 공백이거나 50자를 초과합니다.");
+				return;
+			}
 			
+			if(len_Chk(github_token, 50) != 0) {
+				show_info("Github Token 입력란이 공백이거나 50자를 초과합니다.");
+				return;
+			}
+			
+			$.ajax({
+				url : "<c:url value='/Member/Github_Append.do'/>",
+				method : "get",
+				data : {"github_name" : github_name, "github_repo" : github_repo, "github_token" : github_token},
+				async : false,
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},				
+				success : function(data) {
+					if(data == true) {
+						github_append_row();
+					} else {
+						show_info("데이터가 존재합니다.");
+					}
+				},
+				error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+				
+			});
 		});
 	});
 	
@@ -326,17 +332,15 @@
 		obj.remove();
 	}
 	
-	
-	
 	function github_append_row() {
 		$('#github_table').append(
 			$('<tr>').append(
-				$('<td>').append($('#github_info').val()).trigger("create"),
+				$('<td>').append($('#github_username').val()).trigger("create"),
+				$('<td>').append($('#github_repo').val()).trigger("create"),
+				$('<td>').append($('#github_token').val()).trigger("create"),
 				$('<td>').append($('<a>').addClass('delete_github').append('Delete')).trigger("create")
 			)
-			
 		);
-		
 	}
 	
 	function github_delete_row(obj) {
@@ -564,7 +568,9 @@
 											<table class="table table-hover my-0" id="github_table">
 									<thead>
 										<tr>
-											<th>Github Username</th>											
+											<th>Github Username</th>		
+											<th>Github Repo</th>
+											<th>Github Token</th>									
 											<th>Settings</th>
 										</tr>
 									</thead>
@@ -574,6 +580,8 @@
 									<tbody>
 										<tr>
 											<td class="d-none d-xl-table-cell">${github.github_name}</td>
+											<td class="d-none d-xl-table-cell">${github.github_repo}</td>
+											<td class="d-none d-xl-table-cell">${github.github_token}</td>
 											<td>
 												<a class="delete_github">Delete</a>
 											</td>
@@ -597,7 +605,9 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td><input type="text" class="form-control" id="github_info" placeholder="Github Username"></td>
+											<td><input type="text" class="form-control" id="github_username" placeholder="Github Username"></td>
+											<td><input type="text" class="form-control" id="github_repo" placeholder="Github Repo"></td>
+											<td><input type="text" class="form-control" id="github_token" placeholder="Github Token"></td>
 											<td><button type="button" class="btn btn-primary" id="append_github_row">추가</button></td>
 										</tr>										
 									</tbody>

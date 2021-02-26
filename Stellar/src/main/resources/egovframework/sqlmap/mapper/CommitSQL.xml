@@ -19,7 +19,7 @@
 </select>
 
 <select id="DupGithubChk" parameterType="String" resultType="int">
-	select count(*) from psg_github where github_name = #{_parameter}
+	select count(*) from psg_github where github_name = #{github_name} and github_repo = #{github_repo} and github_token = #{github_token}
 </select>
 
 <select id="DupKakaoChk" parameterType="String" resultType="int">
@@ -67,15 +67,15 @@
 </insert>
 
 <select id="get_github_info" parameterType="String" resultType="com.psg.vo.GithubVO">
-	select username, github_name from psg_github where username = #{_parameter}
+	select username, github_name, github_repo, github_token from psg_github where username = #{_parameter}
 </select>
 
 <delete id="delete_github_info" parameterType="String">
-	delete from psg_github where username = #{username} and github_name = #{github_name}
+	delete from psg_github where username = #{username} and github_name = #{github_name} and github_repo = #{github_repo} and github_token = #{github_token}
 </delete>
 
 <insert id="put_github_info" parameterType="String">
-	insert into psg_github(username, github_name) value((select username from psg_info where username = #{username}), #{github_name})
+	insert into psg_github(username, github_name, github_repo, github_token) value((select username from psg_info where username = #{username}), #{github_name}, #{github_repo}, #{github_token})
 </insert>
 
 <select id="get_kakao_info" parameterType="String" resultType="String">

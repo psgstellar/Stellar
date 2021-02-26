@@ -23,7 +23,7 @@ public interface CommitMapper {
 	
 	int DupSlackChk(String slack_name) throws Exception;
 	
-	int DupGithubChk(String github_name) throws Exception;
+	int DupGithubChk(@Param("github_name") String github_name, @Param("github_repo") String github_repo, @Param("github_token") String github_token) throws Exception;
 	
 	int DupKakaoChk(String kakao_name) throws Exception;
 	
@@ -51,9 +51,9 @@ public interface CommitMapper {
 	
 	void put_slack_info(@Param("username") String username, @Param("slack_name") String slack_name) throws Exception;	
 	
-	void delete_github_info(@Param("username") String username, @Param("github_name") String github_name) throws Exception;
+	void delete_github_info(@Param("username") String username, @Param("github_name") String github_name, @Param("github_repo") String github_repo, @Param("github_token") String github_token) throws Exception;
 	
-	void put_github_info(@Param("username") String username, @Param("github_name") String github_name) throws Exception;
+	void put_github_info(@Param("username") String username, @Param("github_name") String github_name, @Param("github_repo") String github_repo, @Param("github_token") String github_token) throws Exception;
 	
 	void delete_kakao_info(@Param("username") String username, @Param("kakao_name") String kakao_name) throws Exception;
 	

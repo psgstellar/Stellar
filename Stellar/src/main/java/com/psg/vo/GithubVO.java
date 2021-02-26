@@ -9,6 +9,7 @@ public class GithubVO {
 	
 	String username;
 	String github_name;
+	String github_repo;
+	String github_token;
 	
-
 }
