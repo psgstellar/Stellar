@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.psg.service.BoardService;
 import com.psg.service.MemberService;
+import com.psg.vo.BoardVO;
 import com.psg.vo.GithubVO;
 import com.psg.vo.KakaoVO;
 import com.psg.vo.MemberDetailsVO;
@@ -43,6 +45,8 @@ public class MainController {
 	private MemberService memberService;
 	
 	
+	@Resource(name="BoardService")
+	private BoardService boardService;
 	
 	@GetMapping(value="/Main.do")
 	public String Main(Authentication authentication, Model model) throws Exception{
