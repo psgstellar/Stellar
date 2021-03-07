@@ -198,6 +198,13 @@ public class MainController {
 		return 0;
 	}
 	
+	@GetMapping(value="/Admin/Board/Write.do")
+	public String Admin_Board_Write(BoardVO boardVO) throws Exception{
+		boardService.write(boardVO);
+		
+		return "admin/board";
+	}
+	
 	@GetMapping(value="/Admin/Kakao_Save.do", produces="application/json; charset=utf8")
 	@ResponseBody
 	public int Admin_Kakao_Save(String kakao_name) {
