@@ -21,8 +21,9 @@ class CommitDao:
                         'text': j['fallback'],
                         'link': j['author_link']
                     }
-                    # re.sub(' ', '', f"{j['author_name']}"),
                     commit_tuple = tuple(commit_json.values())
+                else:
+                    pass
             commit.append(commit_tuple)
         print('------commit------', commit)
 

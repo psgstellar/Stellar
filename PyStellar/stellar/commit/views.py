@@ -9,8 +9,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from commit.commitSerializer import commitHistory
-from commit.service.commitservice import commithistory
+from commit.commitSerializer import commitHistory, GitCommitCheckSerializer
+from commit.service.commitservice import commithistory, GitCommitCheckService
 
 
 class commitMessageHistory(ListAPIView):
@@ -43,7 +43,7 @@ class commitMessageHistory(ListAPIView):
         """
         CommitList
         ---
-                    SlackHistory 명단
+                    SlackHistory
                     '''
                         #json
                         {
@@ -67,7 +67,11 @@ class commitMessageHistory(ListAPIView):
         print('----response-----', commitlist)
         result = {'result': commitlist}
         print('----result-----', result)
-        return Response(attachments)
+        attachments_json = {}
+        hits = len(attachments)
+        attachments_json.update({'hits': hits,
+                                 'attachments': attachments})
+        return Response(attachments_json)
 
 
 class CommitMessage(CreateAPIView):
@@ -95,6 +99,7 @@ class CommitMessage(CreateAPIView):
                                   'result': openapi.Schema(type=openapi.TYPE_STRING, description='성공')
                               })
     }
+
     @swagger_auto_schema(
         tags=['Slack Commit', ],
         operation_summary="Slack에서 받아온 Message History를 DB에 저장",
@@ -111,6 +116,7 @@ class CommitMessage(CreateAPIView):
         attachments = r.messagelist(data)
         result = r.insertcommit(attachments)
         return Response(result)
+
 
 class commitcheck(ListAPIView):
     """
@@ -146,10 +152,10 @@ class commitcheck(ListAPIView):
             today = datetime.datetime.now()
             latesttoday = datetime.datetime(today.year, today.month, today.day, hour=23, minute=59, second=59)
             # GMT시간으로 변환되어 한국시간과 맞추기 위해 32400초를 더함.
-            latest = str(latesttoday.timestamp()+32400)[0:10]
+            latest = str(latesttoday.timestamp() + 32400)[0:10]
             oldesttoday = datetime.datetime(today.year, today.month, today.day, hour=0, minute=0, second=0)
             # GMT시간으로 변환되어 한국시간과 맞추기 위해 32400초를 더함.
-            oldest = str(oldesttoday.timestamp()+32400)[0:10]
+            oldest = str(oldesttoday.timestamp() + 32400)[0:10]
 
         print('-----latest-----', latest)
         print('-----oldest-----', oldest)
@@ -157,10 +163,42 @@ class commitcheck(ListAPIView):
         r = commithistory(latest, oldest)
         data = r.historyrequest()
         attachments = r.messagelist(data)
+        uncommitjson = {}
         if len(attachments) > 0:
             commitlist = r.commituserlist(attachments)
             uncommitlist = r.commitcheck(commitlist)
-            return Response(uncommitlist)
+            hits = len(uncommitlist)
+            uncommitjson.update({'hits': hits,
+                                 'uncommitlist': uncommitlist})
+            return Response(uncommitjson)
         else:
             result = {'result': '커밋 기록 없음'}
             return Response(result)
+
+
+class GitCommitCheck(ListAPIView):
+    """ Github에서 커밋 기록을 가져온다. """
+    permission_classes = [AllowAny, ]
+
+    @swagger_auto_schema(
+        query_serializer=GitCommitCheckSerializer,
+        tags=['Psg User', ],
+        responses={"200": openapi.Schema(type=openapi.TYPE_STRING,
+                                         description='성공')},
+        operation_summary="git commit 체크",
+        produces='application/json',
+        operation_description=
+        """
+        GitCommitCheck
+        ---
+                        Github에서 직접 커밋 기록 가져옴
+
+            """
+
+    )
+    def get(self, request, *args, **kwargs):
+        owner = request.GET['owner']
+        repo = request.GET['repo']
+        r = GitCommitCheckService()
+        data = r.git_public_request(owner, repo)
+        return Response(data)

@@ -22,7 +22,7 @@ class PsgUserList:
             print('-----UserListException-----', e)
         else:
             print('--------UserListSuccess------')
-            columns = ('id', 'slack_name', 'slack_nickname', 'kakao_name', 'kakao_nickname', 'content')
+            columns = ('id', 'slack_name', 'slack_nickname', 'kakao_name', 'kakao_nickname', 'content', 'git_name')
             rows = cursor.fetchall()
             for i in rows:
                 # return_json = {

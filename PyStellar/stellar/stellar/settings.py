@@ -73,7 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stellar.wsgi.application'
 
-BOTTOKEN = 'xoxb-992233197952-1661853654679-vlxHZQc9h7b10UAT75YCZtnX'
+BOTTOKEN = 'xoxb-992233197952-1661853654679-gaaCeEhWAmruARfLtbvGL1ff'
 CHANNEL = 'CUW4CLH4Z'
 SLACKURL = 'https://slack.com/api/conversations.history'
 

@@ -92,3 +92,24 @@ class commithistory:
                             else:
                                 pass
         return restuser
+
+
+class GitCommitCheckService:
+    """Github Public 저장소 커밋 기록 가져오기"""
+
+    @classmethod
+    def git_public_request(cls, owner, repo):
+        """Commit 기록 요청"""
+        r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits')
+        data = r.json()
+        commit_list = []
+
+        for i in data:
+            for k, v in i.items():
+                if k == 'commit':
+                    commit_json = {}
+                    commit_json.update({'author_name': v['author']['name'],
+                                        'message': v['message'],
+                                        'url': v['url']})
+            commit_list.append(commit_json)
+        return commit_list
