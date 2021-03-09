@@ -8,6 +8,4 @@ class commitHistory(serializers.Serializer):
     oldest = serializers.CharField(max_length=10, help_text='최초시간', allow_blank=True, default='')
 
 
-class GitCommitCheckSerializer(serializers.Serializer):
-    owner = serializers.CharField(max_length=50, help_text='Git Owner')
-    repo = serializers.CharField(max_length=50, help_text='Repository')
+

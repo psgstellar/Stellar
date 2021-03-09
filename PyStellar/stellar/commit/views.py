@@ -9,8 +9,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from commit.commitSerializer import commitHistory, GitCommitCheckSerializer
-from commit.service.commitservice import commithistory, GitCommitCheckService
+from commit.commitSerializer import commitHistory
+from commit.service.commitservice import commithistory
 
 
 class commitMessageHistory(ListAPIView):
@@ -176,29 +176,4 @@ class commitcheck(ListAPIView):
             return Response(result)
 
 
-class GitCommitCheck(ListAPIView):
-    """ Github에서 커밋 기록을 가져온다. """
-    permission_classes = [AllowAny, ]
 
-    @swagger_auto_schema(
-        query_serializer=GitCommitCheckSerializer,
-        tags=['Psg User', ],
-        responses={"200": openapi.Schema(type=openapi.TYPE_STRING,
-                                         description='성공')},
-        operation_summary="git commit 체크",
-        produces='application/json',
-        operation_description=
-        """
-        GitCommitCheck
-        ---
-                        Github에서 직접 커밋 기록 가져옴
-
-            """
-
-    )
-    def get(self, request, *args, **kwargs):
-        owner = request.GET['owner']
-        repo = request.GET['repo']
-        r = GitCommitCheckService()
-        data = r.git_public_request(owner, repo)
-        return Response(data)
