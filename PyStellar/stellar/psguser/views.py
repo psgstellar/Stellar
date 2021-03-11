@@ -21,32 +21,32 @@ class userList(ListAPIView):
 
     response_dict = {
         "200": openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        properties={
-            "PsgUser": openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                properties={
-                    "id": openapi.Schema(type=openapi.TYPE_STRING,
-                                         description='Slack 고유 ID'),
-                    "slackname": openapi.Schema(type=openapi.TYPE_STRING,
-                                                description='Slack 가입 ID'),
-                    "slacknickname": openapi.Schema(type=openapi.TYPE_STRING,
-                                                    description='Slack 닉네임'),
-                    "kakaonickname": openapi.Schema(type=openapi.TYPE_STRING,
-                                                    description='카카오톡 닉네임'),
-                    "gitname": openapi.Schema(type=openapi.TYPE_OBJECT,
-                                              properties={
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "PsgUser": openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        "id": openapi.Schema(type=openapi.TYPE_STRING,
+                                             description='Slack 고유 ID'),
+                        "slackname": openapi.Schema(type=openapi.TYPE_STRING,
+                                                    description='Slack 가입 ID'),
+                        "slacknickname": openapi.Schema(type=openapi.TYPE_STRING,
+                                                        description='Slack 닉네임'),
+                        "kakaonickname": openapi.Schema(type=openapi.TYPE_STRING,
+                                                        description='카카오톡 닉네임'),
+                        "gitname": openapi.Schema(type=openapi.TYPE_OBJECT,
+                                                  properties={
 
-                                              }),
-                }
+                                                  }),
+                    }
 
-            )
-        }
-    )
+                )
+            }
+        )
     }
 
     @swagger_auto_schema(
-        #query_serializer=psgserializer,
+        # query_serializer=psgserializer,
         tags=['Psg User', ],
         responses=response_dict,
         operation_summary="PSG User List를 받아온다.",
@@ -61,11 +61,10 @@ class userList(ListAPIView):
 
     )
     def get(self, request, *args, **kwargs):
-
         return self.list(self, request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
-        #return_json = []
+        # return_json = []
 
         psg_user_json = PsgUserListService()
         return_json = psg_user_json.psguserlistservice()
@@ -74,6 +73,7 @@ class userList(ListAPIView):
 
     # def list(self, request, *args, **kwargs):
     #     return Response()
+
 
 class psg_rest(ListAPIView):
     """
@@ -101,7 +101,6 @@ class psg_rest(ListAPIView):
 
     )
     def get(self, request, *args, **kwargs):
-
         restlist = PsgUserListService()
         return_rest = restlist.psguserrestlistservice()
         result = {'content': return_rest}

@@ -43,5 +43,5 @@ urlpatterns = [
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('commit/', include('commit.urls')),
     path('psguser/', include('psguser.urls')),
-    path('GitCommit/', include('GitCommit.urls')),
+    path('Git/', include('Git.urls')),
 ]

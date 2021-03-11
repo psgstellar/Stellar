@@ -92,6 +92,3 @@ class commithistory:
                             else:
                                 pass
         return restuser
-
-
-
