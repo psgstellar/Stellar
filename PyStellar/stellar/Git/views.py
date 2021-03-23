@@ -57,6 +57,8 @@ class GitRepo(ListAPIView):
     def get(self, request, *args, **kwargs):
         # git_repo_list = []
         git_repo_json = GitRepoService()
-        result_json = git_repo_json.git_repo()
+        commit_list = git_repo_json.git_repo()
+        insert_commit = GitCommitCheckService()
+        result_json = insert_commit.git_commit_insert(commit_list)
         result = {'content': result_json}
         return Response(result)

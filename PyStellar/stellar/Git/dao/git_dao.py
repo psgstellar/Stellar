@@ -30,3 +30,31 @@ class GitOwnerRepo:
             cursor.close()
             connection.close()
         return git_list
+
+    @classmethod
+    def insert_git_commit(cls, request_data):
+        sql = "INSERT INTO commit_info(git_name, commit_text, commit_link, commit_date) VALUES(%s, %s, %s, now())"
+        try:
+            connection = pymysql.connect(
+                user=MYSQLUSER,
+                password=MYSQLPASSWORD,
+                host=MYSQLHOST,
+                db=MYSQLNAME,
+                charset='utf8'
+            )
+            cursor = connection.cursor()
+            cursor.executemany(sql, request_data)
+        except Exception as error:
+            print('-----Exception-----', error)
+        else:
+            insert_count = cursor.rowcount
+            return_json = {
+                'count': insert_count,
+                'result': 'success'
+            }
+            connection.commit()
+
+        finally:
+            cursor.close()
+            connection.close()
+        return return_json
