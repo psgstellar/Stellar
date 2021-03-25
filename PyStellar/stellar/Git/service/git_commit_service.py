@@ -1,4 +1,5 @@
 import requests
+import json
 
 from Git.dao.git_dao import GitOwnerRepo
 
@@ -14,48 +15,41 @@ class GitCommitCheckService:
         repo = request.GET['repo']
 
         if request.GET.get('since', '') and request.GET.get('until', ''):
-            # date_params = {'since': request['since'],
-            #                'until': request['until']}
             since = request.GET['since']
             until = request.GET['until']
             r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}')
         elif request.GET.get('since', ''):
-            # date_params = {'since': request['since']}
             since = request.GET['since']
             r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}')
 
         elif request.GET.get('until', ''):
-            # date_params = {'until': request['until']}
             until = request.GET['until']
             r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}')
         else:
             r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}')
 
-        print(r)
-
         data = r.json()
-        
-        # commit_list = []
+
+        with open("test.json", "w") as json_file:
+            json.dump(data, json_file)
+
         if len(data) == 0:
             commit_json = {'message': '오늘 커밋 없음'}
-            # commit_list.append(commit_json)
         elif len(data) > 0:
+            commit_info = [None] * 2
+            commit_json = []
             if str(type(data)) == "<class 'list'>":
                 for i in data:
                     for k, v in i.items():
                         if k == 'commit':
-                            commit_json = {}
-                            commit_json.update({'author_name': v['author']['name'],
-                                                'message': v['message'],
-                                                'url': v['url']})
-                            # commit_list.append(commit_json)
-            elif str(type(data)) == "<class 'dict'>":
-                commit_json = {}
-                commit_json.update({'author_name': f'{owner}',
-                                    'message': data['message'],
-                                    'url': data['documentation_url']})
-                # commit_list.append(commit_json)
-
+                            commit_info[0] = v['author']['name']
+                            commit_info[1] = v['message']
+                            print(commit_info[0], commit_info[1])
+                        elif k == 'html_url':
+                            commit_json.append({'author_name': commit_info[0],
+                                                'message': commit_info[1],
+                                                'url': v})
+        
         return commit_json
 
     @classmethod
