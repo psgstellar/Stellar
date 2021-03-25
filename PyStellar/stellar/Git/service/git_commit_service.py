@@ -13,24 +13,23 @@ class GitCommitCheckService:
         owner = request.GET['owner']
         repo = request.GET['repo']
 
-        # if request.GET('since') and request.GET('until'):
-        #     # date_params = {'since': request['since'],
-        #     #                'until': request['until']}
-        #     since = request.GET['since']
-        #     until = request.GET['until']
-        #     r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}')
-        # elif request.GET('since'):
-        #     # date_params = {'since': request['since']}
-        #     since = request.GET['since']
-        #     r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}')
+        if request.GET.get('since', '') and request.GET.get('until', ''):
+            # date_params = {'since': request['since'],
+            #                'until': request['until']}
+            since = request.GET['since']
+            until = request.GET['until']
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}')
+        elif request.GET.get('since', ''):
+            # date_params = {'since': request['since']}
+            since = request.GET['since']
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}')
 
-        # elif request.GET('until'):
-        #     # date_params = {'until': request['until']}
-        #     until = request.GET['until']
-        #     r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}')
-
-        # else:
-        r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}')
+        elif request.GET.get('until', ''):
+            # date_params = {'until': request['until']}
+            until = request.GET['until']
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}')
+        else:
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}')
 
         print(r)
 
