@@ -35,9 +35,6 @@ class GitCommitCheckService:
         print(r)
 
         data = r.json()
-
-        print(data)
-
         
         # commit_list = []
         if len(data) == 0:
