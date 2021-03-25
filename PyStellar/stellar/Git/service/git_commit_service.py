@@ -1,5 +1,4 @@
 import requests
-import json
 
 from Git.dao.git_dao import GitOwnerRepo
 
@@ -30,23 +29,23 @@ class GitCommitCheckService:
 
         data = r.json()
 
-        with open("test.json", "w") as json_file:
-            json.dump(data, json_file)
-
         if len(data) == 0:
-            commit_json = {'message': '오늘 커밋 없음'}
+            commit_json = {'message': '커밋 없음'}
         elif len(data) > 0:
-            commit_info = [None] * 2
+            commit_info = [None] * 3
             commit_json = []
+
             if str(type(data)) == "<class 'list'>":
                 for i in data:
                     for k, v in i.items():
                         if k == 'commit':
-                            commit_info[0] = v['author']['name']
                             commit_info[1] = v['message']
-                            print(commit_info[0], commit_info[1])
+                        elif k == 'author':
+                            commit_info[0] = v['login']
                         elif k == 'html_url':
-                            commit_json.append({'author_name': commit_info[0],
+                            commit_info[2] = v
+                            
+                    commit_json.append({'username': commit_info[0],
                                                 'message': commit_info[1],
                                                 'url': v})
         
