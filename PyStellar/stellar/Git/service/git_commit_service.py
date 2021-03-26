@@ -12,20 +12,21 @@ class GitCommitCheckService:
         print('-------request-------', request)
         owner = request.GET['owner']
         repo = request.GET['repo']
+        token = request.GET['token']
 
         if request.GET.get('since', '') and request.GET.get('until', ''):
             since = request.GET['since']
             until = request.GET['until']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}')
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}', auth=(owner, token))
         elif request.GET.get('since', ''):
             since = request.GET['since']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}')
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}', auth=(owner, token))
 
         elif request.GET.get('until', ''):
             until = request.GET['until']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}')
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}', auth=(owner, token))
         else:
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}')
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}', auth=(owner, token))
 
         data = r.json()
 
