@@ -48,7 +48,7 @@ class GitCommitCheckService:
                             
                     commit_json.append({'username': commit_info[0],
                                                 'message': commit_info[1],
-                                                'url': v})
+                                                'url': commit_info[2]})
         
         return commit_json
 
