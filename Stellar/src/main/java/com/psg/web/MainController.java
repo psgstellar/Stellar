@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.psg.service.CommitService;
 import com.psg.service.MemberService;
 import com.psg.vo.GithubVO;
 import com.psg.vo.KakaoVO;
@@ -42,7 +43,8 @@ public class MainController {
 	@Resource(name="MemberService")
 	private MemberService memberService;
 	
-	
+	@Resource(name="CommitService")
+	private CommitService commitService;
 	
 	@GetMapping(value="/Main.do")
 	public String Main(Authentication authentication, Model model) throws Exception{
@@ -379,6 +381,11 @@ public class MainController {
 			memberService.put_github_info(username, github_name, github_repo, github_token);
 			return true;
 		}		
+	}
+	
+	@GetMapping(value="/Admin/test.do")
+	public void Admin_test() throws Exception {
+		commitService.request_commit_list();
 	}
 	
 	
