@@ -17,23 +17,23 @@ class GitCommitCheckService:
         if request.GET.get('since', '') and request.GET.get('until', ''):
             since = request.GET['since']
             until = request.GET['until']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}', auth=(owner, token))
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}', headers={'Authorization': 'token '+token})
         elif request.GET.get('since', ''):
             since = request.GET['since']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}', auth=(owner, token))
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}', headers={'Authorization': 'token '+token})
 
         elif request.GET.get('until', ''):
             until = request.GET['until']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}', auth=(owner, token))
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}', headers={'Authorization': 'token '+token})
         else:
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}', auth=(owner, token))
-
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}', headers={'Authorization': 'token '+token})
+            
         data = r.json()
 
         if len(data) == 0:
             commit_json = {'message': '커밋 없음'}
         elif len(data) > 0:
-            commit_info = [None] * 3
+            commit_info = [None] * 4
             commit_json = []
 
             if str(type(data)) == "<class 'list'>":
@@ -41,14 +41,16 @@ class GitCommitCheckService:
                     for k, v in i.items():
                         if k == 'commit':
                             commit_info[1] = v['message']
+                            commit_info[2] = v['author']['date']
                         elif k == 'author':
                             commit_info[0] = v['login']
                         elif k == 'html_url':
-                            commit_info[2] = v
+                            commit_info[3] = v
                             
                     commit_json.append({'username': commit_info[0],
                                                 'message': commit_info[1],
-                                                'url': commit_info[2]})
+                                                'date': commit_info[2],
+                                                'url': commit_info[3]})
         
         return commit_json
 
