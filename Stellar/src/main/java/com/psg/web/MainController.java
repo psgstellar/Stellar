@@ -356,32 +356,27 @@ public class MainController {
 			memberService.put_slack_info(username, slack_name);
 			return true;
 		}
-		
-		
-		
 	}
 	
 	@GetMapping(value="/Admin/Github_Delete.do", produces="application/json; charset=utf8")
 	@ResponseBody
-	public void Admin_Github_Delete(String github_name) throws Exception {
+	public void Admin_Github_Delete(String github_name, String github_repo, String github_token) throws Exception {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		memberService.delete_github_info(username, github_name);
+		memberService.delete_github_info(username, github_name, github_repo, github_token);
 	}
 	
 	@GetMapping(value="/Admin/Github_Append.do", produces="application/json; charset=utf8")
 	@ResponseBody
-	public boolean Admin_Github_Append(String github_name) throws Exception {
+	public boolean Admin_Github_Append(String github_name, String github_repo, String github_token) throws Exception {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		if(memberService.DupGithubChk(github_name) > 0) {
-			log.info(memberService.DupGithubChk(github_name));
-			
+		if(memberService.DupGithubChk(github_name, github_repo, github_token) > 0) {
 			return false;
 		} else {
-			memberService.put_github_info(username, github_name);
+			memberService.put_github_info(username, github_name, github_repo, github_token);
 			return true;
 		}		
 	}
@@ -486,32 +481,27 @@ public class MainController {
 			memberService.put_slack_info(username, slack_name);
 			return true;
 		}
-		
-		
-		
 	}
 	
 	@GetMapping(value="/Member/Github_Delete.do", produces="application/json; charset=utf8")
 	@ResponseBody
-	public void Member_Github_Delete(String github_name) throws Exception {
+	public void Member_Github_Delete(String github_name, String github_repo, String github_token) throws Exception {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		memberService.delete_github_info(username, github_name);
+		memberService.delete_github_info(username, github_name, github_repo, github_token);
 	}
 	
 	@GetMapping(value="/Member/Github_Append.do", produces="application/json; charset=utf8")
 	@ResponseBody
-	public boolean Member_Github_Append(String github_name) throws Exception {
+	public boolean Member_Github_Append(String github_name, String github_repo, String github_token) throws Exception {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		
-		if(memberService.DupGithubChk(github_name) > 0) {
-			log.info(memberService.DupGithubChk(github_name));
-			
+		if(memberService.DupGithubChk(github_name, github_repo, github_token) > 0) {
 			return false;
 		} else {
-			memberService.put_github_info(username, github_name);
+			memberService.put_github_info(username, github_name, github_repo, github_token);
 			return true;
 		}		
 	}
@@ -563,8 +553,8 @@ public class MainController {
 	
 	@GetMapping(value="/DupGithubChk.do", produces="application/json; charset=utf8")
 	@ResponseBody
-	public int DupGithubChk(@RequestParam(required=true) String github_name) throws Exception {
-		int dupGithubCnt = memberService.DupGithubChk(github_name);
+	public int DupGithubChk(@RequestParam(required=true) String github_name, String github_repo, String github_token) throws Exception {
+		int dupGithubCnt = memberService.DupGithubChk(github_name, github_repo, github_token);
 		
 //		return String.valueOf(dupIdCnt);
 		return dupGithubCnt;

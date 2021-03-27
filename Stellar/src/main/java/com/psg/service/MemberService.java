@@ -27,7 +27,7 @@ public interface MemberService {
 	
 	public int DupSlackChk(String slack_name) throws Exception;
 	
-	public int DupGithubChk(String github_name) throws Exception;
+	public int DupGithubChk(String github_name, String github_repo, String github_token) throws Exception;
 	
 	public int DupKakaoChk(String kakao_name) throws Exception;
 	
@@ -63,9 +63,9 @@ public interface MemberService {
 	
 	public void put_slack_info(String username, String slack_name) throws Exception;
 	
-	public void delete_github_info(String username, String github_name) throws Exception;
+	public void delete_github_info(String username, String github_name, String github_repo, String github_token) throws Exception;
 	
-	public void put_github_info(String username, String github_name) throws Exception;
+	public void put_github_info(String username, String github_name, String github_repo, String github_token) throws Exception;
 	
 	public void delete_kakao_info(String username, String kakao_name) throws Exception;
 	
