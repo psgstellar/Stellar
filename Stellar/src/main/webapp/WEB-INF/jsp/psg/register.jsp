@@ -189,10 +189,10 @@
     			},
     			
     			idValidChkFn : function(loginId) {
-    				var reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{3,12}$/;
+    				var reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/;
     				
     				if(!reg.test(loginId)) {
-    					show_info("아이디는 영문/숫자 포함 3~12 자리 입력해 주세요.");
+    					show_info("아이디가 유효하지 않습니다");
     					
     					return false;
     				}
