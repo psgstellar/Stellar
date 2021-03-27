@@ -19,14 +19,14 @@ class GitCommitCheckService:
         if request.GET.get('since', '') and request.GET.get('until', ''):
             since = request.GET['since']
             until = request.GET['until']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}?until={until}', headers={'Authorization': 'token '+token})
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}&since={since}&until={until}', headers={'Authorization': 'token '+token})
         elif request.GET.get('since', ''):
             since = request.GET['since']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?since={since}', headers={'Authorization': 'token '+token})
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}&since={since}', headers={'Authorization': 'token '+token})
 
         elif request.GET.get('until', ''):
             until = request.GET['until']
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}?until={until}', headers={'Authorization': 'token '+token})
+            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}&until={until}', headers={'Authorization': 'token '+token})
         else:
             r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}', headers={'Authorization': 'token '+token})
 
