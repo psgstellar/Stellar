@@ -14,6 +14,10 @@
 	select count(*) from commit_info where commit_date between date_add(now(), interval -1 month) and now()
 </select>
 
+<select id="Count_Github_Info" resultType="int">
+	select count(*) from psg_github
+</select>
+
 <select id="DupSlackChk" parameterType="String" resultType="int">
 	select count(*) from psg_slack where slack_name = #{_parameter}
 </select>
@@ -68,6 +72,10 @@
 
 <select id="get_github_info" parameterType="String" resultType="com.psg.vo.GithubVO">
 	select username, github_name, github_repo, github_token from psg_github where username = #{_parameter}
+</select>
+
+<select id="get_all_github_info" resultType="com.psg.vo.GithubVO">
+	select github_name, github_repo, github_token from psg_github
 </select>
 
 <delete id="delete_github_info" parameterType="String">

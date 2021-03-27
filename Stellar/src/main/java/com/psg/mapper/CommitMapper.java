@@ -21,6 +21,8 @@ public interface CommitMapper {
 	
 	int Count_Commit_Monthly() throws Exception;
 	
+	int Count_Github_Info() throws Exception;
+	
 	int DupSlackChk(String slack_name) throws Exception;
 	
 	int DupGithubChk(@Param("github_name") String github_name, @Param("github_repo") String github_repo, @Param("github_token") String github_token) throws Exception;
@@ -38,6 +40,8 @@ public interface CommitMapper {
 	ArrayList<RestVO> get_member_rest(String username) throws Exception;
 	
 	ArrayList<GithubVO> get_github_info(String username) throws Exception;
+	
+	ArrayList<GithubVO> get_all_github_info() throws Exception;
 	
 	ArrayList<SlackVO> get_slack_info(String username) throws Exception;
 	
