@@ -216,9 +216,35 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var slack_name = $('#slack_info').val();
 			
+<<<<<<< HEAD
 			if(lenChk(slack_name) != 0) {
 				show_info("슬랙 닉네임 입력란이 공백이거나 30자를 초과합니다.");
 				return;
+=======
+			if(len_Chk(slack_name) == 0) {
+				$.ajax({
+					url : "<c:url value='/Member/Slack_Append.do'/>",
+					method : "get",
+					data : {"slack_name" : slack_name},
+					async : false,
+					beforeSend : function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},				
+					success : function(data) {
+						if(data == true) {
+							slack_append_row();
+						} else {
+							show_info("데이터가 존재합니다.");
+						}					
+					},
+					error : function(request, status, error) {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+					
+				});
+			} else {
+				show_info("해당란이 공백이거나 30자 초과입니다.");
+>>>>>>> main
 			}
 			
 			$.ajax({
