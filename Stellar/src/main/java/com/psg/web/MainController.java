@@ -385,7 +385,11 @@ public class MainController {
 	
 	@GetMapping(value="/Admin/test.do")
 	public void Admin_test() throws Exception {
-		commitService.request_commit_list();
+		ArrayList<MemberVO> userList = commitService.commit_check(commitService.request_commit_list());
+		
+		for(int i=0; i<userList.size(); i++)
+			log.info(userList.get(i).getUsername());
+		
 	}
 	
 	
