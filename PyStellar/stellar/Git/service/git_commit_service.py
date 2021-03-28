@@ -33,7 +33,7 @@ class GitCommitCheckService:
         data = r.json()
 
         if len(data) == 0:
-            commit_json = {'message': '커밋 없음'}
+            commit_json = [{'username': ' ', 'message': ' ', 'date': ' ', 'url': ' '}]
         elif len(data) > 0:
             commit_info = [None] * 4
             commit_json = []
