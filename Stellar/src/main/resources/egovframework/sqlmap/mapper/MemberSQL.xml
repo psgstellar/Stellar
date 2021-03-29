@@ -26,6 +26,10 @@
 	select username, email, auth, date from psg_info order by username desc;
 </select>
 
+<select id="memberNotRestList" resultType="com.psg.vo.MemberVO">
+	select username from psg_info where not username in (select username from psg_rest where curdate() >= start_date and end_date >= curdate())
+</select>
+
 <select id="memberRest" resultType="com.psg.vo.MemberVO">
 	select psg_info.username, psg_info.email, psg_info.auth, psg_info.date, psg_user.slack_name, psg_user.github_name from psg_info left join psg_user on psg_info.username = psg_user.username order by psg_info.username asc;  
 </select>
