@@ -80,9 +80,7 @@ public class CommitServiceImpl implements CommitService {
 	
 	@Override
 	public ArrayList<MemberVO> commit_check(ArrayList<CommitVO> commitList) throws Exception {
-		ArrayList<MemberVO> userList = memberMapper.memberList();
-		
-		
+		ArrayList<MemberVO> userList = memberMapper.memberNotRestList();
 		
 		if(commitList != null && userList != null) {
 			for(int i=0; i<commitList.size(); i++) {
