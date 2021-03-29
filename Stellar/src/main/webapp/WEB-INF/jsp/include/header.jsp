@@ -68,20 +68,16 @@
                 </sec:authorize>  
                 
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-            		<sec:authentication property="principal" var="user" />
+            		<sec:authentication property="principal" var="user" />            		
 	            		<li class="nav-item dropdown dropdown-animate" data-toggle="hover">
 	                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Management</a>
 	                    <div class="dropdown-menu dropdown-menu-single">
 	                        <div class="dropdown-item">PSG Admin : ${user.username}</div>
 	                        <a href="<c:url value='/Admin/Management.do'/>" class="navbar-btn btn btn-sm btn-primary">
                					Management Page
-            				</a>
-	                        
-	                    </div>
-	
+            				</a>	                        
+	                    </div>	
 	               		</li>
-		              
-                
                 </sec:authorize>   
             	
                             

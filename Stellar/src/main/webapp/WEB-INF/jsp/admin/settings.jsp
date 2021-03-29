@@ -401,6 +401,12 @@
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Rest</span>
             </a>
 					</li>
+					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<c:url value='/Admin/Commit.do' /> ">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Commit</span>
+            </a>
+					</li>
 			</div>
 		</nav>
 

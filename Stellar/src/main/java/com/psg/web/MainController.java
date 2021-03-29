@@ -383,13 +383,21 @@ public class MainController {
 		}		
 	}
 	
-	@GetMapping(value="/Admin/test.do")
-	public void Admin_test() throws Exception {
-		ArrayList<MemberVO> userList = commitService.commit_check(commitService.request_commit_list());
+	@GetMapping(value="/Admin/Commit.do")
+	public String Admin_Commit(Model model) throws Exception {
+		ArrayList<MemberVO> not_commit_List = commitService.commit_check(commitService.request_commit_list());
+		ArrayList<String> kakao_username = new ArrayList<String>();
 		
-		for(int i=0; i<userList.size(); i++)
-			log.info(userList.get(i).getUsername());
+		for(int i=0; i<not_commit_List.size(); i++) {
+			String username = not_commit_List.get(i).getUsername();
+			
+			kakao_username.add(memberService.get_kakao_info(username));	
+		}
 		
+		model.addAttribute("not_commit_List", not_commit_List);
+		model.addAttribute("kakao_username", kakao_username);
+		
+		return "admin/commit";
 	}
 	
 	

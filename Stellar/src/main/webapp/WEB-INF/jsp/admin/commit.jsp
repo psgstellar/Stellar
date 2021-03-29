@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,12 +13,17 @@
 	<meta name="description" content="PSG Admin Page">
 	<meta name="author" content="PSG Admin">
 	<meta name="keywords" content="PSG Admin">
+	<meta name="_csrf" content="${_csrf.token}" />
+	<meta name="_csrf_header" content="${_csrf.headerName}" />
 
-	<link rel="shortcut icon" href="<c:url value='/images/logo.png' /> " />
+	<link rel="shortcut icon" href="<c:url value='/images/logo.png'/>" />
 
 	<title>PSG Admin Page</title>
 
 	<link href="<c:url value='/css/app.css' />" rel="stylesheet">
+	
+	<script src="<c:url value='/js/jquery.min.js'/> "></script>
+	
 </head>
 
 <body>
@@ -33,7 +39,7 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a class="sidebar-link" href="<c:url value='/Admin/Management.do' />">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
@@ -57,14 +63,21 @@
             </a>
 					</li>
 					
-					<li class="sidebar-item">
+					<li class="sidebar-item active">
 						<a class="sidebar-link" href="<c:url value='/Admin/Commit.do' /> ">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Commit</span>
             </a>
-					</li>					
+					</li>
+
+					
 				</ul>
-			</div>
-		</nav>
+
+				
+				</div>
+			</nav>
+		
+			
+		
 
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -85,7 +98,6 @@
                 				</sec:authorize>     
               				</a>
 							<div class="dropdown-menu dropdown-menu-right">
-								<!-- <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1" data-feather="user"></i> Profile</a> -->
 								<a class="dropdown-item" href="<c:url value='/Main.do'/> "><i class="align-middle mr-1" data-feather="home"></i> Home</a>								
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<c:url value='/Logout.do'/> ">Log out</a>
@@ -98,21 +110,43 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 
-					<div class="row mb-2 mb-xl-3">
-						<div class="col-auto d-none d-sm-block">
-							<h3><strong>Analytics</strong> Dashboard</h3>
+					<h1 class="h3 mb-3"></h1>
+
+					<div class="row">
+						<div class="col-12 col-lg-8 col-xxl-9 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+
+									<h5 class="card-title mb-0">Today Not Commit List</h5>
+								</div>
+								<table class="table table-hover my-0">
+									<thead>
+										<tr>
+											<th>Username</th>
+											<th>Kakao_Username</th>
+										</tr>
+									</thead>
+									<c:forEach items="${not_commit_List}" var="commit" varStatus="status">
+									<c:choose>
+									<c:when test="${not empty commit}">
+									<tbody>
+										<tr>
+											<td>${commit.username}</td>
+											<td>
+												${kakao_username[status.index]}
+											</td>
+										</tr>										
+									</tbody>
+									</c:when>
+									</c:choose>									
+									</c:forEach>
+								</table>
+							</div>
 						</div>
 
-						<div class="col-auto ml-auto text-right mt-n1">
-							<nav aria-label="breadcrumb">
-								<ol class="breadcrumb bg-transparent p-0 mt-1 mb-0">
-									<li class="breadcrumb-item"><a href="#">PSG Admin Page</a></li>
-									<li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Analytics</li>
-								</ol>
-							</nav>
-						</div>
 					</div>
+
+
 				</div>
 			</main>
 
@@ -146,7 +180,7 @@
 		</div>
 	</div>
 
-	<script src="<c:url value='/js/app.js'/> "></script>
+	<script src="<c:url value='/js/app.js'/>"></script>
 
 </body>
 
