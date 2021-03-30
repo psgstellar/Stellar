@@ -23,38 +23,37 @@ class GitCommitCheckService:
         elif request.GET.get('since', ''):
             since = request.GET['since']
             r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}&since={since}', headers={'Authorization': 'token '+token})
-
         elif request.GET.get('until', ''):
             until = request.GET['until']
             r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}&until={until}', headers={'Authorization': 'token '+token})
         else:
-            r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}', headers={'Authorization': 'token '+token})
-
+                r = requests.get(f'https://api.github.com/repos/{owner}/{repo}/commits?my_client_id={owner}', headers={'Authorization': 'token '+token})
+            
         data = r.json()
 
-        if len(data) == 0:
-            commit_json = [{'username': ' ', 'message': ' ', 'date': ' ', 'url': ' '}]
-        elif len(data) > 0:
+        commit_json = [{'username': ' ', 'message': ' ', 'date': ' ', 'url': ' '}]
+
+        if str(type(data)) == "<class 'list'>":
             commit_info = [None] * 4
-            commit_json = []
-            
             local_timezone = pytz.timezone('Asia/Seoul')
 
             if str(type(data)) == "<class 'list'>":
-                for i in data:
-                    for k, v in i.items():
-                        if k == 'commit':
-                            commit_info[1] = v['message']
-                            commit_info[2] = (dateutil.parser.parse(v['author']['date'])).replace(tzinfo=pytz.utc).astimezone(local_timezone)
-                        elif k == 'author':
-                            commit_info[0] = v['login']
-                        elif k == 'html_url':
-                            commit_info[3] = v
-                            
-                    commit_json.append({'username': commit_info[0],
-                                                'message': commit_info[1],
-                                                'date': commit_info[2],
-                                                'url': commit_info[3]})
+                if str(data) != '[]':
+                    commit_json = []
+                    for i in data:
+                        for k, v in i.items():
+                            if k == 'commit':
+                                commit_info[1] = v['message']
+                                commit_info[2] = (dateutil.parser.parse(v['author']['date'])).replace(tzinfo=pytz.utc).astimezone(local_timezone)
+                            elif k == 'author':
+                                commit_info[0] = v['login']
+                            elif k == 'html_url':
+                                commit_info[3] = v
+                                
+                        commit_json.append({'username': commit_info[0],
+                                                    'message': commit_info[1],
+                                                    'date': commit_info[2],
+                                                    'url': commit_info[3]})
         
         return commit_json
 
