@@ -54,18 +54,21 @@ public class CommitServiceImpl implements CommitService {
 		String since = today_start.toString();
 	
 		ArrayList<GithubVO> github_data = commitMapper.get_all_github_info();
-		ArrayList<CommitVO> commitList = null;
+		ArrayList<CommitVO> get_commit_info = new ArrayList<CommitVO>();
+		ArrayList<CommitVO> commitList = new ArrayList<CommitVO>();
+		
 		
 		int number_of_github_data = commitMapper.Count_Github_Info();
 		
 		for(int i=0; i < number_of_github_data; i++) {
-			
 			String owner = github_data.get(i).getGithub_name();
 			String repo = github_data.get(i).getGithub_repo();
 			String token = github_data.get(i).getGithub_token();
 			String response = restTemplate.getForObject(PY_URL + "?owner=" + owner + "&repo=" + repo + "&token=" + token + "&since=" + since + "&until=" + until, String.class);
 			
-			commitList = mapper.readValue(response, mapper.getTypeFactory().constructCollectionType(List.class, CommitVO.class));
+			get_commit_info = mapper.readValue(response, mapper.getTypeFactory().constructCollectionType(List.class, CommitVO.class));
+			
+			commitList.add(get_commit_info.get(0));
 		}
 		
 		return commitList;
@@ -79,7 +82,7 @@ public class CommitServiceImpl implements CommitService {
 			for(int i=0; i<commitList.size(); i++) {
 				if(commitList.get(i) != null) {
 					int index = userList.indexOf(commitMapper.get_username_github_info(commitList.get(i).getUsername()));
-				
+					
 					if(index != -1) 
 						userList.remove(index);
 				}
