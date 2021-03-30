@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.psg.service.CommitService;
 import com.psg.service.MemberService;
 import com.psg.vo.GithubVO;
 import com.psg.vo.KakaoVO;
@@ -42,7 +43,8 @@ public class MainController {
 	@Resource(name="MemberService")
 	private MemberService memberService;
 	
-	
+	@Resource(name="CommitService")
+	private CommitService commitService;
 	
 	@GetMapping(value="/Main.do")
 	public String Main(Authentication authentication, Model model) throws Exception{
@@ -379,6 +381,23 @@ public class MainController {
 			memberService.put_github_info(username, github_name, github_repo, github_token);
 			return true;
 		}		
+	}
+	
+	@GetMapping(value="/Admin/Commit.do")
+	public String Admin_Commit(Model model) throws Exception {
+		ArrayList<MemberVO> not_commit_List = commitService.commit_check(commitService.request_commit_list());
+		ArrayList<String> kakao_username = new ArrayList<String>();
+		
+		for(int i=0; i<not_commit_List.size(); i++) {
+			String username = not_commit_List.get(i).getUsername();
+			
+			kakao_username.add(memberService.get_kakao_info(username));	
+		}
+		
+		model.addAttribute("not_commit_List", not_commit_List);
+		model.addAttribute("kakao_username", kakao_username);
+		
+		return "admin/commit";
 	}
 	
 	

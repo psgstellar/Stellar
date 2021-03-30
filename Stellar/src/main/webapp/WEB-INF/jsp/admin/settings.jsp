@@ -91,6 +91,18 @@
 		return 0;
 	}
 	
+	function korean_Chk(info) {
+		var reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		
+		if(reg.test(info)) {
+			show_info("한글로 해당 항목을 설정할 수 없습니다.");
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
 	function idValidChkFn(loginId) {
 		var reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/;
 		
@@ -272,20 +284,30 @@
 			var github_repo = $('#github_repo').val();
 			var github_token = $('#github_token').val();
 			
-			if(len_Chk(github_name, 30) != 0) {
+			if(len_Chk(github_name, 50) != 0) {
 				show_info("Github Username 입력란이 공백이거나 30자를 초과합니다.");
 				return;
 			}
+			
+			if(korean_Chk(github_name) == true)
+				return;
+			
 			
 			if(len_Chk(github_repo, 50) != 0) {
 				show_info("Github Repo 입력란이 공백이거나 50자를 초과합니다.");
 				return;
 			}
 			
+			if(korean_Chk(github_repo) == true)
+				return;
+			
 			if(len_Chk(github_token, 50) != 0) {
 				show_info("Github Token 입력란이 공백이거나 50자를 초과합니다.");
 				return;
 			}
+			
+			if(korean_Chk(github_token) == true)
+				return;
 				
 			$.ajax({
 				url : "<c:url value='/Admin/Github_Append.do'/>",
@@ -399,6 +421,12 @@
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="<c:url value='/Admin/Rest.do' /> ">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Rest</span>
+            </a>
+					</li>
+					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<c:url value='/Admin/Commit.do' /> ">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Commit</span>
             </a>
 					</li>
 			</div>
