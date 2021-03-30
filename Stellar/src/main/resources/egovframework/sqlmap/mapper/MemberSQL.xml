@@ -26,7 +26,7 @@
 	select username, email, auth, date from psg_info order by username desc;
 </select>
 
-<select id="memberNotRestList" resultType="com.psg.vo.MemberVO">
+<select id="memberNotRestList" resultType="String">
 	select username from psg_info where not username in (select username from psg_rest where curdate() >= start_date and end_date >= curdate())
 </select>
 
