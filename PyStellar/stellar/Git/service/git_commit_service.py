@@ -37,24 +37,23 @@ class GitCommitCheckService:
             commit_info = [None] * 4
             local_timezone = pytz.timezone('Asia/Seoul')
 
-            if str(type(data)) == "<class 'list'>":
-                if str(data) != '[]':
-                    commit_json = []
-                    for i in data:
-                        for k, v in i.items():
-                            if k == 'commit':
-                                commit_info[1] = v['message']
-                                commit_info[2] = (dateutil.parser.parse(v['author']['date'])).replace(tzinfo=pytz.utc).astimezone(local_timezone)
-                            elif k == 'author':
-                                commit_info[0] = v['login']
-                            elif k == 'html_url':
-                                commit_info[3] = v
-                                
-                        commit_json.append({'username': commit_info[0],
-                                                    'message': commit_info[1],
-                                                    'date': commit_info[2],
-                                                    'url': commit_info[3]})
-        
+            if str(data) != '[]':
+                commit_json = []
+                for i in data:
+                    for k, v in i.items():
+                        if k == 'commit':
+                            commit_info[1] = v['message']
+                            commit_info[2] = (dateutil.parser.parse(v['author']['date'])).replace(tzinfo=pytz.utc).astimezone(local_timezone)
+                        elif k == 'author':
+                            commit_info[0] = v['login']
+                        elif k == 'html_url':
+                            commit_info[3] = v
+                            
+                    commit_json.append({'username': commit_info[0],
+                                                'message': commit_info[1],
+                                                'date': commit_info[2],
+                                                'url': commit_info[3]})
+    
         return commit_json
 
     @classmethod
