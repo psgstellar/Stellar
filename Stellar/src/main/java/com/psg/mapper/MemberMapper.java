@@ -24,7 +24,7 @@ public interface MemberMapper {
 	
 	ArrayList<MemberVO> memberList() throws Exception;
 	
-	ArrayList<MemberVO> memberNotRestList() throws Exception;
+	ArrayList<String> memberNotRestList() throws Exception;
 	
 	ArrayList<MemberVO> memberRest() throws Exception;
 	

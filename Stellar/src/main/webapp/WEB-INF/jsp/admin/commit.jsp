@@ -131,7 +131,7 @@
 									<c:when test="${not empty commit}">
 									<tbody>
 										<tr>
-											<td>${commit.username}</td>
+											<td>${commit}</td>
 											<td>
 												${kakao_username[status.index]}
 											</td>

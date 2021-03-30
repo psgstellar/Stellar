@@ -41,6 +41,8 @@ public interface CommitMapper {
 	
 	ArrayList<GithubVO> get_github_info(String username) throws Exception;
 	
+	String get_username_github_info(String github_username) throws Exception;
+	
 	ArrayList<GithubVO> get_all_github_info() throws Exception;
 	
 	ArrayList<SlackVO> get_slack_info(String username) throws Exception;
