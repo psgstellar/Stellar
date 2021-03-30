@@ -49,10 +49,7 @@ public class CommitServiceImpl implements CommitService {
 		
 		Instant today_end = Instant.ofEpochSecond(utc_today_end);
 		Instant today_start = Instant.ofEpochSecond(utc_today_start);
-		
-		log.info(today_end.toString());
-		log.info(today_start.toString());
-		
+
 		String until = today_end.toString();
 		String since = today_start.toString();
 	
@@ -69,10 +66,6 @@ public class CommitServiceImpl implements CommitService {
 			String response = restTemplate.getForObject(PY_URL + "?owner=" + owner + "&repo=" + repo + "&token=" + token + "&since=" + since + "&until=" + until, String.class);
 			
 			commitList = mapper.readValue(response, mapper.getTypeFactory().constructCollectionType(List.class, CommitVO.class));
-			
-			for(int j=0; j<commitList.size(); j++)
-				log.info("Username: " + commitList.get(j).getUsername() + " " + "Message: " + commitList.get(j).getMessage() + " " + "Date: " + commitList.get(j).getDate() + " " + "Url: " + commitList.get(j).getUrl());
-			
 		}
 		
 		return commitList;
