@@ -72,15 +72,17 @@ public class CommitServiceImpl implements CommitService {
 	}
 	
 	@Override
-	public ArrayList<MemberVO> commit_check(ArrayList<CommitVO> commitList) throws Exception {
-		ArrayList<MemberVO> userList = memberMapper.memberNotRestList();
+	public ArrayList<String> commit_check(ArrayList<CommitVO> commitList) throws Exception {
+		ArrayList<String> userList = memberMapper.memberNotRestList();
 		
-		if(commitList != null && userList != null) {
+		if(userList != null) {
 			for(int i=0; i<commitList.size(); i++) {
-				int index = userList.indexOf(commitList.get(i).getUsername());
+				if(commitList.get(i) != null) {
+					int index = userList.indexOf(commitMapper.get_username_github_info(commitList.get(i).getUsername()));
 				
-				if(index != -1) 
-					userList.remove(index);
+					if(index != -1) 
+						userList.remove(index);
+				}
 			}
 		}
 		

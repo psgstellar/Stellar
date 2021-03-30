@@ -74,6 +74,10 @@
 	select username, github_name, github_repo, github_token from psg_github where username = #{_parameter}
 </select>
 
+<select id="get_username_github_info" parameterType="String" resultType="String">
+	select username from psg_github where github_name = #{_parameter}
+</select>
+
 <select id="get_all_github_info" resultType="com.psg.vo.GithubVO">
 	select github_name, github_repo, github_token from psg_github
 </select>
