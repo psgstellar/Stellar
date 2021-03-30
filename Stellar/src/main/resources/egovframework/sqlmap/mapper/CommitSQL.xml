@@ -75,7 +75,7 @@
 </select>
 
 <select id="get_username_github_info" parameterType="String" resultType="String">
-	select username from psg_github where github_name = #{_parameter}
+	select username from psg_github where github_name = #{_parameter} limit 1
 </select>
 
 <select id="get_all_github_info" resultType="com.psg.vo.GithubVO">
