@@ -49,6 +49,8 @@ public interface CommitMapper {
 	
 	String get_kakao_info(String username) throws Exception;
 	
+	String get_kakao_info_github(String github_name) throws Exception;
+	
 	void delete_rest(@Param("username") String username, @Param("start_date") Date start_date, @Param("end_date") Date end_date) throws Exception;
 	
 	void put_rest(@Param("kakao_name") String kakao_name, @Param("start_date") Date start_date, @Param("end_date") Date end_date) throws Exception;
