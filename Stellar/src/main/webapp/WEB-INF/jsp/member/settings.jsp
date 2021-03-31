@@ -228,7 +228,7 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var slack_name = $('#slack_info').val();
 			
-			if(lenChk(slack_name, 30) != 0) {
+			if(len_Chk(slack_name, 30) != 0) {
 				show_info("슬랙 닉네임 입력란이 공백이거나 30자를 초과합니다.");
 				return;
 			}
@@ -244,6 +244,7 @@
 				success : function(data) {
 					if(data == true) {
 						slack_append_row();
+						slack_input_blank();
 					} else {
 						show_info("데이터가 존재합니다.");
 					}					
@@ -349,6 +350,10 @@
 			
 		);
 		
+	}
+	
+	function slack_input_blank() {
+		$('#slack_info').prop('value', '');
 	}
 	
 	function slack_delete_row(obj) {
