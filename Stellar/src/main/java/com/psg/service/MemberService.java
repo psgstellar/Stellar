@@ -51,6 +51,8 @@ public interface MemberService {
 	
 	public String get_kakao_info(String username) throws Exception;
 	
+	public String get_kakao_info_github(String github_name) throws Exception;
+	
  	public void updateRole(String username, String auth) throws Exception;
  	
  	public void Username_Update(String username, String old_username) throws Exception;

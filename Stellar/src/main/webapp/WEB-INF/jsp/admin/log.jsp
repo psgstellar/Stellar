@@ -63,18 +63,18 @@
             </a>
 					</li>
 					
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a class="sidebar-link" href="<c:url value='/Admin/Commit.do' /> ">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Commit</span>
             </a>
 					</li>
 					
-					<li class="sidebar-item">
+					<li class="sidebar-item active">
 						<a class="sidebar-link" href="<c:url value='/Admin/CommitLog.do' /> ">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Commit Log</span>
             </a>
 					</li>
-
+						
 					
 				</ul>
 
@@ -123,24 +123,28 @@
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Today Not Commit List</h5>
+									<h5 class="card-title mb-0">Commit Log</h5>
 								</div>
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>
-											<th>Username</th>
-											<th>Kakao_Username</th>
+											<th>Github Username</th>
+											<th>Kakao Username</th>
+											<th>Message</th>
+											<th>Date</th>
+											<th>Url</th>
 										</tr>
 									</thead>
-									<c:forEach items="${not_commit_List}" var="commit" varStatus="status">
+									<c:forEach items="${commit_Log}" var="commit" varStatus="status">
 									<c:choose>
 									<c:when test="${not empty commit}">
 									<tbody>
 										<tr>
-											<td>${commit}</td>
-											<td>
-												${kakao_username[status.index]}
-											</td>
+											<td>${commit.username}</td>											
+											<td>${kakao_username[status.index]}</td>
+											<td>${commit.message}</td>
+											<td>${commit.date}</td>
+											<td>${commit.url}</td>
 										</tr>										
 									</tbody>
 									</c:when>

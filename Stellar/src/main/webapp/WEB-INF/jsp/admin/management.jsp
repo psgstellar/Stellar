@@ -61,7 +61,13 @@
 						<a class="sidebar-link" href="<c:url value='/Admin/Commit.do' /> ">
               <i class="align-middle" data-feather="book"></i> <span class="align-middle">Commit</span>
             </a>
-					</li>					
+					</li>	
+					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<c:url value='/Admin/CommitLog.do' /> ">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">Commit Log</span>
+            </a>
+					</li>				
 				</ul>
 			</div>
 		</nav>
