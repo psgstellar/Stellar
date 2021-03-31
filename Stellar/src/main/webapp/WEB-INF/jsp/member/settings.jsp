@@ -327,6 +327,7 @@
 				success : function(data) {
 					if(data == true) {
 						github_append_row();
+						github_input_blank();
 					} else {
 						show_info("데이터가 존재합니다.");
 					}
@@ -363,6 +364,12 @@
 				$('<td>').append($('<a>').addClass('delete_github').append('Delete')).trigger("create")
 			)
 		);
+	}
+	
+	function github_input_blank() {
+		$('#github_username').prop('value', '');
+		$('#github_repo').prop('value', '');
+		$('#github_token').prop('value', '');
 	}
 	
 	function github_delete_row(obj) {
