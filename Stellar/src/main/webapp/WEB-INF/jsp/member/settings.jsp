@@ -228,7 +228,7 @@
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var slack_name = $('#slack_info').val();
 			
-			if(lenChk(slack_name) != 0) {
+			if(lenChk(slack_name, 30) != 0) {
 				show_info("슬랙 닉네임 입력란이 공백이거나 30자를 초과합니다.");
 				return;
 			}
