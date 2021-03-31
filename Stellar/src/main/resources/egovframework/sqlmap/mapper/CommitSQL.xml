@@ -94,6 +94,10 @@
 	select kakao_name from psg_kakao where username = #{_parameter}
 </select>
 
+<select id="get_kakao_info_github" parameterType="String" resultType="String">
+	select kakao_name from psg_kakao where username = (select username from psg_github where github_name = #{_parameter} limit 1) limit 1
+</select>
+
 <delete id="delete_kakao_info" parameterType="String">
 	delete from psg_kakao where username = #{username} and kakao_name = #{kakao_name}
 </delete>

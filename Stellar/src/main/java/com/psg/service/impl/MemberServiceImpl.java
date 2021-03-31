@@ -194,6 +194,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 		return commitMapper.get_kakao_info(username);
 	}
 	
+	@Override
+	public String get_kakao_info_github(String github_username) throws Exception {
+		return commitMapper.get_kakao_info_github(github_username);
+	}
+	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) {

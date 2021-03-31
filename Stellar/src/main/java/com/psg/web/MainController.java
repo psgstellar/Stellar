@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.psg.service.CommitService;
 import com.psg.service.MemberService;
+import com.psg.vo.CommitVO;
 import com.psg.vo.GithubVO;
 import com.psg.vo.KakaoVO;
 import com.psg.vo.MemberDetailsVO;
@@ -398,6 +399,20 @@ public class MainController {
 		model.addAttribute("kakao_username", kakao_username);
 		
 		return "admin/commit";
+	}
+	
+	@GetMapping(value="/Admin/CommitLog.do")
+	public String Admin_Commit_Log(Model model) throws Exception {
+		ArrayList<CommitVO> commit_Log = commitService.request_commit_list();
+		ArrayList<String> kakao_username = new ArrayList<String>();
+		
+		for(int i=0; i<commit_Log.size(); i++)
+			kakao_username.add(memberService.get_kakao_info_github(commit_Log.get(i).getUsername()));
+			
+		model.addAttribute("commit_Log", commit_Log);
+		model.addAttribute("kakao_username", kakao_username);
+		
+		return "admin/log";
 	}
 	
 	
