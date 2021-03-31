@@ -235,6 +235,7 @@
 				success : function(data) {
 					if(data == true) {
 						slack_append_row();
+						slack_input_blank();
 					} else {
 						show_info("데이터가 존재합니다.");
 					}					
@@ -341,6 +342,10 @@
 			
 		);
 		
+	}
+	
+	function slack_input_blank() {
+		$('#slack_info').prop('value', '');
 	}
 	
 	function slack_delete_row(obj) {
