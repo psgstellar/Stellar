@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,15 +44,8 @@ public class CommitServiceImpl implements CommitService {
 		RestTemplate restTemplate = new RestTemplate();
 		ObjectMapper mapper = new ObjectMapper();
 		
-		Timestamp local_today_end = Timestamp.valueOf(LocalDate.now(ZoneId.of("UTC")).atTime(23, 59, 59));
-		long utc_today_end = (local_today_end.getTime() / 1000);
-		long utc_today_start = utc_today_end - 24*60*60 + 1;
-		
-		Instant today_end = Instant.ofEpochSecond(utc_today_end);
-		Instant today_start = Instant.ofEpochSecond(utc_today_start);
-
-		String until = today_end.toString();
-		String since = today_start.toString();
+		String until = LocalDate.now(ZoneId.of("Asia/Seoul")).atTime(14, 59, 59).toString()+"Z";
+		String since = LocalDate.now(ZoneId.of("Asia/Seoul")).atTime(15, 00, 00).minus(1, ChronoUnit.DAYS).toString()+":00Z";
 	
 		ArrayList<GithubVO> github_data = commitMapper.get_all_github_info();
 		ArrayList<CommitVO> get_commit_info = new ArrayList<CommitVO>();
