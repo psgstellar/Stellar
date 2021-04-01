@@ -207,7 +207,7 @@
 											</td>
 											
 											<td>
-												<button type="button" class="btn btn-primary" id="commit_check">추가</button>
+												<button type="button" class="btn btn-primary" id="commit_check">Check</button>
 											</td>
 										</tr>										
 									</tbody>
