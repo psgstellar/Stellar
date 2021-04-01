@@ -16,14 +16,55 @@
 	<meta name="_csrf" content="${_csrf.token}" />
 	<meta name="_csrf_header" content="${_csrf.headerName}" />
 
-	<link rel="shortcut icon" href="<c:url value='/images/logo.png'/>" />
-
 	<title>PSG Admin Page</title>
 
 	<link href="<c:url value='/css/app.css' />" rel="stylesheet">
+	<link rel="shortcut icon" href="<c:url value='/images/logo.png'/>" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+  	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
 	<script src="<c:url value='/js/jquery.min.js'/> "></script>
 	
+	<script>
+	function show_info(info) {
+    	var modal = document.getElementById("info_modal");
+    	document.getElementById("contents").innerHTML = info;
+    	modal.style.display = "block";
+    }
+    
+    function close_info() {
+    	var modal = document.getElementById("info_modal");
+    	modal.style.display = "none";
+    }
+    
+    window.onclick = function(event) {
+    	var modal = document.getElementById("info_modal");
+    	if(event.target == modal)
+    		modal.style.display = "none";
+    }
+    
+    
+	$(function() {
+		$('#start_date').datetimepicker({format: 'L'});
+		$('#end_date').datetimepicker({format: 'L'}); 
+	});
+ 
+	$(document).ready(function(){
+		$('#commit_check').on("click", function() {		
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var start_date = $('#start').val();
+			var end_date = $('#end').val();
+					
+			location.href = "?start_date=" + start_date + "&end_date=" + end_date;
+			
+		});
+	});
+	
+	</script>
 </head>
 
 <body>
@@ -125,6 +166,52 @@
 
 									<h5 class="card-title mb-0">Today Not Commit List</h5>
 								</div>
+								
+								<div class="card-body">
+									<table class="table table-hover my-0">
+									<thead>
+										<tr>
+											<th class="d-none d-xl-table-cell">Start Date</th>
+											<th class="d-none d-xl-table-cell">End Date</th>
+											<th class="d-none d-xl-table-cell">Check</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										<tr>
+											 <td>
+											 <div class="form-group"> 
+													<div class="input-group date" id="start_date"  data-target-input="nearest"> 
+													<input type="text" class="form-control datetimepicker-input" id="start" data-target="#start_date"> 
+														<div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker"> 
+															<div class="input-group-text">
+																<i class="fa fa-calendar"></i>
+															</div>
+												 		</div> 
+												 	</div> 
+												 </div>
+											 </td>
+											<td>
+												<div class="form-group"> 
+													<div class="input-group date" id="end_date"  data-target-input="nearest"> 
+													<input type="text" class="form-control datetimepicker-input" id="end" data-target="#end_date"> 
+														<div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker"> 
+															<div class="input-group-text">
+																<i class="fa fa-calendar"></i>
+															</div>
+												 		</div> 
+												 	</div> 
+												 </div>
+											</td>
+											
+											<td>
+												<button type="button" class="btn btn-primary" id="commit_check">추가</button>
+											</td>
+										</tr>										
+									</tbody>
+								</table>
+								</div>
+								
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>

@@ -2,6 +2,8 @@ package com.psg.web;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -385,34 +387,75 @@ public class MainController {
 	}
 	
 	@GetMapping(value="/Admin/Commit.do")
-	public String Admin_Commit(Model model) throws Exception {
-		ArrayList<String> not_commit_List = commitService.commit_check(commitService.request_commit_list());
-		ArrayList<String> kakao_username = new ArrayList<String>();
+	public String Admin_Commit(Model model, String start_date, String end_date) throws Exception {
 		
-		for(int i=0; i<not_commit_List.size(); i++) {
-			String username = not_commit_List.get(i);
+		Date start = null;
+		Date end = null;
+		
+		if(start_date == null || end_date == null)
+			return "admin/commit";
+		else {
+			SimpleDateFormat fromFormat = new SimpleDateFormat("MM/dd/yyyy");
+			SimpleDateFormat toFormat = new SimpleDateFormat("yyyy-MM-dd");
 			
-			kakao_username.add(memberService.get_kakao_info(username));	
+			try {
+				start = fromFormat.parse(start_date);
+				end = fromFormat.parse(end_date);
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			ArrayList<String> not_commit_List = commitService.commit_check(commitService.request_commit_list(toFormat.format(start), toFormat.format(end)));
+			ArrayList<String> kakao_username = new ArrayList<String>();
+			
+			for(int i=0; i<not_commit_List.size(); i++) {
+				String username = not_commit_List.get(i);
+				
+				kakao_username.add(memberService.get_kakao_info(username));	
+			}
+			
+			model.addAttribute("not_commit_List", not_commit_List);
+			model.addAttribute("kakao_username", kakao_username);
+			
+			return "admin/commit";
 		}
 		
-		model.addAttribute("not_commit_List", not_commit_List);
-		model.addAttribute("kakao_username", kakao_username);
 		
-		return "admin/commit";
 	}
 	
 	@GetMapping(value="/Admin/CommitLog.do")
-	public String Admin_Commit_Log(Model model) throws Exception {
-		ArrayList<CommitVO> commit_Log = commitService.request_commit_list();
-		ArrayList<String> kakao_username = new ArrayList<String>();
+	public String Admin_Commit_Log(Model model, String start_date, String end_date) throws Exception {
+		Date start = null;
+		Date end = null;
 		
-		for(int i=0; i<commit_Log.size(); i++)
-			kakao_username.add(memberService.get_kakao_info_github(commit_Log.get(i).getUsername()));
+		if(start_date == null || end_date == null)
+			return "admin/log";
+		else {
+			SimpleDateFormat fromFormat = new SimpleDateFormat("MM/dd/yyyy");
+			SimpleDateFormat toFormat = new SimpleDateFormat("yyyy-MM-dd");
 			
-		model.addAttribute("commit_Log", commit_Log);
-		model.addAttribute("kakao_username", kakao_username);
+			try {
+				start = fromFormat.parse(start_date);
+				end = fromFormat.parse(end_date);
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		return "admin/log";
+			ArrayList<CommitVO> commit_Log = commitService.request_commit_list(toFormat.format(start), toFormat.format(end));
+			ArrayList<String> kakao_username = new ArrayList<String>();
+			
+			for(int i=0; i<commit_Log.size(); i++)
+				kakao_username.add(memberService.get_kakao_info_github(commit_Log.get(i).getUsername()));
+				
+			model.addAttribute("commit_Log", commit_Log);
+			model.addAttribute("kakao_username", kakao_username);
+			
+			return "admin/log";
+		}
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,18 +40,16 @@ public class CommitServiceImpl implements CommitService {
 	private MemberMapper memberMapper;
 	
 	@Override
-	public ArrayList<CommitVO> request_commit_list() throws Exception {
-		
+	public ArrayList<CommitVO> request_commit_list(String start, String end) throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		ObjectMapper mapper = new ObjectMapper();
 		
-		String until = LocalDate.now(ZoneId.of("Asia/Seoul")).atTime(14, 59, 59).toString()+"Z";
-		String since = LocalDate.now(ZoneId.of("Asia/Seoul")).atTime(15, 00, 00).minus(1, ChronoUnit.DAYS).toString()+":00Z";
+		String since = LocalDate.parse(start, DateTimeFormatter.ISO_DATE).atTime(15, 00, 00).minus(1, ChronoUnit.DAYS).toString()+":00Z";
+		String until = LocalDate.parse(end, DateTimeFormatter.ISO_DATE).atTime(14, 59, 59).toString()+"Z";
 	
 		ArrayList<GithubVO> github_data = commitMapper.get_all_github_info();
 		ArrayList<CommitVO> get_commit_info = new ArrayList<CommitVO>();
 		ArrayList<CommitVO> commitList = new ArrayList<CommitVO>();
-		
 		
 		int number_of_github_data = commitMapper.Count_Github_Info();
 		
