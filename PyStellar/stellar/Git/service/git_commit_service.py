@@ -11,7 +11,6 @@ class GitCommitCheckService:
     @classmethod
     def git_public_request(cls, request):
         """Commit 기록 요청"""
-        print('-------request-------', request)
         owner = request.GET['owner']
         repo = request.GET['repo']
         token = request.GET['token']
@@ -31,13 +30,11 @@ class GitCommitCheckService:
             
         data = r.json()
 
-        commit_json = [{'username': ' ', 'message': ' ', 'date': ' ', 'url': ' '}]
-
+        commit_json = None
+        commit_info = [None] * 4
         if str(type(data)) == "<class 'list'>":
-            commit_info = [None] * 4
-            local_timezone = pytz.timezone('Asia/Seoul')
-
             if str(data) != '[]':
+                local_timezone = pytz.timezone('Asia/Seoul')
                 commit_json = []
                 for i in data:
                     for k, v in i.items():
@@ -53,7 +50,9 @@ class GitCommitCheckService:
                                                 'message': commit_info[1],
                                                 'date': commit_info[2],
                                                 'url': commit_info[3]})
-    
+        else:
+            commit_json = [{'username': owner, 'message': 'Fault Token Info OR Repo Info', 'date': None, 'url': None}]
+
         return commit_json
 
     @classmethod
