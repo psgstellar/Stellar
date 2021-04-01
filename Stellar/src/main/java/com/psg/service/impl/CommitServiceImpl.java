@@ -60,6 +60,9 @@ public class CommitServiceImpl implements CommitService {
 			String token = github_data.get(i).getGithub_token();
 			String response = restTemplate.getForObject(PY_URL + "?owner=" + owner + "&repo=" + repo + "&token=" + token + "&since=" + since + "&until=" + until, String.class);
 			
+			if(response == null)
+				continue;
+			
 			get_commit_info = mapper.readValue(response, mapper.getTypeFactory().constructCollectionType(List.class, CommitVO.class));
 			
 			commitList.add(get_commit_info.get(0));
