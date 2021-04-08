@@ -23,18 +23,69 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
   	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
 	
+	<style>
+        
+        /* The Modal (background) */
+		.modal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+		
+		/* Modal Content/Box */
+		.modal-content {
+		    background-color: #fefefe;
+		    margin: 15% auto; /* 15% from the top and centered */
+		    padding: 20px;
+		    border: 1px solid #888;
+		    width: 50%; /* Could be more or less, depending on screen size */                          
+		}
+		/* The Close Button */
+		.close {
+		    color: #aaa;
+		    float: right;
+		    font-size: 28px;
+		    font-weight: bold;
+		}
+		.close:hover,
+		.close:focus {
+		    color: black;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
+    </style>
+	
+	
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> 
 	<script src="<c:url value='/js/jquery.min.js'/> "></script>
 	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
 	<script>
 	function show_info(info) {
     	var modal = document.getElementById("info_modal");
     	document.getElementById("contents").innerHTML = info;
     	modal.style.display = "block";
     }
-    
+	
+	function copy_info() {
+		var text = document.getElementById('contents').innerText;
+	    var elem = document.createElement("textarea");
+	    document.body.appendChild(elem);
+	    elem.value = text;
+	    elem.select();
+	    document.execCommand("copy");
+	    document.body.removeChild(elem);
+	}
+
     function close_info() {
     	var modal = document.getElementById("info_modal");
     	modal.style.display = "none";
@@ -45,7 +96,6 @@
     	if(event.target == modal)
     		modal.style.display = "none";
     }
-    
     
 	$(function() {
 		$('#start_date').datetimepicker({format: 'L'});
@@ -64,10 +114,60 @@
 		});
 	});
 	
+	$(document).ready(function(){
+		if("${validate}" === "true") {
+			document.getElementById("commit_message").disabled = false;
+		}
+		
+		$('#commit_message').on("click", function() {
+			if("${validate}" === "true") {
+				var now = new Date();
+				var month = now.getMonth() + 1 + "월";
+				var day = now.getDate() + "일";
+				var week = ['일', '월', '화', '수', '목', '금', '토', '일'][now.getDay()] + "요일";
+				var info = month + " " + day + " " + week + "<br>--------------------------<br><오늘 경고 받으신 분><br>";
+				var tab = document.getElementById("not_commit_table");
+				
+				for(i=1; i<tab.rows.length; i++) {
+					var objCells = tab.rows.item(i).cells;
+					
+					info += "- " + objCells.item(1).innerHTML + "<br>";
+				}
+				
+				info += "--------------------------<br>";
+				info += "<" + month + " 경고 3회 이상 받으신 분들><br><br>";
+				info += "--------------------------<br>";
+				info += "> 누락되신 분들께서는 말씀해주시면 다음날 오전까지 확인하여 수정해놓겠습니다.<br><br>";
+				info += "> 오늘도 수고 많으셨습니다.";
+				
+				show_info(info);	
+			}
+		});
+	});
+	
 	</script>
 </head>
 
 <body>
+<div id="info_modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="close_info()">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="contents"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="copy_info()">Copy</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="close_info()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -207,12 +307,20 @@
 											<td>
 												<button type="button" class="btn btn-primary" id="commit_check">Check</button>
 											</td>
+										</tr>
+										
+										<tr>
+											<td></td>
+											<td></td>
+											<td>
+												<button type="button" class="btn btn-primary" id="commit_message" disabled>Commit Message</button>
+											</td>																						
 										</tr>										
 									</tbody>
 								</table>
 								</div>
 								
-								<table class="table table-hover my-0">
+								<table id="not_commit_table" class="table table-hover my-0">
 									<thead>
 										<tr>
 											<th>Username</th>
