@@ -121,7 +121,7 @@
 		
 		$('#commit_message').on("click", function() {
 			if("${validate}" === "true") {
-				var now = new Date();
+				var now = new Date("${check_date}");
 				var month = now.getMonth() + 1 + "월";
 				var day = now.getDate() + "일";
 				var week = ['일', '월', '화', '수', '목', '금', '토', '일'][now.getDay()] + "요일";

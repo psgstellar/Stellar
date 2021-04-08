@@ -416,8 +416,10 @@ public class MainController {
 				kakao_username.add(memberService.get_kakao_info(username));	
 			}
 			
-			if(toFormat.format(start).equals(toFormat.format(end)))
+			if(toFormat.format(start).equals(toFormat.format(end))) {
+				model.addAttribute("check_date", toFormat.format(start));
 				model.addAttribute("validate", "true");
+			}
 			
 			model.addAttribute("not_commit_List", not_commit_List);
 			model.addAttribute("kakao_username", kakao_username);
