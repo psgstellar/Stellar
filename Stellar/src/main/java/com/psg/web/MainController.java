@@ -407,7 +407,9 @@ public class MainController {
 				e.printStackTrace();
 			}
 			
-			ArrayList<String> not_commit_List = commitService.commit_check(commitService.request_commit_list(toFormat.format(start), toFormat.format(end)));
+			log.info(toFormat.format(end));
+			
+			ArrayList<String> not_commit_List = commitService.commit_check(commitService.request_commit_list(toFormat.format(start), toFormat.format(end)), toFormat.format(start), toFormat.format(end));
 			ArrayList<String> kakao_username = new ArrayList<String>();
 			
 			for(int i=0; i<not_commit_List.size(); i++) {

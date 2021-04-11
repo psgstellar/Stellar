@@ -1,6 +1,7 @@
 package com.psg.mapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -24,7 +25,7 @@ public interface MemberMapper {
 	
 	ArrayList<MemberVO> memberList() throws Exception;
 	
-	ArrayList<String> memberNotRestList() throws Exception;
+	ArrayList<String> memberNotRestList(@Param("start")String start, @Param("end")String end) throws Exception;
 	
 	ArrayList<MemberVO> memberRest() throws Exception;
 	

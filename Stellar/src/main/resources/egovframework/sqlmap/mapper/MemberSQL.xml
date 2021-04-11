@@ -27,7 +27,7 @@
 </select>
 
 <select id="memberNotRestList" resultType="String">
-	select username from psg_info where not username in (select username from psg_rest where curdate() >= start_date and end_date >= curdate())
+	select username from psg_info where not username in (select username from psg_rest where date(#{start}) >= start_date and end_date >= date(#{end}))
 </select>
 
 <select id="memberRest" resultType="com.psg.vo.MemberVO">
